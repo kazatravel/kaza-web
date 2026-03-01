@@ -1,0 +1,3002 @@
+[
+  {
+    "iata": "AZI",
+    "name": "Al Bateen Executive Airport",
+    "city": "Abu Dhabi",
+    "country": "AE"
+  },
+  {
+    "iata": "AUH",
+    "name": "Zayed International Airport",
+    "city": "Abu Dhabi",
+    "country": "AE"
+  },
+  {
+    "iata": "AAN",
+    "name": "Al Ain International Airport",
+    "city": "Al Ain",
+    "country": "AE"
+  },
+  {
+    "iata": "NHD",
+    "name": "Al Minhad Air Base",
+    "city": "Dubai",
+    "country": "AE"
+  },
+  {
+    "iata": "DXB",
+    "name": "Dubai International Airport",
+    "city": "Dubai",
+    "country": "AE"
+  },
+  {
+    "iata": "FJR",
+    "name": "Fujairah International Airport",
+    "city": "Fujairah",
+    "country": "AE"
+  },
+  {
+    "iata": "DWC",
+    "name": "Al Maktoum International Airport",
+    "city": "Jebel Ali",
+    "country": "AE"
+  },
+  {
+    "iata": "RKT",
+    "name": "Ras Al Khaimah International Airport",
+    "city": "Ras Al Khaimah",
+    "country": "AE"
+  },
+  {
+    "iata": "SHJ",
+    "name": "Sharjah International Airport",
+    "city": "Sharjah",
+    "country": "AE"
+  },
+  {
+    "iata": "XSB",
+    "name": "Sir Bani Yas Airport",
+    "city": "Sir Bani Yas",
+    "country": "AE"
+  },
+  {
+    "iata": "OAI",
+    "name": "Bagram Airfield",
+    "city": "Bagram",
+    "country": "AF"
+  },
+  {
+    "iata": "HEA",
+    "name": "Herat - Khwaja Abdullah Ansari International Airport",
+    "city": "Guzara",
+    "country": "AF"
+  },
+  {
+    "iata": "JAA",
+    "name": "Jalalabad Airport",
+    "city": "Jalalabad",
+    "country": "AF"
+  },
+  {
+    "iata": "KBL",
+    "name": "Kabul International Airport",
+    "city": "Kabul",
+    "country": "AF"
+  },
+  {
+    "iata": "KHT",
+    "name": "Khost International Airport",
+    "city": "Khost",
+    "country": "AF"
+  },
+  {
+    "iata": "KDH",
+    "name": "Ahmad Shah Baba International Airport / Kandahar Airfield",
+    "city": "Khvoshab",
+    "country": "AF"
+  },
+  {
+    "iata": "UND",
+    "name": "Kunduz Airport",
+    "city": "Kunduz",
+    "country": "AF"
+  },
+  {
+    "iata": "MMZ",
+    "name": "Maymana Zahiraddin Faryabi Airport",
+    "city": "Maymana",
+    "country": "AF"
+  },
+  {
+    "iata": "MZR",
+    "name": "Mazar-i-Sharif International Airport",
+    "city": "Mazar-i-Sharif",
+    "country": "AF"
+  },
+  {
+    "iata": "BBQ",
+    "name": "Codrington Airport",
+    "city": "Codrington",
+    "country": "AG"
+  },
+  {
+    "iata": "ANU",
+    "name": "V C Bird International Airport",
+    "city": "Osbourn",
+    "country": "AG"
+  },
+  {
+    "iata": "AXA",
+    "name": "Clayton J Lloyd International Airport",
+    "city": "The Valley",
+    "country": "AI"
+  },
+  {
+    "iata": "KFZ",
+    "name": "Kuk\u00ebs International Airport",
+    "city": "Kuk\u00ebs",
+    "country": "AL"
+  },
+  {
+    "iata": "TIA",
+    "name": "Tirana International Airport Mother Teresa",
+    "city": "Rinas",
+    "country": "AL"
+  },
+  {
+    "iata": "LWN",
+    "name": "Shirak International Airport",
+    "city": "Gyumri",
+    "country": "AM"
+  },
+  {
+    "iata": "EVN",
+    "name": "Zvartnots International Airport",
+    "city": "Yerevan",
+    "country": "AM"
+  },
+  {
+    "iata": "BUG",
+    "name": "Benguela 17th of September Airport",
+    "city": "Benguela",
+    "country": "AO"
+  },
+  {
+    "iata": "CAB",
+    "name": "Cabinda Airport",
+    "city": "Cabinda",
+    "country": "AO"
+  },
+  {
+    "iata": "CBT",
+    "name": "Catumbela Airport",
+    "city": "Catumbela",
+    "country": "AO"
+  },
+  {
+    "iata": "DUE",
+    "name": "Dundo Airport",
+    "city": "Chitato",
+    "country": "AO"
+  },
+  {
+    "iata": "NOV",
+    "name": "Nova Lisboa Airport",
+    "city": "Huambo",
+    "country": "AO"
+  },
+  {
+    "iata": "SVP",
+    "name": "Kuito Airport",
+    "city": "Kuito",
+    "country": "AO"
+  },
+  {
+    "iata": "LAD",
+    "name": "Quatro de Fevereiro International Airport",
+    "city": "Luanda",
+    "country": "AO"
+  },
+  {
+    "iata": "NBJ",
+    "name": "Dr. Antonio Agostinho Neto International Airport",
+    "city": "Luanda (\u00cdcolo e Bengo)",
+    "country": "AO"
+  },
+  {
+    "iata": "SDD",
+    "name": "Lubango Airport",
+    "city": "Lubango",
+    "country": "AO"
+  },
+  {
+    "iata": "LUO",
+    "name": "Luena Airport",
+    "city": "Luena",
+    "country": "AO"
+  },
+  {
+    "iata": "MEG",
+    "name": "Malanje Airport",
+    "city": "Malanje",
+    "country": "AO"
+  },
+  {
+    "iata": "SSY",
+    "name": "Mbanza Congo Airport",
+    "city": "Mbanza Congo",
+    "country": "AO"
+  },
+  {
+    "iata": "SPP",
+    "name": "Menongue Airport",
+    "city": "Menongue",
+    "country": "AO"
+  },
+  {
+    "iata": "MSZ",
+    "name": "Welwitschia Mirabilis International Airport",
+    "city": "Mo\u00e7\u00e2medes",
+    "country": "AO"
+  },
+  {
+    "iata": "GXG",
+    "name": "Negage Airport",
+    "city": "Negage",
+    "country": "AO"
+  },
+  {
+    "iata": "VPE",
+    "name": "Ngjiva Pereira Airport",
+    "city": "Ngiva",
+    "country": "AO"
+  },
+  {
+    "iata": "PBN",
+    "name": "Porto Amboim Airport",
+    "city": "Port Amboim",
+    "country": "AO"
+  },
+  {
+    "iata": "VHC",
+    "name": "Saurimo Airport",
+    "city": "Saurimo",
+    "country": "AO"
+  },
+  {
+    "iata": "SZA",
+    "name": "Soyo Airport",
+    "city": "Soyo",
+    "country": "AO"
+  },
+  {
+    "iata": "NDD",
+    "name": "Sumbe Airport",
+    "city": "Sumbe",
+    "country": "AO"
+  },
+  {
+    "iata": "UGO",
+    "name": "Uige Airport",
+    "city": "Uige",
+    "country": "AO"
+  },
+  {
+    "iata": "XGN",
+    "name": "Xangongo Airport",
+    "city": "Xangongo",
+    "country": "AO"
+  },
+  {
+    "iata": "BHI",
+    "name": "Comandante Espora Airport",
+    "city": "Bah\u00eda Blanca",
+    "country": "AR"
+  },
+  {
+    "iata": "AEP",
+    "name": "Jorge Newbery Airpark",
+    "city": "Buenos Aires",
+    "country": "AR"
+  },
+  {
+    "iata": "EZE",
+    "name": "Minister Pistarini International Airport",
+    "city": "Buenos Aires (Ezeiza)",
+    "country": "AR"
+  },
+  {
+    "iata": "CTC",
+    "name": "Coronel Felipe Varela International Airport",
+    "city": "Catamarca",
+    "country": "AR"
+  },
+  {
+    "iata": "CPC",
+    "name": "Aviador C. Campos Airport",
+    "city": "Chapelco/San Martin de los Andes",
+    "country": "AR"
+  },
+  {
+    "iata": "CRD",
+    "name": "General E. Mosconi Airport",
+    "city": "Comodoro Rivadavia",
+    "country": "AR"
+  },
+  {
+    "iata": "COC",
+    "name": "Comodoro Pierrestegui Airport",
+    "city": "Concordia",
+    "country": "AR"
+  },
+  {
+    "iata": "COR",
+    "name": "Ingeniero Ambrosio Taravella Airport",
+    "city": "Cordoba",
+    "country": "AR"
+  },
+  {
+    "iata": "CNQ",
+    "name": "Corrientes Airport",
+    "city": "Corrientes",
+    "country": "AR"
+  },
+  {
+    "iata": "UZU",
+    "name": "Curuzu Cuatia Airport",
+    "city": "Curuzu Cuatia",
+    "country": "AR"
+  },
+  {
+    "iata": "CUT",
+    "name": "Cutral-Co Airport",
+    "city": "Cutral-Co",
+    "country": "AR"
+  },
+  {
+    "iata": "EHL",
+    "name": "El Bols\u00f3n Airfield",
+    "city": "El Bols\u00f3n",
+    "country": "AR"
+  },
+  {
+    "iata": "FTE",
+    "name": "El Calafate - Commander Armando Tola International Airport",
+    "city": "El Calafate",
+    "country": "AR"
+  },
+  {
+    "iata": "EPA",
+    "name": "El Palomar Airport",
+    "city": "El Palomar",
+    "country": "AR"
+  },
+  {
+    "iata": "EQS",
+    "name": "Esquel Brigadier Antonio Parodi International Airport",
+    "city": "Esquel",
+    "country": "AR"
+  },
+  {
+    "iata": "FMA",
+    "name": "Formosa National Airport",
+    "city": "Formosa",
+    "country": "AR"
+  },
+  {
+    "iata": "GPO",
+    "name": "General Pico Airport",
+    "city": "General Pico",
+    "country": "AR"
+  },
+  {
+    "iata": "OYA",
+    "name": "Goya Airport",
+    "city": "Goya",
+    "country": "AR"
+  },
+  {
+    "iata": "GHU",
+    "name": "Gualeguaychu Airport",
+    "city": "Gualeguaychu",
+    "country": "AR"
+  },
+  {
+    "iata": "LPG",
+    "name": "La Plata Airport",
+    "city": "La Plata",
+    "country": "AR"
+  },
+  {
+    "iata": "IRJ",
+    "name": "Capitan V A Almonacid Airport",
+    "city": "La Rioja",
+    "country": "AR"
+  },
+  {
+    "iata": "LHS",
+    "name": "Las Heras Airport",
+    "city": "Las Heras",
+    "country": "AR"
+  },
+  {
+    "iata": "LGS",
+    "name": "Comodoro D.R. Salom\u00f3n Airport",
+    "city": "Malargue",
+    "country": "AR"
+  },
+  {
+    "iata": "MDQ",
+    "name": "\u00c1stor Piazzola International Airport",
+    "city": "Mar del Plata",
+    "country": "AR"
+  },
+  {
+    "iata": "MDZ",
+    "name": "El Plumerillo Airport",
+    "city": "Mendoza",
+    "country": "AR"
+  },
+  {
+    "iata": "MCS",
+    "name": "Monte Caseros Airport",
+    "city": "Monte Caseros",
+    "country": "AR"
+  },
+  {
+    "iata": "NEC",
+    "name": "Necochea Airport",
+    "city": "Necochea",
+    "country": "AR"
+  },
+  {
+    "iata": "NQN",
+    "name": "Presidente Peron Airport",
+    "city": "Neuquen",
+    "country": "AR"
+  },
+  {
+    "iata": "ORA",
+    "name": "Or\u00e1n Airport",
+    "city": "Or\u00e1n",
+    "country": "AR"
+  },
+  {
+    "iata": "PRA",
+    "name": "General Urquiza Airport",
+    "city": "Parana",
+    "country": "AR"
+  },
+  {
+    "iata": "AOL",
+    "name": "Paso De Los Libres Airport",
+    "city": "Paso de los Libres",
+    "country": "AR"
+  },
+  {
+    "iata": "PEH",
+    "name": "Comodoro Pedro Zanni Airport",
+    "city": "Pehuaj\u00f3",
+    "country": "AR"
+  },
+  {
+    "iata": "PMQ",
+    "name": "Perito Moreno Jalil Hamer Airport",
+    "city": "Perito Moreno",
+    "country": "AR"
+  },
+  {
+    "iata": "PSS",
+    "name": "Libertador Gral D Jose De San Martin Airport",
+    "city": "Posadas",
+    "country": "AR"
+  },
+  {
+    "iata": "PUD",
+    "name": "Puerto Deseado Airport",
+    "city": "Puerto Deseado",
+    "country": "AR"
+  },
+  {
+    "iata": "IGR",
+    "name": "Cataratas Del Iguaz\u00fa International Airport",
+    "city": "Puerto Iguazu",
+    "country": "AR"
+  },
+  {
+    "iata": "PMY",
+    "name": "El Tehuelche Airport",
+    "city": "Puerto Madryn",
+    "country": "AR"
+  },
+  {
+    "iata": "RZA",
+    "name": "Santa Cruz Airport",
+    "city": "Puerto Santa Cruz",
+    "country": "AR"
+  },
+  {
+    "iata": "REL",
+    "name": "Almirante Marco Andres Zar Airport",
+    "city": "Rawson",
+    "country": "AR"
+  },
+  {
+    "iata": "RCQ",
+    "name": "Reconquista Airport",
+    "city": "Reconquista",
+    "country": "AR"
+  },
+  {
+    "iata": "RES",
+    "name": "Resistencia International Airport",
+    "city": "Resistencia",
+    "country": "AR"
+  },
+  {
+    "iata": "RDS",
+    "name": "Rincon De Los Sauces Airport",
+    "city": "Rincon de los Sauces",
+    "country": "AR"
+  },
+  {
+    "iata": "RCU",
+    "name": "Area De Material Airport",
+    "city": "Rio Cuarto",
+    "country": "AR"
+  },
+  {
+    "iata": "RGL",
+    "name": "Piloto Civil N. Fern\u00e1ndez Airport",
+    "city": "Rio Gallegos",
+    "country": "AR"
+  },
+  {
+    "iata": "RGA",
+    "name": "Gobernador Ram\u00f3n Trejo Noel International Airport",
+    "city": "Rio Grande",
+    "country": "AR"
+  },
+  {
+    "iata": "ROS",
+    "name": "Rosario Islas Malvinas International Airport",
+    "city": "Rosario",
+    "country": "AR"
+  },
+  {
+    "iata": "SLA",
+    "name": "Martin Miguel De Guemes International Airport",
+    "city": "Salta",
+    "country": "AR"
+  },
+  {
+    "iata": "BRC",
+    "name": "San Carlos de Bariloche Airport",
+    "city": "San Carlos de Bariloche",
+    "country": "AR"
+  },
+  {
+    "iata": "UAQ",
+    "name": "Domingo Faustino Sarmiento Airport",
+    "city": "San Juan",
+    "country": "AR"
+  },
+  {
+    "iata": "ULA",
+    "name": "Capitan D Daniel Vazquez Airport",
+    "city": "San Julian",
+    "country": "AR"
+  },
+  {
+    "iata": "LUQ",
+    "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
+    "city": "San Luis",
+    "country": "AR"
+  },
+  {
+    "iata": "TUC",
+    "name": "Teniente Benjamin Matienzo Airport",
+    "city": "San Miguel de Tucum\u00e1n",
+    "country": "AR"
+  },
+  {
+    "iata": "AFA",
+    "name": "Suboficial Ay Santiago Germano Airport",
+    "city": "San Rafael",
+    "country": "AR"
+  },
+  {
+    "iata": "JUJ",
+    "name": "Gobernador Horacio Guzman International Airport",
+    "city": "San Salvador de Jujuy",
+    "country": "AR"
+  },
+  {
+    "iata": "SFN",
+    "name": "Sauce Viejo Airport",
+    "city": "Santa Fe",
+    "country": "AR"
+  },
+  {
+    "iata": "RSA",
+    "name": "Santa Rosa Airport",
+    "city": "Santa Rosa",
+    "country": "AR"
+  },
+  {
+    "iata": "SST",
+    "name": "Santa Teresita Airport",
+    "city": "Santa Teresita",
+    "country": "AR"
+  },
+  {
+    "iata": "SDE",
+    "name": "Vicecomodoro Angel D. La Paz Aragon\u00e9s Airport",
+    "city": "Santiago del Estero",
+    "country": "AR"
+  },
+  {
+    "iata": "TDL",
+    "name": "H\u00e9roes de Malvinas Airport",
+    "city": "Tandil",
+    "country": "AR"
+  },
+  {
+    "iata": "TTG",
+    "name": "General Enrique Mosconi Airport",
+    "city": "Tartagal",
+    "country": "AR"
+  },
+  {
+    "iata": "RHD",
+    "name": "Termas de R\u00edo Hondo international Airport",
+    "city": "Termas de R\u00edo Hondo",
+    "country": "AR"
+  },
+  {
+    "iata": "OYO",
+    "name": "Tres Arroyos Airport",
+    "city": "Tres Arroyos",
+    "country": "AR"
+  },
+  {
+    "iata": "USH",
+    "name": "Ushuaia - Malvinas Argentinas International Airport",
+    "city": "Ushuaia",
+    "country": "AR"
+  },
+  {
+    "iata": "VDM",
+    "name": "Gobernador Castello Airport",
+    "city": "Viedma / Carmen de Patagones",
+    "country": "AR"
+  },
+  {
+    "iata": "VDR",
+    "name": "Villa Dolores Airport",
+    "city": "Villa Dolores",
+    "country": "AR"
+  },
+  {
+    "iata": "VLG",
+    "name": "Villa Gesell Airport",
+    "city": "Villa Gesell",
+    "country": "AR"
+  },
+  {
+    "iata": "VME",
+    "name": "Villa Reynolds Airport",
+    "city": "Villa Mercedes",
+    "country": "AR"
+  },
+  {
+    "iata": "APZ",
+    "name": "Zapala Airport",
+    "city": "Zapala",
+    "country": "AR"
+  },
+  {
+    "iata": "PPG",
+    "name": "Pago Pago International Airport",
+    "city": "Pago Pago",
+    "country": "AS"
+  },
+  {
+    "iata": "GRZ",
+    "name": "Graz Airport",
+    "city": "Feldkirchen bei Graz",
+    "country": "AT"
+  },
+  {
+    "iata": "INN",
+    "name": "Innsbruck Airport",
+    "city": "Innsbruck",
+    "country": "AT"
+  },
+  {
+    "iata": "KLU",
+    "name": "Klagenfurt Airport",
+    "city": "Klagenfurt am W\u00f6rthersee",
+    "country": "AT"
+  },
+  {
+    "iata": "LNZ",
+    "name": "Linz-H\u00f6rsching Airport / Vogler Air Base",
+    "city": "Linz",
+    "country": "AT"
+  },
+  {
+    "iata": "SZG",
+    "name": "Salzburg Airport",
+    "city": "Salzburg",
+    "country": "AT"
+  },
+  {
+    "iata": "VIE",
+    "name": "Vienna International Airport",
+    "city": "Vienna",
+    "country": "AT"
+  },
+  {
+    "iata": "ADL",
+    "name": "Adelaide International Airport",
+    "city": "Adelaide",
+    "country": "AU"
+  },
+  {
+    "iata": "ALH",
+    "name": "Albany Airport",
+    "city": "Albany",
+    "country": "AU"
+  },
+  {
+    "iata": "WOL",
+    "name": "Shellharbour Airport",
+    "city": "Albion Park Rail",
+    "country": "AU"
+  },
+  {
+    "iata": "ASP",
+    "name": "Alice Springs Airport",
+    "city": "Alice Springs",
+    "country": "AU"
+  },
+  {
+    "iata": "ARY",
+    "name": "Ararat Airport",
+    "city": "Ararat",
+    "country": "AU"
+  },
+  {
+    "iata": "ARM",
+    "name": "Armidale Airport",
+    "city": "Armidale",
+    "country": "AU"
+  },
+  {
+    "iata": "BSJ",
+    "name": "Bairnsdale Airport",
+    "city": "Bairnsdale",
+    "country": "AU"
+  },
+  {
+    "iata": "BNK",
+    "name": "Ballina Byron Gateway Airport",
+    "city": "Ballina",
+    "country": "AU"
+  },
+  {
+    "iata": "BCI",
+    "name": "Barcaldine Airport",
+    "city": "Barcaldine",
+    "country": "AU"
+  },
+  {
+    "iata": "BHS",
+    "name": "Bathurst Airport",
+    "city": "Bathurst",
+    "country": "AU"
+  },
+  {
+    "iata": "BEU",
+    "name": "Bedourie Airport",
+    "city": "Bedourie",
+    "country": "AU"
+  },
+  {
+    "iata": "BLN",
+    "name": "Benalla Airport",
+    "city": "Benalla",
+    "country": "AU"
+  },
+  {
+    "iata": "THG",
+    "name": "Thangool Airport",
+    "city": "Biloela",
+    "country": "AU"
+  },
+  {
+    "iata": "BKQ",
+    "name": "Blackall Airport",
+    "city": "Blackall",
+    "country": "AU"
+  },
+  {
+    "iata": "BNE",
+    "name": "Brisbane International Airport",
+    "city": "Brisbane",
+    "country": "AU"
+  },
+  {
+    "iata": "KGI",
+    "name": "Kalgoorlie Boulder Airport",
+    "city": "Broadwood",
+    "country": "AU"
+  },
+  {
+    "iata": "BHQ",
+    "name": "Broken Hill Airport",
+    "city": "Broken Hill",
+    "country": "AU"
+  },
+  {
+    "iata": "BME",
+    "name": "Broome International Airport",
+    "city": "Broome",
+    "country": "AU"
+  },
+  {
+    "iata": "BDB",
+    "name": "Bundaberg Airport",
+    "city": "Bundaberg",
+    "country": "AU"
+  },
+  {
+    "iata": "BWT",
+    "name": "Wynyard Airport",
+    "city": "Burnie",
+    "country": "AU"
+  },
+  {
+    "iata": "CNS",
+    "name": "Cairns International Airport",
+    "city": "Cairns",
+    "country": "AU"
+  },
+  {
+    "iata": "CBR",
+    "name": "Canberra Airport",
+    "city": "Canberra",
+    "country": "AU"
+  },
+  {
+    "iata": "CVQ",
+    "name": "Carnarvon Airport",
+    "city": "Carnarvon",
+    "country": "AU"
+  },
+  {
+    "iata": "CTL",
+    "name": "Charleville Airport",
+    "city": "Charleville",
+    "country": "AU"
+  },
+  {
+    "iata": "CCL",
+    "name": "Chinchilla Airport",
+    "city": "Chinchilla",
+    "country": "AU"
+  },
+  {
+    "iata": "CNJ",
+    "name": "Cloncurry Airport",
+    "city": "Cloncurry",
+    "country": "AU"
+  },
+  {
+    "iata": "CDU",
+    "name": "Camden Airport",
+    "city": "Cobbitty",
+    "country": "AU"
+  },
+  {
+    "iata": "CUQ",
+    "name": "Coen Airport",
+    "city": "Coen",
+    "country": "AU"
+  },
+  {
+    "iata": "CFS",
+    "name": "Coffs Harbour Airport",
+    "city": "Coffs Harbour",
+    "country": "AU"
+  },
+  {
+    "iata": "CPD",
+    "name": "Coober Pedy Airport",
+    "city": "Coober Pedy",
+    "country": "AU"
+  },
+  {
+    "iata": "OOM",
+    "name": "Cooma Snowy Mountains Airport",
+    "city": "Cooma",
+    "country": "AU"
+  },
+  {
+    "iata": "DRW",
+    "name": "Darwin International Airport / RAAF Darwin",
+    "city": "Darwin",
+    "country": "AU"
+  },
+  {
+    "iata": "MJK",
+    "name": "Shark Bay Airport",
+    "city": "Denham",
+    "country": "AU"
+  },
+  {
+    "iata": "DNQ",
+    "name": "Deniliquin Airport",
+    "city": "Deniliquin",
+    "country": "AU"
+  },
+  {
+    "iata": "DRB",
+    "name": "Derby Airport",
+    "city": "Derby",
+    "country": "AU"
+  },
+  {
+    "iata": "DCN",
+    "name": "RAAF Base Curtin",
+    "city": "Derby",
+    "country": "AU"
+  },
+  {
+    "iata": "DPO",
+    "name": "Devonport Airport",
+    "city": "Devonport",
+    "country": "AU"
+  },
+  {
+    "iata": "DBO",
+    "name": "Dubbo City Regional Airport",
+    "city": "Dubbo",
+    "country": "AU"
+  },
+  {
+    "iata": "ABX",
+    "name": "Albury Airport",
+    "city": "East Albury",
+    "country": "AU"
+  },
+  {
+    "iata": "ELC",
+    "name": "Elcho Island Airport",
+    "city": "Elcho Island",
+    "country": "AU"
+  },
+  {
+    "iata": "EMD",
+    "name": "Emerald Airport",
+    "city": "Emerald",
+    "country": "AU"
+  },
+  {
+    "iata": "EPR",
+    "name": "Esperance Airport",
+    "city": "Esperance",
+    "country": "AU"
+  },
+  {
+    "iata": "MEB",
+    "name": "Melbourne Essendon Airport",
+    "city": "Essendon Fields",
+    "country": "AU"
+  },
+  {
+    "iata": "LEA",
+    "name": "Learmonth Airport",
+    "city": "Exmouth",
+    "country": "AU"
+  },
+  {
+    "iata": "FRB",
+    "name": "Forbes Airport",
+    "city": "Forbes",
+    "country": "AU"
+  },
+  {
+    "iata": "WGA",
+    "name": "Wagga Wagga Airport",
+    "city": "Forest Hill",
+    "country": "AU"
+  },
+  {
+    "iata": "GLT",
+    "name": "Gladstone Airport",
+    "city": "Gladstone",
+    "country": "AU"
+  },
+  {
+    "iata": "GLI",
+    "name": "Glen Innes Airport",
+    "city": "Glen Innes",
+    "country": "AU"
+  },
+  {
+    "iata": "OOL",
+    "name": "Gold Coast Airport",
+    "city": "Gold Coast",
+    "country": "AU"
+  },
+  {
+    "iata": "GFN",
+    "name": "Clarence Valley Regional Airport",
+    "city": "Grafton",
+    "country": "AU"
+  },
+  {
+    "iata": "GFF",
+    "name": "Griffith Airport",
+    "city": "Griffith",
+    "country": "AU"
+  },
+  {
+    "iata": "GTE",
+    "name": "Groote Eylandt Airport",
+    "city": "Groote Eylandt",
+    "country": "AU"
+  },
+  {
+    "iata": "HTI",
+    "name": "Hamilton Island Airport",
+    "city": "Hamilton Island",
+    "country": "AU"
+  },
+  {
+    "iata": "HVB",
+    "name": "Hervey Bay Airport",
+    "city": "Hervey Bay",
+    "country": "AU"
+  },
+  {
+    "iata": "HBA",
+    "name": "Hobart International Airport",
+    "city": "Hobart (Cambridge)",
+    "country": "AU"
+  },
+  {
+    "iata": "HID",
+    "name": "Horn Island Airport",
+    "city": "Horn",
+    "country": "AU"
+  },
+  {
+    "iata": "IVR",
+    "name": "Inverell Airport",
+    "city": "Inverell",
+    "country": "AU"
+  },
+  {
+    "iata": "KTA",
+    "name": "Karratha Airport",
+    "city": "Karratha",
+    "country": "AU"
+  },
+  {
+    "iata": "KWM",
+    "name": "Kowanyama Airport",
+    "city": "Kowanyama",
+    "country": "AU"
+  },
+  {
+    "iata": "KNX",
+    "name": "East Kimberley Regional (Kununurra) Airport",
+    "city": "Kununurra",
+    "country": "AU"
+  },
+  {
+    "iata": "WGT",
+    "name": "Wangaratta Airport",
+    "city": "Laceby",
+    "country": "AU"
+  },
+  {
+    "iata": "AVV",
+    "name": "Avalon Airport",
+    "city": "Lara",
+    "country": "AU"
+  },
+  {
+    "iata": "LST",
+    "name": "Launceston Airport",
+    "city": "Launceston (Western Junction)",
+    "country": "AU"
+  },
+  {
+    "iata": "LNO",
+    "name": "Leonora Airport",
+    "city": "Leonora",
+    "country": "AU"
+  },
+  {
+    "iata": "LSY",
+    "name": "Lismore Airport",
+    "city": "Lismore",
+    "country": "AU"
+  },
+  {
+    "iata": "IRG",
+    "name": "Lockhart River Airport",
+    "city": "Lockhart River",
+    "country": "AU"
+  },
+  {
+    "iata": "LRE",
+    "name": "Longreach Airport",
+    "city": "Longreach",
+    "country": "AU"
+  },
+  {
+    "iata": "MKY",
+    "name": "Mackay Airport",
+    "city": "Mackay",
+    "country": "AU"
+  },
+  {
+    "iata": "MNG",
+    "name": "Maningrida Airport",
+    "city": "Maningrida",
+    "country": "AU"
+  },
+  {
+    "iata": "MRG",
+    "name": "Mareeba Airport",
+    "city": "Mareeba",
+    "country": "AU"
+  },
+  {
+    "iata": "MCY",
+    "name": "Sunshine Coast Airport",
+    "city": "Maroochydore",
+    "country": "AU"
+  },
+  {
+    "iata": "MEL",
+    "name": "Melbourne Airport",
+    "city": "Melbourne",
+    "country": "AU"
+  },
+  {
+    "iata": "MBW",
+    "name": "Melbourne Moorabbin Airport",
+    "city": "Melbourne",
+    "country": "AU"
+  },
+  {
+    "iata": "MIM",
+    "name": "Merimbula Airport",
+    "city": "Merimbula",
+    "country": "AU"
+  },
+  {
+    "iata": "MQL",
+    "name": "Mildura Airport",
+    "city": "Mildura",
+    "country": "AU"
+  },
+  {
+    "iata": "SNB",
+    "name": "Snake Bay Airport",
+    "city": "Milikapiti",
+    "country": "AU"
+  },
+  {
+    "iata": "GET",
+    "name": "Geraldton Airport",
+    "city": "Moonyoonooka",
+    "country": "AU"
+  },
+  {
+    "iata": "MOV",
+    "name": "Moranbah Airport",
+    "city": "Moranbah",
+    "country": "AU"
+  },
+  {
+    "iata": "MRZ",
+    "name": "Moree Airport",
+    "city": "Moree",
+    "country": "AU"
+  },
+  {
+    "iata": "MYA",
+    "name": "Moruya Airport",
+    "city": "Moruya",
+    "country": "AU"
+  },
+  {
+    "iata": "TGN",
+    "name": "Latrobe Valley Airport",
+    "city": "Morwell",
+    "country": "AU"
+  },
+  {
+    "iata": "MGB",
+    "name": "Mount Gambier Airport",
+    "city": "Mount Gambier",
+    "country": "AU"
+  },
+  {
+    "iata": "MHU",
+    "name": "Mount Hotham Airport",
+    "city": "Mount Hotham",
+    "country": "AU"
+  },
+  {
+    "iata": "ISA",
+    "name": "Mount Isa Airport",
+    "city": "Mount Isa",
+    "country": "AU"
+  },
+  {
+    "iata": "DGE",
+    "name": "Mudgee Airport",
+    "city": "Mudgee",
+    "country": "AU"
+  },
+  {
+    "iata": "NAA",
+    "name": "Narrabri Airport",
+    "city": "Narrabri",
+    "country": "AU"
+  },
+  {
+    "iata": "NRA",
+    "name": "Narrandera Airport",
+    "city": "Narrandera",
+    "country": "AU"
+  },
+  {
+    "iata": "ZNE",
+    "name": "Newman Airport",
+    "city": "Newman",
+    "country": "AU"
+  },
+  {
+    "iata": "GOV",
+    "name": "Gove Airport",
+    "city": "Nhulunbuy",
+    "country": "AU"
+  },
+  {
+    "iata": "NTN",
+    "name": "Normanton Airport",
+    "city": "Normanton",
+    "country": "AU"
+  },
+  {
+    "iata": "NOA",
+    "name": "Naval Air Station Nowra - HMAS Albatross",
+    "city": "Nowra Hill",
+    "country": "AU"
+  },
+  {
+    "iata": "OAG",
+    "name": "Orange Airport",
+    "city": "Orange",
+    "country": "AU"
+  },
+  {
+    "iata": "PBO",
+    "name": "Paraburdoo Airport",
+    "city": "Paraburdoo",
+    "country": "AU"
+  },
+  {
+    "iata": "PKE",
+    "name": "Parkes Airport",
+    "city": "Parkes",
+    "country": "AU"
+  },
+  {
+    "iata": "PER",
+    "name": "Perth International Airport",
+    "city": "Perth",
+    "country": "AU"
+  },
+  {
+    "iata": "JAD",
+    "name": "Perth Jandakot Airport",
+    "city": "Perth",
+    "country": "AU"
+  },
+  {
+    "iata": "GPN",
+    "name": "Garden Point Airport",
+    "city": "Pirlangimpi",
+    "country": "AU"
+  },
+  {
+    "iata": "PHE",
+    "name": "Port Hedland International Airport",
+    "city": "Port Hedland",
+    "country": "AU"
+  },
+  {
+    "iata": "PLO",
+    "name": "Port Lincoln Airport",
+    "city": "Port Lincoln",
+    "country": "AU"
+  },
+  {
+    "iata": "PQQ",
+    "name": "Port Macquarie Airport",
+    "city": "Port Macquarie",
+    "country": "AU"
+  },
+  {
+    "iata": "PPP",
+    "name": "Proserpine Whitsunday Coast Airport",
+    "city": "Proserpine",
+    "country": "AU"
+  },
+  {
+    "iata": "XRH",
+    "name": "RAAF Base Richmond",
+    "city": "Richmond",
+    "country": "AU"
+  },
+  {
+    "iata": "ROK",
+    "name": "Rockhampton Airport",
+    "city": "Rockhampton",
+    "country": "AU"
+  },
+  {
+    "iata": "RMA",
+    "name": "Roma Airport",
+    "city": "Roma",
+    "country": "AU"
+  },
+  {
+    "iata": "SXE",
+    "name": "West Sale Airport",
+    "city": "Sale",
+    "country": "AU"
+  },
+  {
+    "iata": "BWU",
+    "name": "Sydney Bankstown Airport",
+    "city": "Sydney",
+    "country": "AU"
+  },
+  {
+    "iata": "SYD",
+    "name": "Sydney Kingsford Smith International Airport",
+    "city": "Sydney (Mascot)",
+    "country": "AU"
+  },
+  {
+    "iata": "TMW",
+    "name": "Tamworth Airport",
+    "city": "Tamworth",
+    "country": "AU"
+  },
+  {
+    "iata": "TRO",
+    "name": "Taree Airport",
+    "city": "Taree",
+    "country": "AU"
+  },
+  {
+    "iata": "TEM",
+    "name": "Temora Airport",
+    "city": "Temora",
+    "country": "AU"
+  },
+  {
+    "iata": "TCA",
+    "name": "Tennant Creek Airport",
+    "city": "Tennant Creek",
+    "country": "AU"
+  },
+  {
+    "iata": "XTG",
+    "name": "Thargomindah Airport",
+    "city": "Thargomindah",
+    "country": "AU"
+  },
+  {
+    "iata": "WTB",
+    "name": "Toowoomba Wellcamp Airport",
+    "city": "Toowoomba",
+    "country": "AU"
+  },
+  {
+    "iata": "TSV",
+    "name": "Townsville Airport / RAAF Base Townsville",
+    "city": "Townsville",
+    "country": "AU"
+  },
+  {
+    "iata": "TUM",
+    "name": "Tumut Aerodrome",
+    "city": "Tumut",
+    "country": "AU"
+  },
+  {
+    "iata": "PKT",
+    "name": "Port Keats Airport",
+    "city": "Wadeye",
+    "country": "AU"
+  },
+  {
+    "iata": "WEI",
+    "name": "Weipa Airport",
+    "city": "Weipa",
+    "country": "AU"
+  },
+  {
+    "iata": "WWY",
+    "name": "West Wyalong Airport",
+    "city": "West Wyalong",
+    "country": "AU"
+  },
+  {
+    "iata": "WYA",
+    "name": "Whyalla Airport",
+    "city": "Whyalla",
+    "country": "AU"
+  },
+  {
+    "iata": "NTL",
+    "name": "Newcastle Airport",
+    "city": "Williamtown",
+    "country": "AU"
+  },
+  {
+    "iata": "WNR",
+    "name": "Windorah Airport",
+    "city": "Windorah",
+    "country": "AU"
+  },
+  {
+    "iata": "BRT",
+    "name": "Bathurst Island Airport",
+    "city": "Wurrumiyanga",
+    "country": "AU"
+  },
+  {
+    "iata": "AYQ",
+    "name": "Ayers Rock Connellan Airport",
+    "city": "Yulara",
+    "country": "AU"
+  },
+  {
+    "iata": "AUA",
+    "name": "Queen Beatrix International Airport",
+    "city": "Oranjestad",
+    "country": "AW"
+  },
+  {
+    "iata": "GYD",
+    "name": "Heydar Aliyev International Airport",
+    "city": "Baku",
+    "country": "AZ"
+  },
+  {
+    "iata": "GBB",
+    "name": "Gabala International Airport",
+    "city": "Gabala",
+    "country": "AZ"
+  },
+  {
+    "iata": "GNJ",
+    "name": "Ganja International Airport",
+    "city": "Ganja",
+    "country": "AZ"
+  },
+  {
+    "iata": "NAJ",
+    "name": "Nakhchivan Airport",
+    "city": "Nakhchivan",
+    "country": "AZ"
+  },
+  {
+    "iata": "ZXT",
+    "name": "Zabrat Airport",
+    "city": "Zabrat",
+    "country": "AZ"
+  },
+  {
+    "iata": "ZTU",
+    "name": "Zaqatala International Airport",
+    "city": "Zaqatala",
+    "country": "AZ"
+  },
+  {
+    "iata": "TZL",
+    "name": "Tuzla International Airport",
+    "city": "Dubrave Gornje",
+    "country": "BA"
+  },
+  {
+    "iata": "BNX",
+    "name": "Banja Luka International Airport",
+    "city": "Mahovljani",
+    "country": "BA"
+  },
+  {
+    "iata": "OMO",
+    "name": "Mostar International Airport",
+    "city": "Mostar",
+    "country": "BA"
+  },
+  {
+    "iata": "SJJ",
+    "name": "Sarajevo International Airport",
+    "city": "Sarajevo",
+    "country": "BA"
+  },
+  {
+    "iata": "BGI",
+    "name": "Grantley Adams International Airport",
+    "city": "Bridgetown",
+    "country": "BB"
+  },
+  {
+    "iata": "BZL",
+    "name": "Barisal Airport",
+    "city": "Barisal",
+    "country": "BD"
+  },
+  {
+    "iata": "CGP",
+    "name": "Shah Amanat International Airport",
+    "city": "Chattogram (Chittagong)",
+    "country": "BD"
+  },
+  {
+    "iata": "CXB",
+    "name": "Cox's Bazar Airport",
+    "city": "Cox's Bazar",
+    "country": "BD"
+  },
+  {
+    "iata": "DAC",
+    "name": "Hazrat Shahjalal International Airport",
+    "city": "Dhaka",
+    "country": "BD"
+  },
+  {
+    "iata": "IRD",
+    "name": "Ishurdi Airport",
+    "city": "Ishurdi",
+    "country": "BD"
+  },
+  {
+    "iata": "JSR",
+    "name": "Jessore Airport",
+    "city": "Jashore (Jessore)",
+    "country": "BD"
+  },
+  {
+    "iata": "RJH",
+    "name": "Shah Mokhdum Airport",
+    "city": "Rajshahi",
+    "country": "BD"
+  },
+  {
+    "iata": "SPD",
+    "name": "Saidpur Airport",
+    "city": "Saidpur",
+    "country": "BD"
+  },
+  {
+    "iata": "ZYL",
+    "name": "Osmany International Airport",
+    "city": "Sylhet",
+    "country": "BD"
+  },
+  {
+    "iata": "ANR",
+    "name": "Antwerp International Airport (Deurne)",
+    "city": "Antwerp",
+    "country": "BE"
+  },
+  {
+    "iata": "CRL",
+    "name": "Brussels South Charleroi Airport",
+    "city": "Charleroi",
+    "country": "BE"
+  },
+  {
+    "iata": "LGG",
+    "name": "Li\u00e8ge Airport",
+    "city": "Gr\u00e2ce-Hollogne",
+    "country": "BE"
+  },
+  {
+    "iata": "OST",
+    "name": "Oostende-Brugge International Airport",
+    "city": "Oostende",
+    "country": "BE"
+  },
+  {
+    "iata": "KJK",
+    "name": "Flanders International Airport Kortrijk-Wevelgem",
+    "city": "Wevelgem",
+    "country": "BE"
+  },
+  {
+    "iata": "BRU",
+    "name": "Brussels Airport",
+    "city": "Zaventem",
+    "country": "BE"
+  },
+  {
+    "iata": "BOY",
+    "name": "Bobo Dioulasso Airport",
+    "city": "Bobo Dioulasso",
+    "country": "BF"
+  },
+  {
+    "iata": "OUA",
+    "name": "Ouagadougou Airport",
+    "city": "Ouagadougou",
+    "country": "BF"
+  },
+  {
+    "iata": "JAM",
+    "name": "Bezmer Air Base",
+    "city": "Bezmer",
+    "country": "BG"
+  },
+  {
+    "iata": "BOJ",
+    "name": "Burgas Airport",
+    "city": "Burgas",
+    "country": "BG"
+  },
+  {
+    "iata": "GOZ",
+    "name": "Gorna Oryahovitsa Airport",
+    "city": "Gorna Oryahovitsa",
+    "country": "BG"
+  },
+  {
+    "iata": "PDV",
+    "name": "Plovdiv International Airport",
+    "city": "Plovdiv",
+    "country": "BG"
+  },
+  {
+    "iata": "SOF",
+    "name": "Sofia Airport",
+    "city": "Sofia",
+    "country": "BG"
+  },
+  {
+    "iata": "VAR",
+    "name": "Varna Airport",
+    "city": "Varna",
+    "country": "BG"
+  },
+  {
+    "iata": "BAH",
+    "name": "Bahrain International Airport",
+    "city": "Manama",
+    "country": "BH"
+  },
+  {
+    "iata": "BJM",
+    "name": "Bujumbura Melchior Ndadaye International Airport",
+    "city": "Bujumbura",
+    "country": "BI"
+  },
+  {
+    "iata": "COO",
+    "name": "Cadjehoun Airport",
+    "city": "Cotonou",
+    "country": "BJ"
+  },
+  {
+    "iata": "SBH",
+    "name": "Saint Barth\u00e9lemy - Gustaf III Airport",
+    "city": "Gustavia",
+    "country": "BL"
+  },
+  {
+    "iata": "BDA",
+    "name": "L.F. Wade International Airport",
+    "city": "Hamilton",
+    "country": "BM"
+  },
+  {
+    "iata": "BWN",
+    "name": "Brunei International Airport",
+    "city": "Bandar Seri Begawan",
+    "country": "BN"
+  },
+  {
+    "iata": "BJO",
+    "name": "Bermejo Airport",
+    "city": "Bermejo",
+    "country": "BO"
+  },
+  {
+    "iata": "CIJ",
+    "name": "Capit\u00e1n An\u00edbal Arab Airport",
+    "city": "Cobija",
+    "country": "BO"
+  },
+  {
+    "iata": "CBB",
+    "name": "Jorge Wilsterman International Airport",
+    "city": "Cochabamba",
+    "country": "BO"
+  },
+  {
+    "iata": "GYA",
+    "name": "Guayaramer\u00edn Airport",
+    "city": "Guayaramer\u00edn",
+    "country": "BO"
+  },
+  {
+    "iata": "LPB",
+    "name": "El Alto International Airport",
+    "city": "La Paz / El Alto",
+    "country": "BO"
+  },
+  {
+    "iata": "ORU",
+    "name": "Juan Mendoza Airport",
+    "city": "Oruro",
+    "country": "BO"
+  },
+  {
+    "iata": "POI",
+    "name": "Capitan Nicolas Rojas Airport",
+    "city": "Potos\u00ed",
+    "country": "BO"
+  },
+  {
+    "iata": "PSZ",
+    "name": "Capit\u00e1n Av. Salvador Ogaya G. airport",
+    "city": "Puerto Su\u00e1rez",
+    "country": "BO"
+  },
+  {
+    "iata": "RIB",
+    "name": "Capit\u00e1n Av. Selin Zeitun Lopez Airport",
+    "city": "Riberalta",
+    "country": "BO"
+  },
+  {
+    "iata": "SBL",
+    "name": "Santa Ana Del Yacuma Airport",
+    "city": "Santa Ana del Yacuma",
+    "country": "BO"
+  },
+  {
+    "iata": "SRZ",
+    "name": "El Trompillo Airport",
+    "city": "Santa Cruz",
+    "country": "BO"
+  },
+  {
+    "iata": "VVI",
+    "name": "Viru Viru International Airport",
+    "city": "Santa Cruz",
+    "country": "BO"
+  },
+  {
+    "iata": "TJA",
+    "name": "Capitan Oriel Lea Plaza Airport",
+    "city": "Tarija",
+    "country": "BO"
+  },
+  {
+    "iata": "TDD",
+    "name": "Teniente Av. Jorge Henrich Arauz Airport",
+    "city": "Trinidad",
+    "country": "BO"
+  },
+  {
+    "iata": "VLM",
+    "name": "Teniente Coronel Rafael Pab\u00f3n Airport",
+    "city": "Villamontes",
+    "country": "BO"
+  },
+  {
+    "iata": "BYC",
+    "name": "Yacuiba Airport",
+    "city": "Yacu\u00edba",
+    "country": "BO"
+  },
+  {
+    "iata": "SRE",
+    "name": "Alcantar\u00ed Airport",
+    "city": "Yamparaez",
+    "country": "BO"
+  },
+  {
+    "iata": "BON",
+    "name": "Flamingo International Airport",
+    "city": "Kralendijk",
+    "country": "BQ"
+  },
+  {
+    "iata": "EUX",
+    "name": "F. D. Roosevelt Airport",
+    "city": "Oranjestad",
+    "country": "BQ"
+  },
+  {
+    "iata": "SAB",
+    "name": "Juancho E. Yrausquin Airport",
+    "city": "Zion's Hill",
+    "country": "BQ"
+  },
+  {
+    "iata": "MEU",
+    "name": "Monte Dourado - Serra do Are\u00e3o Airport",
+    "city": "Almeirim",
+    "country": "BR"
+  },
+  {
+    "iata": "AFL",
+    "name": "Piloto Osvaldo Marques Dias Airport",
+    "city": "Alta Floresta",
+    "country": "BR"
+  },
+  {
+    "iata": "ATM",
+    "name": "Altamira Interstate Airport",
+    "city": "Altamira",
+    "country": "BR"
+  },
+  {
+    "iata": "AJU",
+    "name": "Aracaju - Santa Maria International Airport",
+    "city": "Aracaju",
+    "country": "BR"
+  },
+  {
+    "iata": "ARX",
+    "name": "Aracati Drag\u00e3o do Mar Regional Airport",
+    "city": "Aracati",
+    "country": "BR"
+  },
+  {
+    "iata": "AUX",
+    "name": "Aragua\u00edna Airport",
+    "city": "Aragua\u00edna",
+    "country": "BR"
+  },
+  {
+    "iata": "AQA",
+    "name": "Araraquara Airport",
+    "city": "Araraquara",
+    "country": "BR"
+  },
+  {
+    "iata": "AAX",
+    "name": "Romeu Zema Airport",
+    "city": "Arax\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "ARU",
+    "name": "Ara\u00e7atuba Airport",
+    "city": "Ara\u00e7atuba",
+    "country": "BR"
+  },
+  {
+    "iata": "BGX",
+    "name": "Comandante Gustavo Kraemer Airport",
+    "city": "Bag\u00e9",
+    "country": "BR"
+  },
+  {
+    "iata": "BPG",
+    "name": "Barra do Gar\u00e7as Airport",
+    "city": "Barra do Gar\u00e7as",
+    "country": "BR"
+  },
+  {
+    "iata": "BAT",
+    "name": "Chafei Amsei Airport",
+    "city": "Barretos",
+    "country": "BR"
+  },
+  {
+    "iata": "JTC",
+    "name": "Bauru/Arealva\u2013Moussa Nakhal Tobias State Airport",
+    "city": "Bauru",
+    "country": "BR"
+  },
+  {
+    "iata": "PLU",
+    "name": "Pampulha - Carlos Drummond de Andrade Airport",
+    "city": "Belo Horizonte",
+    "country": "BR"
+  },
+  {
+    "iata": "CNF",
+    "name": "Tancredo Neves International Airport",
+    "city": "Belo Horizonte",
+    "country": "BR"
+  },
+  {
+    "iata": "BEL",
+    "name": "Val de Cans/J\u00falio Cezar Ribeiro International Airport",
+    "city": "Bel\u00e9m",
+    "country": "BR"
+  },
+  {
+    "iata": "BVB",
+    "name": "Atlas Brasil Cantanhede Airport",
+    "city": "Boa Vista",
+    "country": "BR"
+  },
+  {
+    "iata": "LAZ",
+    "name": "Bom Jesus da Lapa Airport",
+    "city": "Bom Jesus da Lapa",
+    "country": "BR"
+  },
+  {
+    "iata": "BSB",
+    "name": "Presidente Juscelino Kubitschek International Airport",
+    "city": "Bras\u00edlia",
+    "country": "BR"
+  },
+  {
+    "iata": "BZC",
+    "name": "Umberto Modiano Airport",
+    "city": "Cabo Frio",
+    "country": "BR"
+  },
+  {
+    "iata": "CPV",
+    "name": "Presidente Jo\u00e3o Suassuna Airport",
+    "city": "Campina Grande",
+    "country": "BR"
+  },
+  {
+    "iata": "VCP",
+    "name": "Viracopos International Airport",
+    "city": "Campinas",
+    "country": "BR"
+  },
+  {
+    "iata": "CGR",
+    "name": "Campo Grande Airport",
+    "city": "Campo Grande",
+    "country": "BR"
+  },
+  {
+    "iata": "CAW",
+    "name": "Bartolomeu Lisandro Airport",
+    "city": "Campos Dos Goytacazes",
+    "country": "BR"
+  },
+  {
+    "iata": "CRQ",
+    "name": "Caravelas Airport",
+    "city": "Caravelas",
+    "country": "BR"
+  },
+  {
+    "iata": "CLN",
+    "name": "Brig. Lysias Augusto Rodrigues Airport",
+    "city": "Carolina",
+    "country": "BR"
+  },
+  {
+    "iata": "CAC",
+    "name": "Coronel Adalberto Mendes da Silva Airport",
+    "city": "Cascavel",
+    "country": "BR"
+  },
+  {
+    "iata": "CXJ",
+    "name": "Hugo Cantergiani Regional Airport",
+    "city": "Caxias Do Sul",
+    "country": "BR"
+  },
+  {
+    "iata": "XAP",
+    "name": "Serafin Enoss Bertaso Airport",
+    "city": "Chapec\u00f3",
+    "country": "BR"
+  },
+  {
+    "iata": "CDJ",
+    "name": "Concei\u00e7\u00e3o do Araguaia Airport",
+    "city": "Concei\u00e7\u00e3o do Araguaia",
+    "country": "BR"
+  },
+  {
+    "iata": "EEA",
+    "name": "Planalto Serrano Regional Airport",
+    "city": "Correia Pinto",
+    "country": "BR"
+  },
+  {
+    "iata": "CMG",
+    "name": "Corumb\u00e1 International Airport",
+    "city": "Corumb\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "CCM",
+    "name": "Forquilhinha - Crici\u00fama  Airport",
+    "city": "Crici\u00fama",
+    "country": "BR"
+  },
+  {
+    "iata": "JJD",
+    "name": "Comandante Ariston Pessoa Airport",
+    "city": "Cruz",
+    "country": "BR"
+  },
+  {
+    "iata": "CZS",
+    "name": "Cruzeiro do Sul Airport",
+    "city": "Cruzeiro Do Sul",
+    "country": "BR"
+  },
+  {
+    "iata": "CGB",
+    "name": "Marechal Rondon Airport",
+    "city": "Cuiab\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "CWB",
+    "name": "Afonso Pena Airport",
+    "city": "Curitiba",
+    "country": "BR"
+  },
+  {
+    "iata": "BFH",
+    "name": "Bacacheri Airport",
+    "city": "Curitiba",
+    "country": "BR"
+  },
+  {
+    "iata": "FEN",
+    "name": "Fernando de Noronha Airport",
+    "city": "Fernando de Noronha",
+    "country": "BR"
+  },
+  {
+    "iata": "FLN",
+    "name": "Herc\u00edlio Luz International Airport",
+    "city": "Florian\u00f3polis",
+    "country": "BR"
+  },
+  {
+    "iata": "FOR",
+    "name": "Pinto Martins International Airport",
+    "city": "Fortaleza",
+    "country": "BR"
+  },
+  {
+    "iata": "IGU",
+    "name": "Cataratas International Airport",
+    "city": "Foz do Igua\u00e7u",
+    "country": "BR"
+  },
+  {
+    "iata": "GYN",
+    "name": "Santa Genoveva Airport",
+    "city": "Goi\u00e2nia",
+    "country": "BR"
+  },
+  {
+    "iata": "GVR",
+    "name": "Coronel Altino Machado Airport",
+    "city": "Governador Valadares",
+    "country": "BR"
+  },
+  {
+    "iata": "GJM",
+    "name": "Guajar\u00e1-Mirim Airport",
+    "city": "Guajar\u00e1-Mirim",
+    "country": "BR"
+  },
+  {
+    "iata": "GUJ",
+    "name": "Edu Chaves Field",
+    "city": "Guaratinguet\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "SSZ",
+    "name": "Santos Nero Moura Air Base / Guaruj\u00e1 Airport",
+    "city": "Guaruj\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "IOS",
+    "name": "Bahia - Jorge Amado Airport",
+    "city": "Ilh\u00e9us",
+    "country": "BR"
+  },
+  {
+    "iata": "IMP",
+    "name": "Prefeito Renato Moreira Airport",
+    "city": "Imperatriz",
+    "country": "BR"
+  },
+  {
+    "iata": "IPN",
+    "name": "Usiminas Airport",
+    "city": "Ipatinga",
+    "country": "BR"
+  },
+  {
+    "iata": "ITA",
+    "name": "Itacoatiara Airport",
+    "city": "Itacoatiara",
+    "country": "BR"
+  },
+  {
+    "iata": "ITB",
+    "name": "Itaituba Airport",
+    "city": "Itaituba",
+    "country": "BR"
+  },
+  {
+    "iata": "JCR",
+    "name": "Jacareacanga Airport",
+    "city": "Jacareacanga",
+    "country": "BR"
+  },
+  {
+    "iata": "JOI",
+    "name": "Lauro Carneiro de Loyola Airport",
+    "city": "Joinville",
+    "country": "BR"
+  },
+  {
+    "iata": "JPA",
+    "name": "Presidente Castro Pinto International Airport",
+    "city": "Jo\u00e3o Pessoa",
+    "country": "BR"
+  },
+  {
+    "iata": "JDF",
+    "name": "Francisco de Assis Airport",
+    "city": "Juiz de Fora",
+    "country": "BR"
+  },
+  {
+    "iata": "IZA",
+    "name": "Presidente Itamar Franco Airport",
+    "city": "Juiz de Fora",
+    "country": "BR"
+  },
+  {
+    "iata": "LAJ",
+    "name": "Lages Airport",
+    "city": "Lages",
+    "country": "BR"
+  },
+  {
+    "iata": "LHN",
+    "name": "Linhares Municipal Airport",
+    "city": "Linhares",
+    "country": "BR"
+  },
+  {
+    "iata": "LIP",
+    "name": "Lins Airport",
+    "city": "Lins",
+    "country": "BR"
+  },
+  {
+    "iata": "LDB",
+    "name": "Governor Jos\u00e9 Richa Airport",
+    "city": "Londrina",
+    "country": "BR"
+  },
+  {
+    "iata": "MCP",
+    "name": "Macap\u00e1 - Alberto Alcolumbre International Airport",
+    "city": "Macap\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "MEA",
+    "name": "Maca\u00e9 Benedito Lacerda Airport",
+    "city": "Maca\u00e9",
+    "country": "BR"
+  },
+  {
+    "iata": "MCZ",
+    "name": "Zumbi dos Palmares Airport",
+    "city": "Macei\u00f3",
+    "country": "BR"
+  },
+  {
+    "iata": "MAO",
+    "name": "Eduardo Gomes International Airport",
+    "city": "Manaus",
+    "country": "BR"
+  },
+  {
+    "iata": "PLL",
+    "name": "Ponta Pelada Airport / Manaus Air Base",
+    "city": "Manaus",
+    "country": "BR"
+  },
+  {
+    "iata": "MNX",
+    "name": "Manicor\u00e9 Airport",
+    "city": "Manicor\u00e9",
+    "country": "BR"
+  },
+  {
+    "iata": "MAB",
+    "name": "Jo\u00e3o Correa da Rocha Airport",
+    "city": "Marab\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "MGF",
+    "name": "Regional de Maring\u00e1 - S\u00edlvio Name J\u00fanior Airport",
+    "city": "Maring\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "MII",
+    "name": "Frank Miloye Milenkowichi\u2013Mar\u00edlia State Airport",
+    "city": "Mar\u00edlia",
+    "country": "BR"
+  },
+  {
+    "iata": "MQH",
+    "name": "Mina\u00e7u Airport",
+    "city": "Mina\u00e7u",
+    "country": "BR"
+  },
+  {
+    "iata": "MOC",
+    "name": "M\u00e1rio Ribeiro Airport",
+    "city": "Montes Claros",
+    "country": "BR"
+  },
+  {
+    "iata": "MVF",
+    "name": "Dix-Sept Rosado Airport",
+    "city": "Mossor\u00f3",
+    "country": "BR"
+  },
+  {
+    "iata": "NAT",
+    "name": "S\u00e3o Gon\u00e7alo do Amarante - Governador Alu\u00edzio Alves International Airport",
+    "city": "Natal",
+    "country": "BR"
+  },
+  {
+    "iata": "NVT",
+    "name": "Ministro Victor Konder International Airport",
+    "city": "Navegantes",
+    "country": "BR"
+  },
+  {
+    "iata": "OYK",
+    "name": "Oiapoque Airport",
+    "city": "Oiapoque",
+    "country": "BR"
+  },
+  {
+    "iata": "TMT",
+    "name": "Trombetas Airport",
+    "city": "Oriximin\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "PMW",
+    "name": "Brigadeiro Lysias Rodrigues Airport",
+    "city": "Palmas",
+    "country": "BR"
+  },
+  {
+    "iata": "CKS",
+    "name": "Caraj\u00e1s Airport",
+    "city": "Parauapebas",
+    "country": "BR"
+  },
+  {
+    "iata": "PHB",
+    "name": "Parna\u00edba - Prefeito Doutor Jo\u00e3o Silva Filho International Airport",
+    "city": "Parna\u00edba",
+    "country": "BR"
+  },
+  {
+    "iata": "PFB",
+    "name": "Lauro Kurtz Airport",
+    "city": "Passo Fundo",
+    "country": "BR"
+  },
+  {
+    "iata": "PAV",
+    "name": "Paulo Afonso Airport",
+    "city": "Paulo Afonso",
+    "country": "BR"
+  },
+  {
+    "iata": "PET",
+    "name": "Jo\u00e3o Sim\u00f5es Lopes Neto International Airport",
+    "city": "Pelotas",
+    "country": "BR"
+  },
+  {
+    "iata": "PNZ",
+    "name": "Senador Nilo Coelho Airport",
+    "city": "Petrolina",
+    "country": "BR"
+  },
+  {
+    "iata": "QPS",
+    "name": "Campo Fontenelle",
+    "city": "Pirassununga",
+    "country": "BR"
+  },
+  {
+    "iata": "PGZ",
+    "name": "Ponta Grossa Airport - Comandante Antonio Amilton Beraldo",
+    "city": "Ponta Grossa",
+    "country": "BR"
+  },
+  {
+    "iata": "PMG",
+    "name": "Ponta Por\u00e3 Airport",
+    "city": "Ponta Por\u00e3",
+    "country": "BR"
+  },
+  {
+    "iata": "QNS",
+    "name": "Canoas Air Force Base",
+    "city": "Porto Alegre",
+    "country": "BR"
+  },
+  {
+    "iata": "POA",
+    "name": "Salgado Filho International Airport",
+    "city": "Porto Alegre",
+    "country": "BR"
+  },
+  {
+    "iata": "PNB",
+    "name": "Porto Nacional Airport",
+    "city": "Porto Nacional",
+    "country": "BR"
+  },
+  {
+    "iata": "BPS",
+    "name": "Porto Seguro Airport",
+    "city": "Porto Seguro",
+    "country": "BR"
+  },
+  {
+    "iata": "PVH",
+    "name": "Governador Jorge Teixeira de Oliveira Airport",
+    "city": "Porto Velho",
+    "country": "BR"
+  },
+  {
+    "iata": "POO",
+    "name": "Po\u00e7os de Caldas - Embaixador Walther Moreira Salles Airport",
+    "city": "Po\u00e7os De Caldas",
+    "country": "BR"
+  },
+  {
+    "iata": "PPB",
+    "name": "Presidente Prudente Airport",
+    "city": "Presidente Prudente",
+    "country": "BR"
+  },
+  {
+    "iata": "REC",
+    "name": "Recife/Guararapes - Gilberto Freyre International Airport",
+    "city": "Recife",
+    "country": "BR"
+  },
+  {
+    "iata": "RAO",
+    "name": "Leite Lopes Airport",
+    "city": "Ribeir\u00e3o Preto",
+    "country": "BR"
+  },
+  {
+    "iata": "RBR",
+    "name": "Rio Branco-Pl\u00e1cido de Castro International Airport",
+    "city": "Rio Branco",
+    "country": "BR"
+  },
+  {
+    "iata": "GIG",
+    "name": "Rio Gale\u00e3o \u2013 Tom Jobim International Airport",
+    "city": "Rio De Janeiro",
+    "country": "BR"
+  },
+  {
+    "iata": "SNZ",
+    "name": "Santa Cruz Air Force Base",
+    "city": "Rio de Janeiro",
+    "country": "BR"
+  },
+  {
+    "iata": "SDU",
+    "name": "Santos Dumont Airport",
+    "city": "Rio de Janeiro",
+    "country": "BR"
+  },
+  {
+    "iata": "ROO",
+    "name": "Maestro Marinho Franco Airport",
+    "city": "Rondon\u00f3polis",
+    "country": "BR"
+  },
+  {
+    "iata": "SSA",
+    "name": "Deputado Luiz Eduardo Magalh\u00e3es International Airport",
+    "city": "Salvador",
+    "country": "BR"
+  },
+  {
+    "iata": "RIA",
+    "name": "Santa Maria Airport",
+    "city": "Santa Maria",
+    "country": "BR"
+  },
+  {
+    "iata": "STM",
+    "name": "Santar\u00e9m - Maestro Wilson Fonseca International Airport",
+    "city": "Santar\u00e9m",
+    "country": "BR"
+  },
+  {
+    "iata": "GEL",
+    "name": "Santo \u00c2ngelo Airport",
+    "city": "Santo \u00c2ngelo",
+    "country": "BR"
+  },
+  {
+    "iata": "JSO",
+    "name": "Dr. Luciano de Arruda Coelho Regional Airport",
+    "city": "Sobral",
+    "country": "BR"
+  },
+  {
+    "iata": "SJL",
+    "name": "S\u00e3o Gabriel da Cachoeira Airport",
+    "city": "S\u00e3o Gabriel da Cachoeira",
+    "country": "BR"
+  },
+  {
+    "iata": "SJK",
+    "name": "Professor Urbano Ernesto Stumpf Airport",
+    "city": "S\u00e3o Jos\u00e9 Dos Campos",
+    "country": "BR"
+  },
+  {
+    "iata": "SJP",
+    "name": "Prof. Eribelto Manoel Reino State Airport",
+    "city": "S\u00e3o Jos\u00e9 do Rio Preto",
+    "country": "BR"
+  },
+  {
+    "iata": "SLZ",
+    "name": "Marechal Cunha Machado International Airport",
+    "city": "S\u00e3o Lu\u00eds",
+    "country": "BR"
+  },
+  {
+    "iata": "RTE",
+    "name": "Campo de Marte Airport",
+    "city": "S\u00e3o Paulo",
+    "country": "BR"
+  },
+  {
+    "iata": "CGH",
+    "name": "Congonhas Airport",
+    "city": "S\u00e3o Paulo",
+    "country": "BR"
+  },
+  {
+    "iata": "GRU",
+    "name": "Guarulhos - Governador Andr\u00e9 Franco Montoro International Airport",
+    "city": "S\u00e3o Paulo",
+    "country": "BR"
+  },
+  {
+    "iata": "JHF",
+    "name": "S\u00e3o Paulo Catarina Executive Airport",
+    "city": "S\u00e3o Roque",
+    "country": "BR"
+  },
+  {
+    "iata": "TBT",
+    "name": "Tabatinga Airport",
+    "city": "Tabatinga",
+    "country": "BR"
+  },
+  {
+    "iata": "TRQ",
+    "name": "Tarauac\u00e1 Airport",
+    "city": "Tarauac\u00e1",
+    "country": "BR"
+  },
+  {
+    "iata": "TFF",
+    "name": "Tef\u00e9 Airport",
+    "city": "Tef\u00e9",
+    "country": "BR"
+  },
+  {
+    "iata": "TEC",
+    "name": "Tel\u00eamaco Borba Airport",
+    "city": "Tel\u00eamaco Borba",
+    "country": "BR"
+  },
+  {
+    "iata": "THE",
+    "name": "Senador Petr\u00f4nio Portela Airport",
+    "city": "Teresina",
+    "country": "BR"
+  },
+  {
+    "iata": "TUR",
+    "name": "Tucuru\u00ed Airport",
+    "city": "Tucuru\u00ed",
+    "country": "BR"
+  },
+  {
+    "iata": "UBA",
+    "name": "M\u00e1rio de Almeida Franco Airport",
+    "city": "Uberaba",
+    "country": "BR"
+  },
+  {
+    "iata": "UDI",
+    "name": "Ten. Cel. Aviador C\u00e9sar Bombonato Airport",
+    "city": "Uberl\u00e2ndia",
+    "country": "BR"
+  },
+  {
+    "iata": "URG",
+    "name": "Rubem Berta Airport",
+    "city": "Uruguaiana",
+    "country": "BR"
+  },
+  {
+    "iata": "VAG",
+    "name": "Major Brigadeiro Trompowsky Airport",
+    "city": "Varginha",
+    "country": "BR"
+  },
+  {
+    "iata": "BVH",
+    "name": "Brigadeiro Camar\u00e3o Airport",
+    "city": "Vilhena",
+    "country": "BR"
+  },
+  {
+    "iata": "VIX",
+    "name": "Eurico de Aguiar Salles Airport",
+    "city": "Vit\u00f3ria",
+    "country": "BR"
+  },
+  {
+    "iata": "VDC",
+    "name": "Glauber de Andrade Rocha Airport",
+    "city": "Vit\u00f3ria da Conquista",
+    "country": "BR"
+  },
+  {
+    "iata": "MYG",
+    "name": "Mayaguana Airport",
+    "city": "Abraham Bay Settlement",
+    "country": "BS"
+  },
+  {
+    "iata": "TZN",
+    "name": "Congo Town Airport",
+    "city": "Andros",
+    "country": "BS"
+  },
+  {
+    "iata": "SAQ",
+    "name": "San Andros Airport",
+    "city": "Andros Island",
+    "country": "BS"
+  },
+  {
+    "iata": "ASD",
+    "name": "Andros Town Airport",
+    "city": "Andros Town",
+    "country": "BS"
+  },
+  {
+    "iata": "ATC",
+    "name": "Arthur's Town Airport",
+    "city": "Arthur's Town",
+    "country": "BS"
+  },
+  {
+    "iata": "GHC",
+    "name": "Great Harbour Cay Airport",
+    "city": "Bullocks Harbour",
+    "country": "BS"
+  },
+  {
+    "iata": "TBI",
+    "name": "New Bight Airport",
+    "city": "Cat Island",
+    "country": "BS"
+  },
+  {
+    "iata": "CCZ",
+    "name": "Chub Cay Airport",
+    "city": "Chub Cay",
+    "country": "BS"
+  },
+  {
+    "iata": "CRI",
+    "name": "Colonel Hill Airport",
+    "city": "Colonel Hill",
+    "country": "BS"
+  },
+  {
+    "iata": "LGI",
+    "name": "Deadman's Cay Airport",
+    "city": "Deadman's Cay",
+    "country": "BS"
+  },
+  {
+    "iata": "DCT",
+    "name": "Duncan Town Airport",
+    "city": "Duncan Town",
+    "country": "BS"
+  },
+  {
+    "iata": "FPO",
+    "name": "Grand Bahama International Airport",
+    "city": "Freeport",
+    "country": "BS"
+  },
+  {
+    "iata": "GHB",
+    "name": "Governor's Harbour Airport",
+    "city": "Governor's Harbour",
+    "country": "BS"
+  },
+  {
+    "iata": "MAY",
+    "name": "Clarence A. Bain Airport",
+    "city": "Mangrove Cay",
+    "country": "BS"
+  },
+  {
+    "iata": "MHH",
+    "name": "Leonard M Thompson International Airport",
+    "city": "Marsh Harbour",
+    "country": "BS"
+  },
+  {
+    "iata": "IGA",
+    "name": "Inagua Airport",
+    "city": "Matthew Town",
+    "country": "BS"
+  },
+  {
+    "iata": "GGT",
+    "name": "Exuma International Airport",
+    "city": "Moss Town",
+    "country": "BS"
+  },
+  {
+    "iata": "NAS",
+    "name": "Lynden Pindling International Airport",
+    "city": "Nassau",
+    "country": "BS"
+  },
+  {
+    "iata": "NMC",
+    "name": "Normans Cay Airport",
+    "city": "Normans Cay",
+    "country": "BS"
+  },
+  {
+    "iata": "ELH",
+    "name": "North Eleuthera Airport",
+    "city": "North Eleuthera",
+    "country": "BS"
+  },
+  {
+    "iata": "RSD",
+    "name": "Rock Sound Airport",
+    "city": "Rock Sound",
+    "country": "BS"
+  },
+  {
+    "iata": "ZSA",
+    "name": "San Salvador Airport",
+    "city": "San Salvador",
+    "country": "BS"
+  },
+  {
+    "iata": "BIM",
+    "name": "South Bimini Airport",
+    "city": "South Bimini",
+    "country": "BS"
+  },
+  {
+    "iata": "AXP",
+    "name": "Spring Point Airport",
+    "city": "Spring Point",
+    "country": "BS"
+  },
+  {
+    "iata": "TYM",
+    "name": "Staniel Cay Airport",
+    "city": "Staniel Cay",
+    "country": "BS"
+  },
+  {
+    "iata": "SML",
+    "name": "Stella Maris Airport",
+    "city": "Stella Maris",
+    "country": "BS"
+  },
+  {
+    "iata": "TCB",
+    "name": "Treasure Cay Airport",
+    "city": "Treasure Cay",
+    "country": "BS"
+  },
+  {
+    "iata": "GLU",
+    "name": "Gelephu Airport",
+    "city": "Gelephu",
+    "country": "BT"
+  },
+  {
+    "iata": "PBH",
+    "name": "Paro International Airport",
+    "city": "Paro",
+    "country": "BT"
+  },
+  {
+    "iata": "FRW",
+    "name": "P G Matante Intl",
+    "city": "Francistown",
+    "country": "BW"
+  },
+  {
+    "iata": "GBE",
+    "name": "Sir Seretse Khama International Airport",
+    "city": "Gaborone",
+    "country": "BW"
+  },
+  {
+    "iata": "JWA",
+    "name": "Jwaneng Airport",
+    "city": "Jwaneng",
+    "country": "BW"
+  },
+  {
+    "iata": "BBK",
+    "name": "Kasane Airport",
+    "city": "Kasane",
+    "country": "BW"
+  },
+  {
+    "iata": "MUB",
+    "name": "Maun Airport",
+    "city": "Maun",
+    "country": "BW"
+  },
+  {
+    "iata": "PKW",
+    "name": "Selebi Phikwe Airport",
+    "city": "Selebi Phikwe",
+    "country": "BW"
+  },
+  {
+    "iata": "SXN",
+    "name": "Sua Pan Airport",
+    "city": "Sowa",
+    "country": "BW"
+  },
+  {
+    "iata": "BQT",
+    "name": "Brest Airport",
+    "city": "Brest",
+    "country": "BY"
+  },
+  {
+    "iata": "GME",
+    "name": "Gomel Airport",
+    "city": "Gomel",
+    "country": "BY"
+  },
+  {
+    "iata": "GNA",
+    "name": "Hrodna Airport",
+    "city": "Hrodna",
+    "country": "BY"
+  },
+  {
+    "iata": "MSQ",
+    "name": "Minsk National Airport",
+    "city": "Minsk",
+    "country": "BY"
+  },
+  {
+    "iata": "MVQ",
+    "name": "Mogilev Airport",
+    "city": "Mogilev",
+    "country": "BY"
+  },
+  {
+    "iata": "TXC",
+    "name": "Orsha Airport - Balbasovo Air Base",
+    "city": "Orsha",
+    "country": "BY"
+  },
+  {
+    "iata": "VTB",
+    "name": "Vitebsk Vostochny Airport",
+    "city": "Vitebsk",
+    "country": "BY"
+  },
+  {
+    "iata": "BZE",
+    "name": "Philip S. W. Goldson International Airport",
+    "city": "Belize City",
+    "country": "BZ"
+  },
+  {
+    "iata": "TZA",
+    "name": "Sir Barry Bowen Municipal Airport",
+    "city": "Belize City",
+    "country": "BZ"
+  },
+  {
+    "iata": "CUK",
+    "name": "Caye Caulker Airport",
+    "city": "Caye Caulker",
+    "country": "BZ"
+  },
+  {
+    "iata": "CYC",
+    "name": "Caye Chapel Airport",
+    "city": "Caye Chapel",
+    "country": "BZ"
+  },
+  {
+    "iata": "CZH",
+    "name": "Corozal Airport",
+    "city": "Corozal",
+    "country": "BZ"
+  },
+  {
+    "iata": "DGA",
+    "name": "Dangriga Airport",
+    "city": "Dangriga",
+    "country": "BZ"
+  },
+  {
+    "iata": "PLJ",
+    "name": "Placencia Airport",
+    "city": "Placencia",
+    "country": "BZ"
+  },
+  {
+    "iata": "PND",
+    "name": "Punta Gorda Airport",
+    "city": "Punta Gorda",
+    "country": "BZ"
+  },
+  {
+    "iata": "SPR",
+    "name": "John Greif II Airport",
+    "city": "San Pedro",
+    "country": "BZ"
+  },
+  {
+    "iata": "SJX",
+    "name": "Sartaneja Airport",
+    "city": "Sartaneja",
+    "country": "BZ"
+  },
+  {
+    "iata": "YXX",
+    "name": "Abbotsford International Airport",
+    "city": "Abbotsford",
+    "country": "CA"
+  },
+  {
+    "iata": "YLT",
+    "name": "Alert Airport",
+    "city": "Alert",
+    "country": "CA"
+  },
+  {
+    "iata": "YTF",
+    "name": "Alma Airport",
+    "city": "Alma",
+    "country": "CA"
+  },
+  {
+    "iata": "YEY",
+    "name": "Amos/Magny Airport",
+    "city": "Amos",
+    "country": "CA"
+  },
+  {
+    "iata": "YAA",
+    "name": "Anahim Lake Airport",
+    "city": "Anahim Lake",
+    "country": "CA"
+  },
+  {
+    "iata": "YYW",
+    "name": "Armstrong Airport",
+    "city": "Armstrong",
+    "country": "CA"
+  },
+  {
+    "iata": "YIB",
+    "name": "Atikokan Municipal Airport",
+    "city": "Atikokan",
+    "country": "CA"
+  },
+  {
+    "iata": "YBC",
+    "name": "Baie-Comeau Airport",
+    "city": "Baie-Comeau",
+    "country": "CA"
+  },
+  {
+    "iata": "YBK",
+    "name": "Baker Lake Airport",
+    "city": "Baker Lake",
+    "country": "CA"
+  },
+  {
+    "iata": "YLK",
+    "name": "Barrie-Lake Simcoe Regional Airport",
+    "city": "Barrie",
+    "country": "CA"
+  },
+  {
+    "iata": "YXQ",
+    "name": "Beaver Creek Airport",
+    "city": "Beaver Creek",
+    "country": "CA"
+  },
+  {
+    "iata": "ZEL",
+    "name": "Bella Bella (Campbell Island) Airport",
+    "city": "Bella Bella",
+    "country": "CA"
+  },
+  {
+    "iata": "QBC",
+    "name": "Bella Coola Airport",
+    "city": "Bella Coola",
+    "country": "CA"
+  }
+]
