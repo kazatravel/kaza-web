@@ -1,404 +1,187 @@
-# Kaza - Strategic Project Plan
-**Mission:** Transform Kaza from demo to revenue-generating trip planning platform  
-**Timeline:** 7 days to working MVP  
-**Success Criteria:** Real users can plan real trips with real data
+# Kaza - Accelerated Project Plan (24-Hour MVP)
+
+**Mission:** Launch a fully dynamic, AI-driven, user-modifiable Kaza trip planning website with real-time pricing and itinerary comparison by tomorrow morning.
+**Deadline:** Monday, March 2nd, 2026, 8:00 AM MST
+**Success Criteria:** Users can build, modify, compare, and get real pricing for AI-generated itineraries.
+**Operating Principle:** Maximum agent autonomy, continuous execution, proactive blocker resolution.
 
 ---
 
-## Current State Assessment
+## Strategic Priorities (Tomorrow Morning MVP)
 
-**What We Have:**
-- ✅ UI shell (Next.js, shadcn/ui, Tailwind)
-- ✅ API keys (Gemini, Amadeus, Unsplash, Supabase, Brave Search)
-- ✅ Mock data and demo components
-- ✅ Deployed to Vercel (https://kaza-app-hazel.vercel.app)
-- ✅ Itinerary drag-and-drop UI (just built, not deployed)
+### Phase 1: Foundation & Real-time Data (Hours 1-8) 🎯 **CRITICAL PATH**
+**Goal:** Establish core data sources, integrate real-time flight and hotel pricing, and build initial AI recommendation logic.
 
-**What's Missing (Why It's Not Real):**
-- ❌ No real destination data (uses mock JSON)
-- ❌ No AI recommendations (Gemini API not integrated)
-- ❌ No flight/hotel pricing (Amadeus API not integrated)
-- ❌ No user accounts (Supabase auth not set up)
-- ❌ No data persistence (everything resets on refresh)
-- ❌ No itinerary saving/sharing
-- ❌ No payment/monetization
+### Phase 2: Dynamic Itinerary & Comparison (Hours 9-16)
+**Goal:** Implement dynamic itinerary modification, build the itinerary comparison tool, and enhance the UI.
 
-**Reality Check:** Right now, it's a pretty prototype. Nobody can use it for an actual trip.
+### Phase 3: Polish & Launch Readiness (Hours 17-24)
+**Goal:** Refine UI, conduct competitor research for best features, implement smart dropdowns, and prepare for immediate launch.
 
 ---
 
-## Strategic Priorities
+## Phase 1: Foundation & Real-time Data (Hours 1-8)
 
-### Phase 1: Make It Functional (Days 1-3) 🎯 **CRITICAL PATH**
-**Goal:** Users can input preferences, get real recommendations, build an itinerary, and save it.
-
-### Phase 2: Make It Useful (Days 4-5)
-**Goal:** Add features that make it better than alternatives (Google Docs, TripIt)
-
-### Phase 3: Make It Monetizable (Days 6-7)
-**Goal:** Add revenue streams (affiliate links, premium features)
-
----
-
-## Phase 1: Make It Functional (Days 1-3)
-
-### Milestone 1.1: Real Destination Data & AI Recommendations (Day 1)
-**Objective:** Replace mock data with real Gemini-powered recommendations
-
+### Milestone 1.1: Core Data & API Integration - Flights (Hours 1-3)
+**Objective:** Integrate Amadeus API for real-time flight search and establish Supabase as core database.
 **Tasks:**
-1. **Build Destination Database (Supabase)**
-   - Create `destinations` table schema (name, country, region, description, type, best_time, activities, budget_range, coordinates)
-   - Seed with 50-100 real destinations (use Gemini to generate structured data)
-   - Add vector embeddings for similarity search
-   
-2. **Integrate Gemini API for Recommendations**
-   - Build `/api/recommendations` endpoint
-   - Input: User preferences (home city, budget, interests, trip length, dates)
-   - Output: 5-10 ranked destinations with "Why this matches you" explanations
-   - Use Gemini 2.5 Flash for speed, 3 Pro for quality reasoning
-   
-3. **Connect Frontend to Real API**
-   - Replace mock data in `/app/page.tsx` 
-   - Wire up questionnaire form to `/api/recommendations`
-   - Display real results with real explanations
-   
-**Success Criteria:**
-- User fills out form → gets real AI recommendations in <5 seconds
-- Each destination shows real data (photos, description, pricing estimate)
-- "Why recommended" text is personalized to user input
+1.  **Amadeus Flight API Integration:**
+    *   Spawn `kaza-flights-api-agent` (Model: Gemini 3 Flash).
+    *   Task: Build `/api/flights/search` endpoint using Amadeus API.
+    *   Input: `origin`, `destination`, `departureDate`, `returnDate`, `adults`.
+    *   Output: `flightOptions` (airlines, prices, times, duration).
+    *   Agent will read Amadeus API credentials from `/data/.openclaw/workspace/projects/kaza/config/api_keys.md`.
+    *   Agent will create placeholder entries for Amadeus credentials if missing, and report the required format.
+2.  **Supabase Setup (Initial):**
+    *   Spawn `kaza-supabase-init-agent` (Model: Kimi K2.5).
+    *   Task: Configure Supabase project (if not already configured).
+    *   Task: Create initial `users` and `itineraries` tables (basic schema: `id`, `user_id`, `name`, `status`, `created_at`).
+    *   Agent will verify Supabase credentials are in `api_keys.md`; report if missing.
 
-**Agent Assignment:** Backend + AI Integration Agent (Gemini 3 Pro, 4-hour sprint)
+**Success Criteria:** `/api/flights/search` returns real-time flight data; Supabase tables are ready.
+**Primary Agent:** `kaza-flights-api-agent`, `kaza-supabase-init-agent`
 
----
-
-### Milestone 1.2: Flight & Pricing Integration (Day 1-2)
-**Objective:** Show real flight prices and travel costs
-
+### Milestone 1.2: Core Data & API Integration - Hotels (Hours 3-6)
+**Objective:** Integrate Booking.com API for real-time hotel search.
 **Tasks:**
-1. **Integrate Amadeus Flight API**
-   - Build `/api/flights/search` endpoint
-   - Input: origin, destination, dates, passengers
-   - Output: 3-5 cheapest flight options with times, prices, airlines
-   
-2. **Build Budget Calculator**
-   - Estimate total trip cost: flights + lodging + activities + food
-   - Use budget ranges from destination data
-   - Show breakdown: "3 days in Bali: $1,200 total ($400 flights, $300 hotel, $500 everything else)"
-   
-3. **Add Pricing to Recommendations**
-   - Show flight estimates on each destination card
-   - Add "Price flexibility" feature (show cost if dates shift ±3 days)
-   
-**Success Criteria:**
-- User sees real flight prices for each destination
-- Prices update based on travel dates
-- Budget breakdown shows realistic estimates
+1.  **Booking.com Hotel API Integration:**
+    *   Spawn `kaza-hotels-api-agent` (Model: Gemini 3 Flash).
+    *   Task: Build `/api/hotels/search` endpoint using Booking.com API.
+    *   Input: `cityCode` (or lat/long), `checkInDate`, `checkOutDate`, `adults`.
+    *   Output: `hotelOptions` (name, price, rating, image, location).
+    *   Agent will use Booking.com credentials from `api_keys.md`.
+    *   Agent will validate if Booking.com offers flight search; if so, update Milestone 1.1 strategy.
+    *   Agent will create placeholder entries for Booking.com credentials if missing, and report the required format.
 
-**Agent Assignment:** Travel API Integration Agent (Gemini 3 Flash, 3-hour sprint)
+**Success Criteria:** `/api/hotels/search` returns real-time hotel data.
+**Primary Agent:** `kaza-hotels-api-agent`
 
----
-
-### Milestone 1.3: User Accounts & Data Persistence (Day 2)
-**Objective:** Users can save trips and return to them
-
+### Milestone 1.3: AI Itinerary Generation & Storage (Hours 6-8)
+**Objective:** Implement initial AI to generate itineraries and store them in Supabase.
 **Tasks:**
-1. **Set Up Supabase Auth**
-   - Enable email/password and Google OAuth
-   - Build login/signup UI
-   - Add auth middleware
-   
-2. **Create Trip Storage Schema**
-   - `users` table (id, email, created_at)
-   - `trips` table (id, user_id, destination, dates, status, preferences, created_at)
-   - `trip_items` table (id, trip_id, type, title, date, time, location, notes)
-   
-3. **Build Save/Load Functionality**
-   - "Save Trip" button → creates record in Supabase
-   - "My Trips" page shows all saved trips
-   - Click trip → loads full itinerary
-   
-**Success Criteria:**
-- User creates account in <60 seconds
-- Trip saves and persists across sessions
-- User can have multiple trips in progress
+1.  **AI Itinerary Generator:**
+    *   Spawn `kaza-ai-itinerary-agent` (Model: Gemini 3 Pro).
+    *   Task: Build `/api/itinerary/generate` endpoint.
+    *   Input: User preferences (destination, dates, budget, interests, vibe).
+    *   Output: A structured itinerary (JSON) with suggested flights, hotels, activities, and food, drawing from real-time data where available (M1.1, M1.2).
+    *   Store generated itinerary in Supabase.
+2.  **User Itinerary Saving:**
+    *   Spawn `kaza-itinerary-save-agent` (Model: Kimi K2.5).
+    *   Task: Implement functionality to save/retrieve a user's generated itinerary to/from Supabase.
 
-**Agent Assignment:** Backend + Auth Agent (Gemini 3 Flash, 3-hour sprint)
+**Success Criteria:** AI generates a plausible itinerary; itineraries are saved/loaded from Supabase.
+**Primary Agent:** `kaza-ai-itinerary-agent`, `kaza-itinerary-save-agent`
 
 ---
 
-### Milestone 1.4: Itinerary Builder with Real Data (Day 2-3)
-**Objective:** Turn the drag-and-drop UI into a real planning tool
+## Phase 2: Dynamic Itinerary & Comparison (Hours 9-16)
 
+### Milestone 2.1: Dynamic Itinerary Modification UI (Hours 9-12)
+**Objective:** Enable users to add, remove, and reorder itinerary items via a sleek UI.
 **Tasks:**
-1. **Deploy Itinerary UI**
-   - Push itinerary components to production
-   - Fix any UI bugs
-   
-2. **Connect to Supabase**
-   - Wire up ItineraryBoard to load from `trip_items` table
-   - Save changes on drag/drop/edit
-   - Add "Add Activity" search (powered by Gemini)
-   
-3. **Add Activity Search**
-   - User types "coffee shop near hotel" → Gemini suggests 3-5 options
-   - User types "hiking" → shows local trails with difficulty ratings
-   - Each suggestion has: name, location, time estimate, cost
-   
-4. **Build "Playground" Workflow**
-   - User can dump ideas into Playground
-   - AI suggests best day/time for each activity
-   - User can drag to schedule or leave unplanned
-   
-**Success Criteria:**
-- User can build a day-by-day itinerary
-- Activities persist in database
-- AI helps find things to do (not just static lists)
+1.  **Integrate Existing Itinerary UI:**
+    *   Spawn `kaza-itinerary-ui-agent` (Model: Kimi K2.5).
+    *   Task: Integrate the existing drag-and-drop itinerary builder (from Git history) into the live application.
+    *   Connect UI to Supabase for saving modifications.
+2.  **Smart Activity Search/Addition:**
+    *   Spawn `kaza-activity-search-agent` (Model: Gemini 3 Pro).
+    *   Task: Enhance the itinerary builder with a search function (e.g., "coffee shop near hotel") that uses AI and potentially Google Places API (if applicable for activity search; agent to verify).
+    *   Enable users to add search results to their itinerary.
 
-**Agent Assignment:** Frontend + Integration Agent (Gemini 3 Pro, 4-hour sprint)
+**Success Criteria:** Users can modify itineraries visually; search adds relevant activities.
+**Primary Agent:** `kaza-itinerary-ui-agent`, `kaza-activity-search-agent`
 
----
-
-## Phase 2: Make It Useful (Days 4-5)
-
-### Milestone 2.1: "Conflict Detection" & Smart Scheduling (Day 4)
-**Objective:** Make Kaza smarter than a spreadsheet
-
+### Milestone 2.2: Itinerary Comparer Tool (Hours 12-16)
+**Objective:** Develop a tool for users to compare two AI-generated itineraries based on criteria.
 **Tasks:**
-1. **Time Conflict Detection**
-   - Check for overlapping activities
-   - Warn if flight lands at 8 PM but dinner reservation is at 7 PM
-   - Suggest buffer times between activities
-   
-2. **Travel Time Estimation**
-   - Use Google Maps API to calculate drive/transit times
-   - Show "You'll need to leave at 2 PM to make your 3 PM tour"
-   - Warn if itinerary is too packed
-   
-3. **"Realistic Day" Validation**
-   - Flag days with >8 hours of activities
-   - Suggest rest time
-   - Add "Soft Adventure" difficulty ratings
-   
-**Success Criteria:**
-- User gets warnings about impossible schedules
-- Travel time shows between activities
-- Itinerary feels realistic, not aspirational
+1.  **Comparison Logic:**
+    *   Spawn `kaza-comparer-logic-agent` (Model: Gemini 3 Pro).
+    *   Task: Build an endpoint (`/api/itinerary/compare`) that takes two itinerary IDs and compares them based on:
+        *   Travel duration (total days/nights).
+        *   Total estimated cost (flights, hotels, activities, food).
+        *   "Food/Wine" score (AI-derived, based on destination attributes).
+        *   "Vibe" compatibility (AI-derived).
+    *   Output: A structured comparison (JSON).
+2.  **Comparison UI:**
+    *   Spawn `kaza-comparer-ui-agent` (Model: Kimi K2.5).
+    *   Task: Build a sleek, interactive UI to display the comparison side-by-side.
 
-**Agent Assignment:** Logic + Validation Agent (Gemini 3 Flash, 3-hour sprint)
+**Success Criteria:** Users can select two itineraries and see a clear, criteria-based comparison.
+**Primary Agent:** `kaza-comparer-logic-agent`, `kaza-comparer-ui-agent`
 
 ---
 
-### Milestone 2.2: Email Ingestion ("Forward to Plan") (Day 4-5)
-**Objective:** Compete with TripIt by parsing confirmation emails
+## Phase 3: Polish & Launch Readiness (Hours 17-24)
 
+### Milestone 3.1: UI Enhancements & Smart Dropdowns (Hours 17-20)
+**Objective:** Implement a sleek, modern UI with smart input fields for locations.
 **Tasks:**
-1. **Set Up Email Endpoint**
-   - Create `plans@kaza.ai` (or similar) forwarding address
-   - Build webhook to receive forwarded emails
-   
-2. **Build LLM Parser**
-   - Use Gemini to extract: confirmation #, date/time, location, provider
-   - Handle: flights (airline, flight #, departure/arrival), hotels (check-in/out), tours, restaurants
-   
-3. **Auto-Add to Itinerary**
-   - Parsed data automatically creates itinerary item
-   - User reviews and confirms
-   - Handles multi-day bookings (hotel = multiple nights)
-   
-**Success Criteria:**
-- User forwards hotel confirmation → appears in itinerary
-- Parser works with Expedia, Booking.com, Airbnb, airlines
-- 90%+ accuracy on major booking platforms
+1.  **Global UI Review & Polish:**
+    *   Spawn `kaza-ui-polish-agent` (Model: Kimi K2.5).
+    *   Task: Review entire application for UI/UX consistency, responsiveness, and aesthetic appeal (sleek and modern). Make adjustments as needed.
+2.  **Smart Location/Airport Dropdowns:**
+    *   Spawn `kaza-smart-dropdown-agent` (Model: Kimi K2.5).
+    *   Task: Implement auto-suggest dropdowns for airport codes and city/location names.
+    *   Use a suitable API (e.g., Amadeus for airports, Google Places for cities) for suggestions. Ensure suggestions are relevant and fast.
 
-**Agent Assignment:** Email Parsing Agent (Gemini 3 Pro, 4-hour sprint)
+**Success Criteria:** User experience is smooth and visually appealing; location inputs are intelligent.
+**Primary Agent:** `kaza-ui-polish-agent`, `kaza-smart-dropdown-agent`
 
----
-
-### Milestone 2.3: "Playground to Plan" AI Assistant (Day 5)
-**Objective:** Let AI organize the messy brainstorming phase
-
+### Milestone 3.2: Competitor Feature Research & Integration (Hours 20-22)
+**Objective:** Identify top features from leading travel platforms and integrate selected ones.
 **Tasks:**
-1. **Bulk Idea Import**
-   - User pastes list of URLs/notes (e.g., from Google Doc)
-   - AI extracts activities and adds to Playground
-   
-2. **Smart Scheduling**
-   - "Schedule my playground items" button
-   - AI analyzes locations, times, priorities
-   - Suggests optimal day/time for each
-   - User reviews and accepts/edits
-   
-3. **Group Detection**
-   - AI notices "3 things near the Eiffel Tower" → suggests grouping them
-   - Detects "morning activities" vs "evening activities"
-   
-**Success Criteria:**
-- User dumps 20 unorganized ideas → AI proposes coherent schedule
-- Schedule respects constraints (budget, energy level, travel time)
-- User can override AI suggestions easily
+1.  **Competitor Research:**
+    *   Spawn `kaza-competitor-research-agent` (Model: Gemini 3 Pro).
+    *   Task: Research top 3-5 trip planning/booking websites (e.g., Kayak, TripIt, Google Flights/Hotels, Expedia, etc.).
+    *   Identify their most compelling features for itinerary building, comparison, and user experience.
+    *   Output: A concise `COMPETITOR_FEATURES.md` report.
+2.  **Feature Integration (Selected):**
+    *   Spawn `kaza-feature-integration-agent` (Model: Kimi K2.5).
+    *   Task: Based on the research, implement 1-2 "quick win" high-impact features identified from competitors. This will be an adaptive task based on the research.
 
-**Agent Assignment:** AI Planning Agent (Gemini 3 Pro, 3-hour sprint)
+**Success Criteria:** A `COMPETITOR_FEATURES.md` report is generated; at least one new high-value feature is integrated.
+**Primary Agent:** `kaza-competitor-research-agent`, `kaza-feature-integration-agent`
 
----
-
-## Phase 3: Make It Monetizable (Days 6-7)
-
-### Milestone 3.1: Affiliate Revenue Integration (Day 6)
-**Objective:** Generate revenue from bookings
-
+### Milestone 3.3: Final Checks & Launch Prep (Hours 22-24)
+**Objective:** Ensure all systems are go for launch, perform final testing, and deploy.
 **Tasks:**
-1. **Integrate Booking.com / Expedia Affiliate APIs**
-   - Show hotel options with affiliate links
-   - Track clicks and conversions
-   
-2. **Add Flight Affiliate Links**
-   - Partner with Skyscanner or Google Flights (if possible)
-   - Earn commission on flight bookings
-   
-3. **Activity Booking Integration**
-   - Integrate GetYourGuide or Viator
-   - Show tours/activities with direct booking
-   
-**Success Criteria:**
-- Every destination recommendation has bookable hotels
-- Flight results link to booking pages with tracking
-- User can book directly from Kaza (or click through)
+1.  **End-to-End Testing:**
+    *   Spawn `kaza-qa-agent` (Model: Kimi K2.5).
+    *   Task: Perform comprehensive end-to-end testing of all user flows: itinerary generation, modification, saving, loading, comparison, real-time pricing. Report any critical bugs.
+2.  **Deployment (GitHub Actions/Vercel):**
+    *   Spawn `kaza-deployment-agent` (Model: Kimi K2.5).
+    *   Task: Set up GitHub Actions for continuous deployment to Vercel (using your provided PAT for GitHub and assuming a Vercel project already linked to the repo).
+    *   Trigger final deployment.
+3.  **Documentation Update:**
+    *   Spawn `kaza-docs-agent` (Model: Kimi K2.5).
+    *   Task: Update `README.md` with key features, setup instructions, and any relevant API information.
 
-**Agent Assignment:** Monetization Agent (Gemini 3 Flash, 3-hour sprint)
+**Success Criteria:** All critical bugs resolved; successful deployment to Vercel; `README.md` updated.
+**Primary Agent:** `kaza-qa-agent`, `kaza-deployment-agent`, `kaza-docs-agent`
 
 ---
 
-### Milestone 3.2: Premium Features (Day 6-7)
-**Objective:** Offer paid tier for power users
+## Agent Orchestration & Blocker Resolution
 
-**Tasks:**
-1. **Define Free vs Premium**
-   - **Free:** 3 trips, basic recommendations, manual itinerary building
-   - **Premium ($9/mo or $49/yr):** Unlimited trips, AI scheduling, email ingestion, export to Calendar/PDF
-   
-2. **Implement Stripe Checkout**
-   - Add "Upgrade to Premium" flow
-   - Gated features check subscription status
-   
-3. **Build Premium Features**
-   - Export itinerary to Google Calendar
-   - Download PDF itinerary with maps
-   - Priority customer support (email)
-   
-**Success Criteria:**
-- Payment flow works end-to-end
-- Premium users get gated features
-- Conversion tracking set up
-
-**Agent Assignment:** Payments + Premium Agent (Gemini 3 Flash, 4-hour sprint)
+*   **Around-the-Clock Work:** Agents will be spawned continuously to work through tasks.
+*   **Proactive Blocker Resolution:** If an agent encounters a blocker (e.g., missing API keys, environment issues, build failures), I will:
+    1.  Attempt to resolve it autonomously using available tools (e.g., reading `api_keys.md`, trying alternative commands).
+    2.  If manual input from you is *absolutely required*, I will provide a **detailed, step-by-step overview of what is needed from you to unblock the agent**, with specific instructions and the exact command/information required.
+    3.  If a blocker is severe and cannot be resolved quickly, I will strategically shift agent focus to parallel tasks that are not blocked.
+*   **Monitoring:** I will actively monitor agent progress and logs for failures or successful completions.
 
 ---
 
-### Milestone 3.3: Launch Readiness (Day 7)
-**Objective:** Polish and prepare for real users
+## Credentials and Paths
 
-**Tasks:**
-1. **Bug Bash**
-   - Test every user flow
-   - Fix critical bugs
-   - Optimize performance (image loading, API caching)
-   
-2. **SEO & Landing Page**
-   - Write compelling landing page copy
-   - Add meta tags, Open Graph images
-   - Set up Google Analytics
-   
-3. **Launch Checklist**
-   - Privacy policy + Terms of Service
-   - Support email/chat
-   - Social media accounts (Twitter, Reddit for launch)
-   - Product Hunt submission draft
-   
-**Success Criteria:**
-- Website loads fast (<2s)
-- No critical bugs in main flows
-- Ready for public launch
-
-**Agent Assignment:** QA + Launch Agent (Gemini 3 Flash, 4-hour sprint)
+*   **Git PAT:** Stored in `/data/.openclaw/workspace/projects/kaza/config/api_keys.md`
+*   **Booking.com OAuth2 Token/Password:** Stored in `/data/.openclaw/workspace/projects/kaza/config/api_keys.md`
+*   **Hotelbeds API Key/Secret:** *Currently missing*. Will be needed in `api_keys.md` when the Hotelbeds fallback is considered.
+*   **Amadeus API Keys:** *Assumed missing for Kaza*. Agent for M1.1 will identify required keys and report if needed.
+*   **Kaza Project Root:** `/data/.openclaw/workspace/projects/kaza`
 
 ---
 
-## Success Metrics (Post-Launch)
+**Zack, this is the comprehensive 24-hour MVP plan for Kaza. Please review it.**
 
-**Week 1 Goals:**
-- 100 sign-ups
-- 10 completed itineraries
-- 1 paid subscriber
-
-**Month 1 Goals:**
-- 1,000 sign-ups
-- 100 completed itineraries
-- $500 revenue (affiliate + subscriptions)
-
-**Revenue Streams:**
-1. Affiliate commissions (flights, hotels, activities)
-2. Premium subscriptions ($9/mo)
-3. (Future) White-label for travel agents
-
----
-
-## Agent Orchestration Plan
-
-**How This Gets Executed:**
-1. Jackson (me) spawns specialized agents for each milestone
-2. Each agent works independently with clear deliverables
-3. Daily check-ins: What's done, what's blocked, what's next
-4. Handoffs: Backend → Frontend → Integration
-5. Testing after each milestone before moving forward
-
-**Agent Labels:**
-- `kaza-recommendations-agent` (Milestone 1.1)
-- `kaza-flights-agent` (Milestone 1.2)
-- `kaza-auth-agent` (Milestone 1.3)
-- `kaza-itinerary-agent` (Milestone 1.4)
-- `kaza-validation-agent` (Milestone 2.1)
-- `kaza-email-parser-agent` (Milestone 2.2)
-- `kaza-ai-planner-agent` (Milestone 2.3)
-- `kaza-monetization-agent` (Milestone 3.1)
-- `kaza-payments-agent` (Milestone 3.2)
-- `kaza-launch-agent` (Milestone 3.3)
-
-**Daily Workflow:**
-1. Morning: Review progress, spawn next agents
-2. Midday: Check on blocked agents, provide guidance
-3. Evening: Test completed work, update MEMORY.md
-4. Report to Zack: What's done, what's next, any blockers
-
----
-
-## Risk Management
-
-**Top Risks:**
-1. **Rate Limits:** Use multiple models (Gemini, Nexos fallbacks)
-2. **API Complexity:** Start simple, add features incrementally
-3. **Scope Creep:** Stick to MVP, defer "nice to haves"
-4. **Technical Debt:** Refactor after each phase, not at end
-
-**Mitigation:**
-- Each milestone is independently testable
-- If blocked, move to next parallel milestone
-- Daily documentation of decisions/learnings
-
----
-
-## Next Steps (Right Now)
-
-**Immediate Action (Today):**
-1. ✅ Get Zack's approval on this plan
-2. Spawn `kaza-recommendations-agent` to start Milestone 1.1
-3. Spawn `kaza-flights-agent` to start Milestone 1.2 (parallel)
-4. Deploy current itinerary UI to production (5-min task)
-
-**Tomorrow Morning Report:**
-- Status of Milestone 1.1 and 1.2
-- Demo video of working AI recommendations
-- Blockers/questions
-
----
-
-**Does this plan meet your expectations? Should I adjust priorities or add more detail anywhere?**
+**Once you approve this plan, I will immediately begin spawning the agents for Milestone 1.1 and 1.2 to kick off development.**
