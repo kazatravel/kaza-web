@@ -5,7 +5,14 @@ import OpenAI from 'openai';
 
 // We don't need Supabase admin client here anymore!
 // The user's browser will handle saving trips.
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({ 
+  apiKey: process.env.OPENROUTER_API_KEY || 'dummy_key_for_build', 
+  baseURL: 'https://openrouter.ai/api/v1',
+  defaultHeaders: {
+    "HTTP-Referer": "https://kaza.com",
+    "X-Title": "Kaza Travel"
+  }
+});
 
 // Cache for city codes to avoid hitting Amadeus repeatedly
 const cityCodeCache: Record<string, string> = {};
