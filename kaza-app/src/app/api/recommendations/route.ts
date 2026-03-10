@@ -118,7 +118,7 @@ export async function POST(request: Request) {
     
     The user wants NET NEW ideas based on:
     - Flying from: ${homeCity}
-    - Budget: $${budget}
+    - Total Trip Budget: $${budget} (this is the TOTAL budget for the entire ${tripLength || 7}-day trip, not daily)
     - Interests: ${interests || 'Any'}
     - Duration: ${tripLength || 7} days
 

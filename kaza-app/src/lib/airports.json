@@ -1,5 +1,251 @@
 [
   {
+    "iata": "ATL",
+    "name": "Hartsfield-Jackson Atlanta International Airport",
+    "city": "Atlanta",
+    "country": "United States"
+  },
+  {
+    "iata": "LAX",
+    "name": "Los Angeles International Airport",
+    "city": "Los Angeles",
+    "country": "United States"
+  },
+  {
+    "iata": "ORD",
+    "name": "O'Hare International Airport",
+    "city": "Chicago",
+    "country": "United States"
+  },
+  {
+    "iata": "DFW",
+    "name": "Dallas/Fort Worth International Airport",
+    "city": "Dallas",
+    "country": "United States"
+  },
+  {
+    "iata": "DEN",
+    "name": "Denver International Airport",
+    "city": "Denver",
+    "country": "United States"
+  },
+  {
+    "iata": "JFK",
+    "name": "John F. Kennedy International Airport",
+    "city": "New York",
+    "country": "United States"
+  },
+  {
+    "iata": "SFO",
+    "name": "San Francisco International Airport",
+    "city": "San Francisco",
+    "country": "United States"
+  },
+  {
+    "iata": "SEA",
+    "name": "Seattle-Tacoma International Airport",
+    "city": "Seattle",
+    "country": "United States"
+  },
+  {
+    "iata": "LAS",
+    "name": "Harry Reid International Airport",
+    "city": "Las Vegas",
+    "country": "United States"
+  },
+  {
+    "iata": "MCO",
+    "name": "Orlando International Airport",
+    "city": "Orlando",
+    "country": "United States"
+  },
+  {
+    "iata": "EWR",
+    "name": "Newark Liberty International Airport",
+    "city": "Newark",
+    "country": "United States"
+  },
+  {
+    "iata": "MIA",
+    "name": "Miami International Airport",
+    "city": "Miami",
+    "country": "United States"
+  },
+  {
+    "iata": "PHX",
+    "name": "Phoenix Sky Harbor International Airport",
+    "city": "Phoenix",
+    "country": "United States"
+  },
+  {
+    "iata": "IAH",
+    "name": "George Bush Intercontinental Airport",
+    "city": "Houston",
+    "country": "United States"
+  },
+  {
+    "iata": "BOS",
+    "name": "Boston Logan International Airport",
+    "city": "Boston",
+    "country": "United States"
+  },
+  {
+    "iata": "MSP",
+    "name": "Minneapolis-St Paul International Airport",
+    "city": "Minneapolis",
+    "country": "United States"
+  },
+  {
+    "iata": "DTW",
+    "name": "Detroit Metropolitan Wayne County Airport",
+    "city": "Detroit",
+    "country": "United States"
+  },
+  {
+    "iata": "PHL",
+    "name": "Philadelphia International Airport",
+    "city": "Philadelphia",
+    "country": "United States"
+  },
+  {
+    "iata": "LGA",
+    "name": "LaGuardia Airport",
+    "city": "New York",
+    "country": "United States"
+  },
+  {
+    "iata": "BWI",
+    "name": "Baltimore/Washington International Airport",
+    "city": "Baltimore",
+    "country": "United States"
+  },
+  {
+    "iata": "DCA",
+    "name": "Ronald Reagan Washington National Airport",
+    "city": "Washington DC",
+    "country": "United States"
+  },
+  {
+    "iata": "IAD",
+    "name": "Washington Dulles International Airport",
+    "city": "Washington DC",
+    "country": "United States"
+  },
+  {
+    "iata": "SAN",
+    "name": "San Diego International Airport",
+    "city": "San Diego",
+    "country": "United States"
+  },
+  {
+    "iata": "TPA",
+    "name": "Tampa International Airport",
+    "city": "Tampa",
+    "country": "United States"
+  },
+  {
+    "iata": "PDX",
+    "name": "Portland International Airport",
+    "city": "Portland",
+    "country": "United States"
+  },
+  {
+    "iata": "LHR",
+    "name": "London Heathrow Airport",
+    "city": "London",
+    "country": "United Kingdom"
+  },
+  {
+    "iata": "CDG",
+    "name": "Charles de Gaulle Airport",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "iata": "AMS",
+    "name": "Amsterdam Airport Schiphol",
+    "city": "Amsterdam",
+    "country": "Netherlands"
+  },
+  {
+    "iata": "FRA",
+    "name": "Frankfurt Airport",
+    "city": "Frankfurt",
+    "country": "Germany"
+  },
+  {
+    "iata": "MAD",
+    "name": "Adolfo Suárez Madrid–Barajas Airport",
+    "city": "Madrid",
+    "country": "Spain"
+  },
+  {
+    "iata": "BCN",
+    "name": "Barcelona-El Prat Airport",
+    "city": "Barcelona",
+    "country": "Spain"
+  },
+  {
+    "iata": "FCO",
+    "name": "Leonardo da Vinci-Fiumicino Airport",
+    "city": "Rome",
+    "country": "Italy"
+  },
+  {
+    "iata": "IST",
+    "name": "Istanbul Airport",
+    "city": "Istanbul",
+    "country": "Turkey"
+  },
+  {
+    "iata": "MUC",
+    "name": "Munich Airport",
+    "city": "Munich",
+    "country": "Germany"
+  },
+  {
+    "iata": "ZRH",
+    "name": "Zurich Airport",
+    "city": "Zurich",
+    "country": "Switzerland"
+  },
+  {
+    "iata": "NRT",
+    "name": "Narita International Airport",
+    "city": "Tokyo",
+    "country": "Japan"
+  },
+  {
+    "iata": "HND",
+    "name": "Tokyo Haneda Airport",
+    "city": "Tokyo",
+    "country": "Japan"
+  },
+  {
+    "iata": "SIN",
+    "name": "Singapore Changi Airport",
+    "city": "Singapore",
+    "country": "Singapore"
+  },
+  {
+    "iata": "HKG",
+    "name": "Hong Kong International Airport",
+    "city": "Hong Kong",
+    "country": "Hong Kong"
+  },
+  {
+    "iata": "ICN",
+    "name": "Incheon International Airport",
+    "city": "Seoul",
+    "country": "South Korea"
+  },
+  {
+    "iata": "MEL",
+    "name": "Melbourne Airport",
+    "city": "Melbourne",
+    "country": "Australia"
+  },
+  {
     "iata": "AZI",
     "name": "Al Bateen Executive Airport",
     "city": "Abu Dhabi",
@@ -133,8 +379,8 @@
   },
   {
     "iata": "KFZ",
-    "name": "Kuk\u00ebs International Airport",
-    "city": "Kuk\u00ebs",
+    "name": "Kukës International Airport",
+    "city": "Kukës",
     "country": "AL"
   },
   {
@@ -200,7 +446,7 @@
   {
     "iata": "NBJ",
     "name": "Dr. Antonio Agostinho Neto International Airport",
-    "city": "Luanda (\u00cdcolo e Bengo)",
+    "city": "Luanda (Ícolo e Bengo)",
     "country": "AO"
   },
   {
@@ -236,7 +482,7 @@
   {
     "iata": "MSZ",
     "name": "Welwitschia Mirabilis International Airport",
-    "city": "Mo\u00e7\u00e2medes",
+    "city": "Moçâmedes",
     "country": "AO"
   },
   {
@@ -290,7 +536,7 @@
   {
     "iata": "BHI",
     "name": "Comandante Espora Airport",
-    "city": "Bah\u00eda Blanca",
+    "city": "Bahía Blanca",
     "country": "AR"
   },
   {
@@ -355,8 +601,8 @@
   },
   {
     "iata": "EHL",
-    "name": "El Bols\u00f3n Airfield",
-    "city": "El Bols\u00f3n",
+    "name": "El Bolsón Airfield",
+    "city": "El Bolsón",
     "country": "AR"
   },
   {
@@ -421,13 +667,13 @@
   },
   {
     "iata": "LGS",
-    "name": "Comodoro D.R. Salom\u00f3n Airport",
+    "name": "Comodoro D.R. Salomón Airport",
     "city": "Malargue",
     "country": "AR"
   },
   {
     "iata": "MDQ",
-    "name": "\u00c1stor Piazzola International Airport",
+    "name": "Ástor Piazzola International Airport",
     "city": "Mar del Plata",
     "country": "AR"
   },
@@ -457,8 +703,8 @@
   },
   {
     "iata": "ORA",
-    "name": "Or\u00e1n Airport",
-    "city": "Or\u00e1n",
+    "name": "Orán Airport",
+    "city": "Orán",
     "country": "AR"
   },
   {
@@ -476,7 +722,7 @@
   {
     "iata": "PEH",
     "name": "Comodoro Pedro Zanni Airport",
-    "city": "Pehuaj\u00f3",
+    "city": "Pehuajó",
     "country": "AR"
   },
   {
@@ -499,7 +745,7 @@
   },
   {
     "iata": "IGR",
-    "name": "Cataratas Del Iguaz\u00fa International Airport",
+    "name": "Cataratas Del Iguazú International Airport",
     "city": "Puerto Iguazu",
     "country": "AR"
   },
@@ -547,13 +793,13 @@
   },
   {
     "iata": "RGL",
-    "name": "Piloto Civil N. Fern\u00e1ndez Airport",
+    "name": "Piloto Civil N. Fernández Airport",
     "city": "Rio Gallegos",
     "country": "AR"
   },
   {
     "iata": "RGA",
-    "name": "Gobernador Ram\u00f3n Trejo Noel International Airport",
+    "name": "Gobernador Ramón Trejo Noel International Airport",
     "city": "Rio Grande",
     "country": "AR"
   },
@@ -596,7 +842,7 @@
   {
     "iata": "TUC",
     "name": "Teniente Benjamin Matienzo Airport",
-    "city": "San Miguel de Tucum\u00e1n",
+    "city": "San Miguel de Tucumán",
     "country": "AR"
   },
   {
@@ -631,13 +877,13 @@
   },
   {
     "iata": "SDE",
-    "name": "Vicecomodoro Angel D. La Paz Aragon\u00e9s Airport",
+    "name": "Vicecomodoro Angel D. La Paz Aragonés Airport",
     "city": "Santiago del Estero",
     "country": "AR"
   },
   {
     "iata": "TDL",
-    "name": "H\u00e9roes de Malvinas Airport",
+    "name": "Héroes de Malvinas Airport",
     "city": "Tandil",
     "country": "AR"
   },
@@ -649,8 +895,8 @@
   },
   {
     "iata": "RHD",
-    "name": "Termas de R\u00edo Hondo international Airport",
-    "city": "Termas de R\u00edo Hondo",
+    "name": "Termas de Río Hondo international Airport",
+    "city": "Termas de Río Hondo",
     "country": "AR"
   },
   {
@@ -716,12 +962,12 @@
   {
     "iata": "KLU",
     "name": "Klagenfurt Airport",
-    "city": "Klagenfurt am W\u00f6rthersee",
+    "city": "Klagenfurt am Wörthersee",
     "country": "AT"
   },
   {
     "iata": "LNZ",
-    "name": "Linz-H\u00f6rsching Airport / Vogler Air Base",
+    "name": "Linz-Hörsching Airport / Vogler Air Base",
     "city": "Linz",
     "country": "AT"
   },
@@ -1615,8 +1861,8 @@
   },
   {
     "iata": "LGG",
-    "name": "Li\u00e8ge Airport",
-    "city": "Gr\u00e2ce-Hollogne",
+    "name": "Liège Airport",
+    "city": "Grâce-Hollogne",
     "country": "BE"
   },
   {
@@ -1705,7 +1951,7 @@
   },
   {
     "iata": "SBH",
-    "name": "Saint Barth\u00e9lemy - Gustaf III Airport",
+    "name": "Saint Barthélemy - Gustaf III Airport",
     "city": "Gustavia",
     "country": "BL"
   },
@@ -1729,7 +1975,7 @@
   },
   {
     "iata": "CIJ",
-    "name": "Capit\u00e1n An\u00edbal Arab Airport",
+    "name": "Capitán Aníbal Arab Airport",
     "city": "Cobija",
     "country": "BO"
   },
@@ -1741,8 +1987,8 @@
   },
   {
     "iata": "GYA",
-    "name": "Guayaramer\u00edn Airport",
-    "city": "Guayaramer\u00edn",
+    "name": "Guayaramerín Airport",
+    "city": "Guayaramerín",
     "country": "BO"
   },
   {
@@ -1760,18 +2006,18 @@
   {
     "iata": "POI",
     "name": "Capitan Nicolas Rojas Airport",
-    "city": "Potos\u00ed",
+    "city": "Potosí",
     "country": "BO"
   },
   {
     "iata": "PSZ",
-    "name": "Capit\u00e1n Av. Salvador Ogaya G. airport",
-    "city": "Puerto Su\u00e1rez",
+    "name": "Capitán Av. Salvador Ogaya G. airport",
+    "city": "Puerto Suárez",
     "country": "BO"
   },
   {
     "iata": "RIB",
-    "name": "Capit\u00e1n Av. Selin Zeitun Lopez Airport",
+    "name": "Capitán Av. Selin Zeitun Lopez Airport",
     "city": "Riberalta",
     "country": "BO"
   },
@@ -1807,19 +2053,19 @@
   },
   {
     "iata": "VLM",
-    "name": "Teniente Coronel Rafael Pab\u00f3n Airport",
+    "name": "Teniente Coronel Rafael Pabón Airport",
     "city": "Villamontes",
     "country": "BO"
   },
   {
     "iata": "BYC",
     "name": "Yacuiba Airport",
-    "city": "Yacu\u00edba",
+    "city": "Yacuíba",
     "country": "BO"
   },
   {
     "iata": "SRE",
-    "name": "Alcantar\u00ed Airport",
+    "name": "Alcantarí Airport",
     "city": "Yamparaez",
     "country": "BO"
   },
@@ -1843,7 +2089,7 @@
   },
   {
     "iata": "MEU",
-    "name": "Monte Dourado - Serra do Are\u00e3o Airport",
+    "name": "Monte Dourado - Serra do Areão Airport",
     "city": "Almeirim",
     "country": "BR"
   },
@@ -1867,14 +2113,14 @@
   },
   {
     "iata": "ARX",
-    "name": "Aracati Drag\u00e3o do Mar Regional Airport",
+    "name": "Aracati Dragão do Mar Regional Airport",
     "city": "Aracati",
     "country": "BR"
   },
   {
     "iata": "AUX",
-    "name": "Aragua\u00edna Airport",
-    "city": "Aragua\u00edna",
+    "name": "Araguaína Airport",
+    "city": "Araguaína",
     "country": "BR"
   },
   {
@@ -1886,25 +2132,25 @@
   {
     "iata": "AAX",
     "name": "Romeu Zema Airport",
-    "city": "Arax\u00e1",
+    "city": "Araxá",
     "country": "BR"
   },
   {
     "iata": "ARU",
-    "name": "Ara\u00e7atuba Airport",
-    "city": "Ara\u00e7atuba",
+    "name": "Araçatuba Airport",
+    "city": "Araçatuba",
     "country": "BR"
   },
   {
     "iata": "BGX",
     "name": "Comandante Gustavo Kraemer Airport",
-    "city": "Bag\u00e9",
+    "city": "Bagé",
     "country": "BR"
   },
   {
     "iata": "BPG",
-    "name": "Barra do Gar\u00e7as Airport",
-    "city": "Barra do Gar\u00e7as",
+    "name": "Barra do Garças Airport",
+    "city": "Barra do Garças",
     "country": "BR"
   },
   {
@@ -1915,7 +2161,7 @@
   },
   {
     "iata": "JTC",
-    "name": "Bauru/Arealva\u2013Moussa Nakhal Tobias State Airport",
+    "name": "Bauru/Arealva–Moussa Nakhal Tobias State Airport",
     "city": "Bauru",
     "country": "BR"
   },
@@ -1933,8 +2179,8 @@
   },
   {
     "iata": "BEL",
-    "name": "Val de Cans/J\u00falio Cezar Ribeiro International Airport",
-    "city": "Bel\u00e9m",
+    "name": "Val de Cans/Júlio Cezar Ribeiro International Airport",
+    "city": "Belém",
     "country": "BR"
   },
   {
@@ -1952,7 +2198,7 @@
   {
     "iata": "BSB",
     "name": "Presidente Juscelino Kubitschek International Airport",
-    "city": "Bras\u00edlia",
+    "city": "Brasília",
     "country": "BR"
   },
   {
@@ -1963,7 +2209,7 @@
   },
   {
     "iata": "CPV",
-    "name": "Presidente Jo\u00e3o Suassuna Airport",
+    "name": "Presidente João Suassuna Airport",
     "city": "Campina Grande",
     "country": "BR"
   },
@@ -2012,13 +2258,13 @@
   {
     "iata": "XAP",
     "name": "Serafin Enoss Bertaso Airport",
-    "city": "Chapec\u00f3",
+    "city": "Chapecó",
     "country": "BR"
   },
   {
     "iata": "CDJ",
-    "name": "Concei\u00e7\u00e3o do Araguaia Airport",
-    "city": "Concei\u00e7\u00e3o do Araguaia",
+    "name": "Conceição do Araguaia Airport",
+    "city": "Conceição do Araguaia",
     "country": "BR"
   },
   {
@@ -2029,14 +2275,14 @@
   },
   {
     "iata": "CMG",
-    "name": "Corumb\u00e1 International Airport",
-    "city": "Corumb\u00e1",
+    "name": "Corumbá International Airport",
+    "city": "Corumbá",
     "country": "BR"
   },
   {
     "iata": "CCM",
-    "name": "Forquilhinha - Crici\u00fama  Airport",
-    "city": "Crici\u00fama",
+    "name": "Forquilhinha - Criciúma  Airport",
+    "city": "Criciúma",
     "country": "BR"
   },
   {
@@ -2054,7 +2300,7 @@
   {
     "iata": "CGB",
     "name": "Marechal Rondon Airport",
-    "city": "Cuiab\u00e1",
+    "city": "Cuiabá",
     "country": "BR"
   },
   {
@@ -2077,8 +2323,8 @@
   },
   {
     "iata": "FLN",
-    "name": "Herc\u00edlio Luz International Airport",
-    "city": "Florian\u00f3polis",
+    "name": "Hercílio Luz International Airport",
+    "city": "Florianópolis",
     "country": "BR"
   },
   {
@@ -2090,13 +2336,13 @@
   {
     "iata": "IGU",
     "name": "Cataratas International Airport",
-    "city": "Foz do Igua\u00e7u",
+    "city": "Foz do Iguaçu",
     "country": "BR"
   },
   {
     "iata": "GYN",
     "name": "Santa Genoveva Airport",
-    "city": "Goi\u00e2nia",
+    "city": "Goiânia",
     "country": "BR"
   },
   {
@@ -2107,26 +2353,26 @@
   },
   {
     "iata": "GJM",
-    "name": "Guajar\u00e1-Mirim Airport",
-    "city": "Guajar\u00e1-Mirim",
+    "name": "Guajará-Mirim Airport",
+    "city": "Guajará-Mirim",
     "country": "BR"
   },
   {
     "iata": "GUJ",
     "name": "Edu Chaves Field",
-    "city": "Guaratinguet\u00e1",
+    "city": "Guaratinguetá",
     "country": "BR"
   },
   {
     "iata": "SSZ",
-    "name": "Santos Nero Moura Air Base / Guaruj\u00e1 Airport",
-    "city": "Guaruj\u00e1",
+    "name": "Santos Nero Moura Air Base / Guarujá Airport",
+    "city": "Guarujá",
     "country": "BR"
   },
   {
     "iata": "IOS",
     "name": "Bahia - Jorge Amado Airport",
-    "city": "Ilh\u00e9us",
+    "city": "Ilhéus",
     "country": "BR"
   },
   {
@@ -2168,7 +2414,7 @@
   {
     "iata": "JPA",
     "name": "Presidente Castro Pinto International Airport",
-    "city": "Jo\u00e3o Pessoa",
+    "city": "João Pessoa",
     "country": "BR"
   },
   {
@@ -2203,26 +2449,26 @@
   },
   {
     "iata": "LDB",
-    "name": "Governor Jos\u00e9 Richa Airport",
+    "name": "Governor José Richa Airport",
     "city": "Londrina",
     "country": "BR"
   },
   {
     "iata": "MCP",
-    "name": "Macap\u00e1 - Alberto Alcolumbre International Airport",
-    "city": "Macap\u00e1",
+    "name": "Macapá - Alberto Alcolumbre International Airport",
+    "city": "Macapá",
     "country": "BR"
   },
   {
     "iata": "MEA",
-    "name": "Maca\u00e9 Benedito Lacerda Airport",
-    "city": "Maca\u00e9",
+    "name": "Macaé Benedito Lacerda Airport",
+    "city": "Macaé",
     "country": "BR"
   },
   {
     "iata": "MCZ",
     "name": "Zumbi dos Palmares Airport",
-    "city": "Macei\u00f3",
+    "city": "Maceió",
     "country": "BR"
   },
   {
@@ -2239,49 +2485,49 @@
   },
   {
     "iata": "MNX",
-    "name": "Manicor\u00e9 Airport",
-    "city": "Manicor\u00e9",
+    "name": "Manicoré Airport",
+    "city": "Manicoré",
     "country": "BR"
   },
   {
     "iata": "MAB",
-    "name": "Jo\u00e3o Correa da Rocha Airport",
-    "city": "Marab\u00e1",
+    "name": "João Correa da Rocha Airport",
+    "city": "Marabá",
     "country": "BR"
   },
   {
     "iata": "MGF",
-    "name": "Regional de Maring\u00e1 - S\u00edlvio Name J\u00fanior Airport",
-    "city": "Maring\u00e1",
+    "name": "Regional de Maringá - Sílvio Name Júnior Airport",
+    "city": "Maringá",
     "country": "BR"
   },
   {
     "iata": "MII",
-    "name": "Frank Miloye Milenkowichi\u2013Mar\u00edlia State Airport",
-    "city": "Mar\u00edlia",
+    "name": "Frank Miloye Milenkowichi–Marília State Airport",
+    "city": "Marília",
     "country": "BR"
   },
   {
     "iata": "MQH",
-    "name": "Mina\u00e7u Airport",
-    "city": "Mina\u00e7u",
+    "name": "Minaçu Airport",
+    "city": "Minaçu",
     "country": "BR"
   },
   {
     "iata": "MOC",
-    "name": "M\u00e1rio Ribeiro Airport",
+    "name": "Mário Ribeiro Airport",
     "city": "Montes Claros",
     "country": "BR"
   },
   {
     "iata": "MVF",
     "name": "Dix-Sept Rosado Airport",
-    "city": "Mossor\u00f3",
+    "city": "Mossoró",
     "country": "BR"
   },
   {
     "iata": "NAT",
-    "name": "S\u00e3o Gon\u00e7alo do Amarante - Governador Alu\u00edzio Alves International Airport",
+    "name": "São Gonçalo do Amarante - Governador Aluízio Alves International Airport",
     "city": "Natal",
     "country": "BR"
   },
@@ -2300,7 +2546,7 @@
   {
     "iata": "TMT",
     "name": "Trombetas Airport",
-    "city": "Oriximin\u00e1",
+    "city": "Oriximiná",
     "country": "BR"
   },
   {
@@ -2311,14 +2557,14 @@
   },
   {
     "iata": "CKS",
-    "name": "Caraj\u00e1s Airport",
+    "name": "Carajás Airport",
     "city": "Parauapebas",
     "country": "BR"
   },
   {
     "iata": "PHB",
-    "name": "Parna\u00edba - Prefeito Doutor Jo\u00e3o Silva Filho International Airport",
-    "city": "Parna\u00edba",
+    "name": "Parnaíba - Prefeito Doutor João Silva Filho International Airport",
+    "city": "Parnaíba",
     "country": "BR"
   },
   {
@@ -2335,7 +2581,7 @@
   },
   {
     "iata": "PET",
-    "name": "Jo\u00e3o Sim\u00f5es Lopes Neto International Airport",
+    "name": "João Simões Lopes Neto International Airport",
     "city": "Pelotas",
     "country": "BR"
   },
@@ -2359,8 +2605,8 @@
   },
   {
     "iata": "PMG",
-    "name": "Ponta Por\u00e3 Airport",
-    "city": "Ponta Por\u00e3",
+    "name": "Ponta Porã Airport",
+    "city": "Ponta Porã",
     "country": "BR"
   },
   {
@@ -2395,8 +2641,8 @@
   },
   {
     "iata": "POO",
-    "name": "Po\u00e7os de Caldas - Embaixador Walther Moreira Salles Airport",
-    "city": "Po\u00e7os De Caldas",
+    "name": "Poços de Caldas - Embaixador Walther Moreira Salles Airport",
+    "city": "Poços De Caldas",
     "country": "BR"
   },
   {
@@ -2414,18 +2660,18 @@
   {
     "iata": "RAO",
     "name": "Leite Lopes Airport",
-    "city": "Ribeir\u00e3o Preto",
+    "city": "Ribeirão Preto",
     "country": "BR"
   },
   {
     "iata": "RBR",
-    "name": "Rio Branco-Pl\u00e1cido de Castro International Airport",
+    "name": "Rio Branco-Plácido de Castro International Airport",
     "city": "Rio Branco",
     "country": "BR"
   },
   {
     "iata": "GIG",
-    "name": "Rio Gale\u00e3o \u2013 Tom Jobim International Airport",
+    "name": "Rio Galeão – Tom Jobim International Airport",
     "city": "Rio De Janeiro",
     "country": "BR"
   },
@@ -2444,12 +2690,12 @@
   {
     "iata": "ROO",
     "name": "Maestro Marinho Franco Airport",
-    "city": "Rondon\u00f3polis",
+    "city": "Rondonópolis",
     "country": "BR"
   },
   {
     "iata": "SSA",
-    "name": "Deputado Luiz Eduardo Magalh\u00e3es International Airport",
+    "name": "Deputado Luiz Eduardo Magalhães International Airport",
     "city": "Salvador",
     "country": "BR"
   },
@@ -2461,14 +2707,14 @@
   },
   {
     "iata": "STM",
-    "name": "Santar\u00e9m - Maestro Wilson Fonseca International Airport",
-    "city": "Santar\u00e9m",
+    "name": "Santarém - Maestro Wilson Fonseca International Airport",
+    "city": "Santarém",
     "country": "BR"
   },
   {
     "iata": "GEL",
-    "name": "Santo \u00c2ngelo Airport",
-    "city": "Santo \u00c2ngelo",
+    "name": "Santo Ângelo Airport",
+    "city": "Santo Ângelo",
     "country": "BR"
   },
   {
@@ -2479,50 +2725,50 @@
   },
   {
     "iata": "SJL",
-    "name": "S\u00e3o Gabriel da Cachoeira Airport",
-    "city": "S\u00e3o Gabriel da Cachoeira",
+    "name": "São Gabriel da Cachoeira Airport",
+    "city": "São Gabriel da Cachoeira",
     "country": "BR"
   },
   {
     "iata": "SJK",
     "name": "Professor Urbano Ernesto Stumpf Airport",
-    "city": "S\u00e3o Jos\u00e9 Dos Campos",
+    "city": "São José Dos Campos",
     "country": "BR"
   },
   {
     "iata": "SJP",
     "name": "Prof. Eribelto Manoel Reino State Airport",
-    "city": "S\u00e3o Jos\u00e9 do Rio Preto",
+    "city": "São José do Rio Preto",
     "country": "BR"
   },
   {
     "iata": "SLZ",
     "name": "Marechal Cunha Machado International Airport",
-    "city": "S\u00e3o Lu\u00eds",
+    "city": "São Luís",
     "country": "BR"
   },
   {
     "iata": "RTE",
     "name": "Campo de Marte Airport",
-    "city": "S\u00e3o Paulo",
+    "city": "São Paulo",
     "country": "BR"
   },
   {
     "iata": "CGH",
     "name": "Congonhas Airport",
-    "city": "S\u00e3o Paulo",
+    "city": "São Paulo",
     "country": "BR"
   },
   {
     "iata": "GRU",
-    "name": "Guarulhos - Governador Andr\u00e9 Franco Montoro International Airport",
-    "city": "S\u00e3o Paulo",
+    "name": "Guarulhos - Governador André Franco Montoro International Airport",
+    "city": "São Paulo",
     "country": "BR"
   },
   {
     "iata": "JHF",
-    "name": "S\u00e3o Paulo Catarina Executive Airport",
-    "city": "S\u00e3o Roque",
+    "name": "São Paulo Catarina Executive Airport",
+    "city": "São Roque",
     "country": "BR"
   },
   {
@@ -2533,44 +2779,44 @@
   },
   {
     "iata": "TRQ",
-    "name": "Tarauac\u00e1 Airport",
-    "city": "Tarauac\u00e1",
+    "name": "Tarauacá Airport",
+    "city": "Tarauacá",
     "country": "BR"
   },
   {
     "iata": "TFF",
-    "name": "Tef\u00e9 Airport",
-    "city": "Tef\u00e9",
+    "name": "Tefé Airport",
+    "city": "Tefé",
     "country": "BR"
   },
   {
     "iata": "TEC",
-    "name": "Tel\u00eamaco Borba Airport",
-    "city": "Tel\u00eamaco Borba",
+    "name": "Telêmaco Borba Airport",
+    "city": "Telêmaco Borba",
     "country": "BR"
   },
   {
     "iata": "THE",
-    "name": "Senador Petr\u00f4nio Portela Airport",
+    "name": "Senador Petrônio Portela Airport",
     "city": "Teresina",
     "country": "BR"
   },
   {
     "iata": "TUR",
-    "name": "Tucuru\u00ed Airport",
-    "city": "Tucuru\u00ed",
+    "name": "Tucuruí Airport",
+    "city": "Tucuruí",
     "country": "BR"
   },
   {
     "iata": "UBA",
-    "name": "M\u00e1rio de Almeida Franco Airport",
+    "name": "Mário de Almeida Franco Airport",
     "city": "Uberaba",
     "country": "BR"
   },
   {
     "iata": "UDI",
-    "name": "Ten. Cel. Aviador C\u00e9sar Bombonato Airport",
-    "city": "Uberl\u00e2ndia",
+    "name": "Ten. Cel. Aviador César Bombonato Airport",
+    "city": "Uberlândia",
     "country": "BR"
   },
   {
@@ -2587,20 +2833,20 @@
   },
   {
     "iata": "BVH",
-    "name": "Brigadeiro Camar\u00e3o Airport",
+    "name": "Brigadeiro Camarão Airport",
     "city": "Vilhena",
     "country": "BR"
   },
   {
     "iata": "VIX",
     "name": "Eurico de Aguiar Salles Airport",
-    "city": "Vit\u00f3ria",
+    "city": "Vitória",
     "country": "BR"
   },
   {
     "iata": "VDC",
     "name": "Glauber de Andrade Rocha Airport",
-    "city": "Vit\u00f3ria da Conquista",
+    "city": "Vitória da Conquista",
     "country": "BR"
   },
   {

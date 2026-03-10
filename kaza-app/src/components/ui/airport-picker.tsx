@@ -71,7 +71,7 @@ export function AirportPicker({ value, onChange, className }: AirportPickerProps
       </div>
 
       {open && (
-        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover text-popover-foreground shadow-md">
+        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-background shadow-md">
           <div className="flex items-center border-b px-3 py-2">
             <Plane className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input

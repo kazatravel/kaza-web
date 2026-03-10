@@ -25,8 +25,7 @@ import {
 interface Destination {
   id: string;
   city: string;
-  checkIn: string;
-  checkOut: string;
+  days: number;
 }
 
 interface Flight {
@@ -79,8 +78,8 @@ export default function MultiDestinationPlanner() {
   const [origin, setOrigin] = useState('');
   const [travelers, setTravelers] = useState(2);
   const [destinations, setDestinations] = useState<Destination[]>([
-    { id: '1', city: '', checkIn: '', checkOut: '' },
-    { id: '2', city: '', checkIn: '', checkOut: '' },
+    { id: '1', city: '', days: 3 },
+    { id: '2', city: '', days: 3 },
   ]);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<TripResult | null>(null);
@@ -91,14 +90,12 @@ export default function MultiDestinationPlanner() {
       setError('Maximum 5 destinations allowed');
       return;
     }
-    const lastDest = destinations[destinations.length - 1];
     setDestinations([
       ...destinations,
       { 
         id: String(Date.now()), 
         city: '', 
-        checkIn: lastDest?.checkOut || '', 
-        checkOut: '' 
+        days: 3
       },
     ]);
     setError(null);
@@ -128,10 +125,10 @@ export default function MultiDestinationPlanner() {
     }
 
     const invalidDest = destinations.find(
-      (d) => !d.city || !d.checkIn || !d.checkOut
+      (d) => !d.city || !d.days || d.days < 1
     );
     if (invalidDest) {
-      setError('Please fill in all destination fields');
+      setError('Please fill in all destination fields with valid data');
       return;
     }
 
@@ -146,8 +143,7 @@ export default function MultiDestinationPlanner() {
           travelers,
           destinations: destinations.map((d) => ({
             city: d.city,
-            checkIn: d.checkIn,
-            checkOut: d.checkOut,
+            days: d.days,
           })),
         }),
       });
@@ -172,8 +168,8 @@ export default function MultiDestinationPlanner() {
     setOrigin('');
     setTravelers(2);
     setDestinations([
-      { id: '1', city: '', checkIn: '', checkOut: '' },
-      { id: '2', city: '', checkIn: '', checkOut: '' },
+      { id: '1', city: '', days: 3 },
+      { id: '2', city: '', days: 3 },
     ]);
   };
 
@@ -417,29 +413,18 @@ export default function MultiDestinationPlanner() {
                         />
                       </div>
 
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <Label className="text-sm text-gray-600 mb-1 flex items-center gap-1">
-                            <Calendar className="w-3 h-3" /> Check-in
-                          </Label>
-                          <Input
-                            type="date"
-                            value={dest.checkIn}
-                            onChange={(e) => updateDestination(dest.id, 'checkIn', e.target.value)}
-                            className="w-full"
-                          />
-                        </div>
-                        <div>
-                          <Label className="text-sm text-gray-600 mb-1 flex items-center gap-1">
-                            <Calendar className="w-3 h-3" /> Check-out
-                          </Label>
-                          <Input
-                            type="date"
-                            value={dest.checkOut}
-                            onChange={(e) => updateDestination(dest.id, 'checkOut', e.target.value)}
-                            className="w-full"
-                          />
-                        </div>
+                      <div>
+                        <Label className="text-sm text-gray-600 mb-1 flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> Number of Days
+                        </Label>
+                        <Input
+                          type="number"
+                          value={dest.days}
+                          onChange={(e) => updateDestination(dest.id, 'days', parseInt(e.target.value) || 1)}
+                          min={1}
+                          max={30}
+                          className="w-full"
+                        />
                       </div>
                     </div>
                   </div>

@@ -72,7 +72,8 @@ export default function Home() {
       setRecommendations(json);
       setError(null);
     } catch (err: any) {
-      setError(err.message);
+      console.error('Failed to fetch recommendations:', err);
+      setError(err.message || 'Failed to fetch recommendations. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -100,6 +101,19 @@ export default function Home() {
         {!recommendations ? (
           <div className="max-w-md mx-auto">
             <p className="text-gray-600 mb-6 text-center">Where are you flying from?</p>
+            
+            {error && (
+              <div className="mb-4 p-4 bg-red-50 border-2 border-red-500 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-sm">!</div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-red-900 mb-1">Error</h3>
+                    <p className="text-red-700 text-sm">{error}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="block">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -127,7 +141,7 @@ export default function Home() {
               </label>
 
               <label className="block">
-                <span className="block text-sm font-medium text-gray-700 mb-1">Budget ($ per person)</span>
+                <span className="block text-sm font-medium text-gray-700 mb-1">Total Trip Budget ($ per person)</span>
                 <input 
                   name="budget" 
                   type="number" 
@@ -228,12 +242,6 @@ export default function Home() {
                 </Card>
               ))}
             </div>
-          </div>
-        )}
-
-        {error && (
-          <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm text-center">
-            {error}
           </div>
         )}
       </div>

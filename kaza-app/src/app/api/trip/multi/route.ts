@@ -4,8 +4,7 @@ import { amadeusFetch } from '@/lib/amadeus';
 
 interface DestinationInput {
   city: string;
-  checkIn: string;
-  checkOut: string;
+  days: number;
   country?: string;
 }
 
@@ -85,12 +84,21 @@ export async function POST(req: Request) {
     const originCode = await getCityCode(b.origin);
     if (!originCode) return NextResponse.json({ error: 'Invalid origin' }, { status: 400 });
 
+    // Calculate dates: start 3 months from now, sequentially adding days
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() + 3);
+    let currentDate = new Date(startDate);
+
     const dests = [];
     for (const d of b.destinations) {
       const code = await getCityCode(d.city);
       if (!code) return NextResponse.json({ error: `Invalid: ${d.city}` }, { status: 400 });
-      const nights = Math.ceil((new Date(d.checkOut).getTime() - new Date(d.checkIn).getTime()) / 86400000);
-      dests.push({ city: d.city, cityCode: code, checkIn: d.checkIn, checkOut: d.checkOut, nights });
+      
+      const checkIn = currentDate.toISOString().split('T')[0];
+      currentDate.setDate(currentDate.getDate() + (d.days || 3));
+      const checkOut = currentDate.toISOString().split('T')[0];
+      
+      dests.push({ city: d.city, cityCode: code, checkIn, checkOut, nights: d.days || 3 });
     }
 
     const legs = [];
