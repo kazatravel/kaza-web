@@ -3,11 +3,13 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AirportPicker } from '@/components/ui/airport-picker';
+import { MoodChips } from '@/components/ui/mood-chips';
+import { ComparisonMatrix } from '@/components/ui/comparison-matrix';
 import { createClient } from '@supabase/supabase-js';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Plane, Hotel, DollarSign, MapPin, Loader2, RotateCcw, ArrowRight } from 'lucide-react';
+import { Plane, Hotel, DollarSign, MapPin, Loader2, RotateCcw, ArrowRight, Sparkles, Check } from 'lucide-react';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -37,8 +39,11 @@ export default function Home() {
   const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [origin, setOrigin] = useState('');
-  const [tripLength, setTripLength] = useState(7); // Default trip length
+  const [tripLength, setTripLength] = useState(7);
   const [budget, setBudget] = useState(2000);
+  const [selectedMoods, setSelectedMoods] = useState<string[]>([]);
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [showComparison, setShowComparison] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -48,13 +53,12 @@ export default function Home() {
     }
     
     setLoading(true);
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
-    
-    // Use the state value for origin (airport code)
-    data.homeCity = origin;
-    data.tripLength = tripLength;
-    data.budget = budget;
+    const data = {
+      homeCity: origin,
+      tripLength,
+      budget,
+      interests: selectedMoods.join(', '), // Convert mood chips to comma-separated interests
+    };
 
     try {
       const res = await fetch('/api/recommendations', {
@@ -80,9 +84,18 @@ export default function Home() {
   };
 
   const handleSelectTrip = async (destination: Recommendation) => {
-    // This will eventually pre-fill the multi-destination planner
-    // For now, it navigates to the multi-destination planner
     router.push('/plan/multi');
+  };
+
+  const toggleCompare = (id: string) => {
+    if (compareIds.includes(id)) {
+      setCompareIds(compareIds.filter(cid => cid !== id));
+    } else if (compareIds.length < 2) {
+      setCompareIds([...compareIds, id]);
+    } else {
+      // Replace the first one if already 2 selected
+      setCompareIds([compareIds[1], id]);
+    }
   };
 
   const formatCurrency = (amount: number) => {
@@ -94,154 +107,257 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
-      <div className="w-full max-w-6xl bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">KAZA Trip Planner</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
+      <div className="max-w-7xl mx-auto p-6 md:p-8">
+        {/* Header */}
+        <div className="text-center mb-12 mt-8">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+            KAZA Discovery Engine
+          </h1>
+          <p className="text-gray-400 text-lg">Your AI-powered travel companion</p>
+        </div>
         
         {!recommendations ? (
-          <div className="max-w-md mx-auto">
-            <p className="text-gray-600 mb-6 text-center">Where are you flying from?</p>
-            
+          <div className="max-w-2xl mx-auto">
             {error && (
-              <div className="mb-4 p-4 bg-red-50 border-2 border-red-500 rounded-lg">
+              <div className="mb-6 p-4 bg-red-900/30 border-2 border-red-500 rounded-xl backdrop-blur-sm">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-sm">!</div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-red-900 mb-1">Error</h3>
-                    <p className="text-red-700 text-sm">{error}</p>
+                    <h3 className="font-bold text-red-400 mb-1">Error</h3>
+                    <p className="text-red-300 text-sm">{error}</p>
                   </div>
                 </div>
               </div>
             )}
             
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="block">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Departure Airport (Required)
+            {/* Discovery Form */}
+            <form onSubmit={handleSubmit} className="space-y-6 bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 shadow-2xl">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-200">
+                  Where are you flying from?
                 </label>
                 <AirportPicker 
                   value={origin} 
                   onChange={setOrigin} 
-                  className="w-full"
+                  className="w-full bg-gray-800 border-gray-700 text-white"
                 />
               </div>
 
-              <label className="block">
-                <span className="block text-sm font-medium text-gray-700 mb-1">Trip Length (days)</span>
-                <input 
-                  name="tripLength" 
-                  type="number" 
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  value={tripLength}
-                  onChange={(e) => setTripLength(parseInt(e.target.value) || 1)}
-                  min={1}
-                  required 
-                />
-              </label>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-200">
+                    Trip Length (days)
+                  </label>
+                  <input 
+                    name="tripLength" 
+                    type="number" 
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400
+                    focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+                    value={tripLength}
+                    onChange={(e) => setTripLength(parseInt(e.target.value) || 1)}
+                    min={1}
+                    required 
+                  />
+                </div>
 
-              <label className="block">
-                <span className="block text-sm font-medium text-gray-700 mb-1">Total Trip Budget ($ per person)</span>
-                <input 
-                  name="budget" 
-                  type="number" 
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  value={budget}
-                  onChange={(e) => setBudget(parseInt(e.target.value) || 0)}
-                  min={0}
-                  required 
-                />
-              </label>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-200">
+                    Budget ($ per person)
+                  </label>
+                  <input 
+                    name="budget" 
+                    type="number" 
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400
+                    focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+                    value={budget}
+                    onChange={(e) => setBudget(parseInt(e.target.value) || 0)}
+                    min={0}
+                    required 
+                  />
+                </div>
+              </div>
 
-              <label className="block">
-                <span className="block text-sm font-medium text-gray-700 mb-1">Interests (comma separated)</span>
-                <input 
-                  name="interests" 
-                  type="text" 
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  placeholder="Beach, Hiking, Food, History"
-                />
-              </label>
+              {/* Mood Chips */}
+              <MoodChips selectedMoods={selectedMoods} onChange={setSelectedMoods} />
 
               <button 
                 type="submit" 
-                className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
+                className={`w-full flex justify-center items-center gap-2 py-4 px-6 rounded-xl text-base font-semibold
+                bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500
+                text-white shadow-lg shadow-purple-500/50 transition-all duration-200 transform hover:scale-[1.02]
+                ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
                 disabled={loading}
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Finding Perfect Trips...
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Discovering Your Perfect Trips...
                   </>
                 ) : (
-                  'Plan My Trip'
+                  <>
+                    <Sparkles className="w-5 h-5" />
+                    Discover My Perfect Trip
+                  </>
                 )}
               </button>
 
               <Button 
+                type="button"
                 variant="outline" 
                 onClick={() => router.push('/plan/multi')}
-                className="w-full gap-2 mt-4"
+                className="w-full gap-2 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white py-6"
               >
-                <ArrowRight className="w-4 h-4" /> Go to Multi-Destination Planner
+                <ArrowRight className="w-4 h-4" /> Skip to Multi-Destination Planner
               </Button>
             </form>
           </div>
         ) : (
           <div>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">Recommended Destinations</h2>
-              <Button 
-                onClick={() => setRecommendations(null)}
-                variant="outline"
-                className="gap-2"
-              >
-                <RotateCcw className="w-4 h-4" /> Start Over
-              </Button>
+            {/* Results Header */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+              <div>
+                <h2 className="text-3xl font-bold">Your Perfect Destinations</h2>
+                <p className="text-gray-400 mt-1">Handpicked by AI just for you</p>
+              </div>
+              <div className="flex gap-3">
+                {compareIds.length === 2 && (
+                  <Button 
+                    onClick={() => setShowComparison(true)}
+                    className="gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500"
+                  >
+                    <Check className="w-4 h-4" /> Compare Selected ({compareIds.length})
+                  </Button>
+                )}
+                <Button 
+                  onClick={() => {
+                    setRecommendations(null);
+                    setCompareIds([]);
+                    setShowComparison(false);
+                  }}
+                  variant="outline"
+                  className="gap-2 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
+                >
+                  <RotateCcw className="w-4 h-4" /> Start Over
+                </Button>
+              </div>
             </div>
             
+            {/* Bento Box Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recommendations.map((dest: Recommendation) => (
-                <Card key={dest.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
-                  {dest.imageUrl && (
-                    <img src={dest.imageUrl} alt={dest.destination} className="w-full h-48 object-cover" />
-                  )}
-                  <CardHeader>
-                    <CardTitle className="text-xl font-bold">{dest.destination}, {dest.country}</CardTitle>
-                    <Badge variant="secondary" className="w-fit">{dest.type}</Badge>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-gray-700 text-sm line-clamp-3">{dest.description}</p>
-                    <p className="text-sm text-gray-600">**Why this trip?** {dest.why}</p>
-                    
-                    <div className="space-y-2 text-sm border-t pt-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-500 flex items-center gap-1"><Plane className="w-3 h-3"/> Flight ({origin}):</span>
-                        <span className="font-medium">{dest.flightPrice ? formatCurrency(dest.flightPrice) : 'N/A'}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-500 flex items-center gap-1"><Hotel className="w-3 h-3"/> Hotel (Total for {tripLength} days):</span>
-                        <span className="font-medium">{formatCurrency(dest.hotelEstimate)}</span>
-                      </div>
-                      <div className="flex justify-between border-t pt-2 mt-2">
-                        <span className="font-bold">Total Estimate:</span>
-                        <span className="font-bold text-green-600">{formatCurrency(dest.totalEstimate)}</span>
+              {recommendations.map((dest: Recommendation) => {
+                const isSelected = compareIds.includes(dest.id);
+                return (
+                  <Card 
+                    key={dest.id} 
+                    className={`group overflow-hidden bg-gray-900/50 backdrop-blur-sm border-2 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] ${
+                      isSelected ? 'border-green-500 shadow-lg shadow-green-500/30' : 'border-gray-800 hover:border-purple-500/50'
+                    }`}
+                  >
+                    {/* Hero Image with Overlay */}
+                    <div className="relative h-56 overflow-hidden">
+                      {dest.imageUrl && (
+                        <img 
+                          src={dest.imageUrl} 
+                          alt={dest.destination} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+                      
+                      {/* Type Badge */}
+                      <Badge className="absolute top-3 left-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white border-0 shadow-lg">
+                        {dest.type}
+                      </Badge>
+
+                      {/* Compare Checkbox */}
+                      <button
+                        onClick={() => toggleCompare(dest.id)}
+                        className={`absolute top-3 right-3 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${
+                          isSelected 
+                            ? 'bg-green-500 border-green-400 shadow-lg shadow-green-500/50' 
+                            : 'bg-gray-900/80 border-gray-600 hover:border-green-500'
+                        }`}
+                      >
+                        {isSelected && <Check className="w-4 h-4 text-white" />}
+                      </button>
+
+                      {/* Destination Name Overlay */}
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <h3 className="text-2xl font-bold text-white drop-shadow-lg">{dest.destination}</h3>
+                        <p className="text-gray-200 text-sm drop-shadow">{dest.country}</p>
                       </div>
                     </div>
-                    
-                    <Button
-                      onClick={() => handleSelectTrip(dest)}
-                      className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors gap-2"
-                      disabled={loading}
-                    >
-                      <MapPin className="w-4 h-4"/> Plan This Trip
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+
+                    <CardContent className="p-5 space-y-4">
+                      {/* AI Why Section - Premium Highlight */}
+                      <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/30 rounded-lg p-4">
+                        <div className="flex items-start gap-2 mb-2">
+                          <Sparkles className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
+                          <p className="text-xs font-semibold text-purple-300 uppercase tracking-wide">Why this fits your vibe</p>
+                        </div>
+                        <p className="text-sm text-gray-200 leading-relaxed">{dest.why}</p>
+                      </div>
+
+                      {/* Price Breakdown */}
+                      <div className="space-y-2 text-sm bg-gray-800/50 rounded-lg p-4">
+                        <div className="flex justify-between items-center text-gray-300">
+                          <span className="flex items-center gap-2">
+                            <Plane className="w-4 h-4 text-blue-400"/> Flight
+                          </span>
+                          <span className="font-medium text-white">
+                            {dest.flightPrice ? formatCurrency(dest.flightPrice) : 'N/A'}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-300">
+                          <span className="flex items-center gap-2">
+                            <Hotel className="w-4 h-4 text-purple-400"/> Hotel ({tripLength}d)
+                          </span>
+                          <span className="font-medium text-white">
+                            {formatCurrency(dest.hotelEstimate)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center border-t border-gray-700 pt-2 mt-2">
+                          <span className="font-bold text-gray-200">Total</span>
+                          <span className="text-xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 text-transparent bg-clip-text">
+                            {formatCurrency(dest.totalEstimate)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Quick Highlights */}
+                      {dest.highlights && dest.highlights.length > 0 && (
+                        <div className="space-y-1">
+                          {dest.highlights.slice(0, 3).map((highlight, i) => (
+                            <div key={i} className="flex items-start gap-2 text-xs text-gray-400">
+                              <Check className="w-3 h-3 text-green-400 mt-0.5 flex-shrink-0" />
+                              <span>{highlight}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* CTA Button */}
+                      <Button
+                        onClick={() => handleSelectTrip(dest)}
+                        className="w-full py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold shadow-lg transition-all duration-200 gap-2"
+                      >
+                        <MapPin className="w-4 h-4"/> Plan This Trip
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
+
+            {/* Comparison Matrix Modal */}
+            {showComparison && recommendations && (
+              <ComparisonMatrix 
+                destinations={recommendations}
+                selectedIds={compareIds}
+                onClose={() => setShowComparison(false)}
+              />
+            )}
           </div>
         )}
       </div>
