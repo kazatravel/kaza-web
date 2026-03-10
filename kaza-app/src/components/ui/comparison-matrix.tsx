@@ -6,6 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { X, Check, Minus, Plane, Hotel, DollarSign, MapPin } from 'lucide-react';
 
+interface DayItinerary {
+  day: number;
+  title: string;
+  morning: string;
+  afternoon: string;
+  evening: string;
+}
+
 interface Recommendation {
   id: string;
   destination: string;
@@ -20,6 +28,7 @@ interface Recommendation {
   hotelEstimate: number;
   totalEstimate: number;
   imageUrl: string;
+  dailyItinerary: DayItinerary[];
 }
 
 interface ComparisonMatrixProps {
@@ -171,7 +180,7 @@ export function ComparisonMatrix({ destinations, selectedIds, onClose }: Compari
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 py-4">
+            <div className="grid grid-cols-3 gap-4 py-4 border-b border-gray-700">
               <div className="text-sm font-medium text-gray-400">Top Activities</div>
               <div className="space-y-1">
                 {dest1.activities?.slice(0, 5).map((a, i) => (
@@ -190,6 +199,31 @@ export function ComparisonMatrix({ destinations, selectedIds, onClose }: Compari
                 ))}
               </div>
             </div>
+
+            {/* Daily Itinerary Preview */}
+            {dest1.dailyItinerary?.length > 0 && dest2.dailyItinerary?.length > 0 && (
+              <div className="grid grid-cols-3 gap-4 py-4">
+                <div className="text-sm font-medium text-gray-400">Sample Days</div>
+                <div className="space-y-2">
+                  {dest1.dailyItinerary.slice(0, 2).map((day) => (
+                    <div key={day.day} className="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
+                      <div className="font-semibold text-purple-400 text-xs mb-1">Day {day.day}</div>
+                      <div className="text-sm text-gray-300 font-medium mb-1">{day.title}</div>
+                      <div className="text-xs text-gray-400 line-clamp-2">{day.morning}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-2">
+                  {dest2.dailyItinerary.slice(0, 2).map((day) => (
+                    <div key={day.day} className="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
+                      <div className="font-semibold text-purple-400 text-xs mb-1">Day {day.day}</div>
+                      <div className="text-sm text-gray-300 font-medium mb-1">{day.title}</div>
+                      <div className="text-xs text-gray-400 line-clamp-2">{day.morning}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -17,6 +17,14 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+interface DayItinerary {
+  day: number;
+  title: string;
+  morning: string;
+  afternoon: string;
+  evening: string;
+}
+
 interface Recommendation {
   id: string;
   destination: string;
@@ -31,6 +39,7 @@ interface Recommendation {
   hotelEstimate: number;
   totalEstimate: number;
   imageUrl: string;
+  dailyItinerary: DayItinerary[];
 }
 
 export default function Home() {
@@ -44,6 +53,7 @@ export default function Home() {
   const [selectedMoods, setSelectedMoods] = useState<string[]>([]);
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [showComparison, setShowComparison] = useState(false);
+  const [selectedItinerary, setSelectedItinerary] = useState<Recommendation | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -337,7 +347,16 @@ export default function Home() {
                         </div>
                       )}
 
-                      {/* CTA Button */}
+                      {/* CTA Buttons */}
+                      {dest.dailyItinerary && dest.dailyItinerary.length > 0 && (
+                        <Button
+                          onClick={() => setSelectedItinerary(dest)}
+                          variant="outline"
+                          className="w-full py-3 border-2 border-purple-500/50 text-purple-300 hover:bg-purple-900/30 hover:border-purple-400 font-semibold transition-all duration-200 gap-2"
+                        >
+                          <Sparkles className="w-4 h-4"/> View Day-by-Day Itinerary
+                        </Button>
+                      )}
                       <Button
                         onClick={() => handleSelectTrip(dest)}
                         className="w-full py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold shadow-lg transition-all duration-200 gap-2"
@@ -357,6 +376,88 @@ export default function Home() {
                 selectedIds={compareIds}
                 onClose={() => setShowComparison(false)}
               />
+            )}
+
+            {/* Day-by-Day Itinerary Modal */}
+            {selectedItinerary && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+                <div className="relative w-full max-w-4xl max-h-[90vh] overflow-auto bg-gray-900 border-2 border-purple-500/50 rounded-2xl shadow-2xl shadow-purple-500/20">
+                  {/* Header */}
+                  <div className="sticky top-0 z-10 bg-gradient-to-r from-purple-900 to-blue-900 p-6 border-b border-purple-500/30">
+                    <div className="flex justify-between items-start gap-4">
+                      <div>
+                        <h2 className="text-3xl font-bold text-white mb-2">
+                          {selectedItinerary.destination}, {selectedItinerary.country}
+                        </h2>
+                        <p className="text-purple-200 flex items-center gap-2">
+                          <Sparkles className="w-4 h-4"/> Your {tripLength}-Day Adventure
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setSelectedItinerary(null)}
+                        className="text-gray-300 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+                      >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Itinerary Content */}
+                  <div className="p-6 space-y-6">
+                    {selectedItinerary.dailyItinerary.map((day) => (
+                      <div key={day.day} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-purple-500/30 transition-all">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                            {day.day}
+                          </div>
+                          <h3 className="text-2xl font-bold text-white">{day.title}</h3>
+                        </div>
+                        
+                        <div className="space-y-4 ml-15">
+                          {/* Morning */}
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0 w-20 text-sm font-semibold text-amber-400 uppercase tracking-wide">
+                              Morning
+                            </div>
+                            <p className="text-gray-300 leading-relaxed flex-1">{day.morning}</p>
+                          </div>
+                          
+                          {/* Afternoon */}
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0 w-20 text-sm font-semibold text-orange-400 uppercase tracking-wide">
+                              Afternoon
+                            </div>
+                            <p className="text-gray-300 leading-relaxed flex-1">{day.afternoon}</p>
+                          </div>
+                          
+                          {/* Evening */}
+                          <div className="flex gap-3">
+                            <div className="flex-shrink-0 w-20 text-sm font-semibold text-indigo-400 uppercase tracking-wide">
+                              Evening
+                            </div>
+                            <p className="text-gray-300 leading-relaxed flex-1">{day.evening}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Footer CTA */}
+                  <div className="sticky bottom-0 bg-gray-900 border-t border-gray-800 p-6">
+                    <Button
+                      onClick={() => {
+                        setSelectedItinerary(null);
+                        handleSelectTrip(selectedItinerary);
+                      }}
+                      className="w-full py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-lg font-semibold shadow-lg gap-2"
+                    >
+                      <MapPin className="w-5 h-5"/> Book This {tripLength}-Day Adventure
+                    </Button>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         )}

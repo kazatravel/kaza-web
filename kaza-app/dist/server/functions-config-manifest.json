@@ -1,1 +1,1 @@
-{"version":1,"functions":{"/api/itinerary/compare":{},"/api/hotels":{},"/api/trip":{},"/api/hotels/search":{},"/api/recommendations":{},"/api/trips":{},"/api/trip/multi":{}}}
+{"version":1,"functions":{"/api/hotels/search":{},"/api/itinerary/compare":{},"/api/trip":{},"/api/hotels":{},"/api/trip/multi":{},"/api/recommendations":{},"/api/trips":{}}}

@@ -131,6 +131,12 @@ export async function POST(request: Request) {
     - **highlights**: 2-3 key spots.
     - **activities**: 2-3 activities matching '${interests}'.
     - **iata_code**: The 3-letter IATA airport code (Critical).
+    - **daily_itinerary**: An array of ${tripLength || 7} day objects, each with:
+      - **day**: Day number (1, 2, 3, etc.)
+      - **title**: A catchy title for the day (e.g., "Exploring Historic Paris")
+      - **morning**: Detailed morning activities (2-3 sentences)
+      - **afternoon**: Detailed afternoon activities (2-3 sentences)
+      - **evening**: Detailed evening activities (2-3 sentences)
 
     Format output as a JSON ARRAY of objects. No other text.`;
 
@@ -190,7 +196,8 @@ export async function POST(request: Request) {
         type: dest.type,
         highlights: dest.highlights,
         activities: dest.activities,
-        imageUrl: `https://source.unsplash.com/800x600/?${encodeURIComponent(dest.destination + ' travel')}` 
+        imageUrl: `https://picsum.photos/seed/${encodeURIComponent(dest.destination)}/800/600`,
+        dailyItinerary: dest.daily_itinerary || [] 
       };
     }));
 

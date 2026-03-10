@@ -75,7 +75,7 @@ export function AirportPicker({ value, onChange, className }: AirportPickerProps
           <div className="flex items-center border-b px-3 py-2">
             <Plane className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
-              className="flex h-6 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-6 w-full rounded-md bg-transparent py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
               placeholder="Search city or code..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
