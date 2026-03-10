@@ -1,85 +1,242 @@
-import Link from 'next/link';
-import { Plane, ArrowRight, MapPin, Calendar, Compass } from 'lucide-react';
+'use client';
+
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { AirportPicker } from '@/components/ui/airport-picker';
+import { createClient } from '@supabase/supabase-js';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Plane, Hotel, DollarSign, MapPin, Loader2, RotateCcw, ArrowRight } from 'lucide-react';
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+interface Recommendation {
+  id: string;
+  destination: string;
+  country: string;
+  description: string;
+  why: string;
+  type: string;
+  highlights: string[];
+  activities: string[];
+  flightPrice: number | null;
+  hotelPricePerNight: number | null;
+  hotelEstimate: number;
+  totalEstimate: number;
+  imageUrl: string;
+}
 
 export default function Home() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [origin, setOrigin] = useState('');
+  const [tripLength, setTripLength] = useState(7); // Default trip length
+  const [budget, setBudget] = useState(2000);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!origin) {
+      setError('Please select a valid airport from the list');
+      return;
+    }
+    
+    setLoading(true);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+    
+    // Use the state value for origin (airport code)
+    data.homeCity = origin;
+    data.tripLength = tripLength;
+    data.budget = budget;
+
+    try {
+      const res = await fetch('/api/recommendations', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Failed to get recommendations');
+      }
+      
+      const json = await res.json();
+      setRecommendations(json);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectTrip = async (destination: Recommendation) => {
+    // This will eventually pre-fill the multi-destination planner
+    // For now, it navigates to the multi-destination planner
+    router.push('/plan/multi');
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+    }).format(amount);
+  };
+
   return (
-    <main className="flex flex-col items-center">
-      {/* Hero Section */}
-      <section className="relative w-full py-20 md:py-32 overflow-hidden bg-white">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-          <div className="absolute top-0 right-10 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-80 h-80 bg-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50/50 px-3 py-1 text-sm font-medium text-indigo-700 mb-8">
-            <span className="flex h-2 w-2 rounded-full bg-indigo-600 mr-2"></span>
-            Introducing Kaza v1.0
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">
-            Your journey, <span className="text-indigo-600">reimagined.</span>
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg md:text-xl text-gray-600 mb-10 leading-relaxed">
-            Stop juggling spreadsheets and tabs. Kaza uses AI to craft personalized itineraries that match your unique travel style.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/search" 
-              className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all hover:scale-105 active:scale-95 group"
-            >
-              Start Planning
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link 
-              href="/itinerary/demo" 
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-lg font-semibold text-gray-900 border border-gray-200 hover:bg-gray-50 transition-all active:scale-95"
-            >
-              View Demo
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="w-full py-20 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900">Why choose Kaza?</h2>
-            <p className="mt-4 text-gray-600">The modern way to plan your next adventure.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Smart Search',
-                desc: 'Find the best hotels and activities with our integrated discovery engine.',
-                icon: MapPin,
-                color: 'bg-blue-50 text-blue-600'
-              },
-              {
-                title: 'Dynamic Builder',
-                desc: 'Drag and drop your way to a perfect schedule with our intuitive interface.',
-                icon: Calendar,
-                color: 'bg-green-50 text-green-600'
-              },
-              {
-                title: 'Local Insights',
-                desc: 'Get curated recommendations from travel experts and locals alike.',
-                icon: Compass,
-                color: 'bg-orange-50 text-orange-600'
-              }
-            ].map((feature, i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-6`}>
-                  <feature.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
+      <div className="w-full max-w-6xl bg-white p-8 rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">KAZA Trip Planner</h1>
+        
+        {!recommendations ? (
+          <div className="max-w-md mx-auto">
+            <p className="text-gray-600 mb-6 text-center">Where are you flying from?</p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="block">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Departure Airport (Required)
+                </label>
+                <AirportPicker 
+                  value={origin} 
+                  onChange={setOrigin} 
+                  className="w-full"
+                />
               </div>
-            ))}
+
+              <label className="block">
+                <span className="block text-sm font-medium text-gray-700 mb-1">Trip Length (days)</span>
+                <input 
+                  name="tripLength" 
+                  type="number" 
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={tripLength}
+                  onChange={(e) => setTripLength(parseInt(e.target.value) || 1)}
+                  min={1}
+                  required 
+                />
+              </label>
+
+              <label className="block">
+                <span className="block text-sm font-medium text-gray-700 mb-1">Budget ($ per person)</span>
+                <input 
+                  name="budget" 
+                  type="number" 
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  value={budget}
+                  onChange={(e) => setBudget(parseInt(e.target.value) || 0)}
+                  min={0}
+                  required 
+                />
+              </label>
+
+              <label className="block">
+                <span className="block text-sm font-medium text-gray-700 mb-1">Interests (comma separated)</span>
+                <input 
+                  name="interests" 
+                  type="text" 
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  placeholder="Beach, Hiking, Food, History"
+                />
+              </label>
+
+              <button 
+                type="submit" 
+                className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Finding Perfect Trips...
+                  </>
+                ) : (
+                  'Plan My Trip'
+                )}
+              </button>
+
+              <Button 
+                variant="outline" 
+                onClick={() => router.push('/plan/multi')}
+                className="w-full gap-2 mt-4"
+              >
+                <ArrowRight className="w-4 h-4" /> Go to Multi-Destination Planner
+              </Button>
+            </form>
           </div>
-        </div>
-      </section>
-    </main>
+        ) : (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Recommended Destinations</h2>
+              <Button 
+                onClick={() => setRecommendations(null)}
+                variant="outline"
+                className="gap-2"
+              >
+                <RotateCcw className="w-4 h-4" /> Start Over
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recommendations.map((dest: Recommendation) => (
+                <Card key={dest.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                  {dest.imageUrl && (
+                    <img src={dest.imageUrl} alt={dest.destination} className="w-full h-48 object-cover" />
+                  )}
+                  <CardHeader>
+                    <CardTitle className="text-xl font-bold">{dest.destination}, {dest.country}</CardTitle>
+                    <Badge variant="secondary" className="w-fit">{dest.type}</Badge>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-gray-700 text-sm line-clamp-3">{dest.description}</p>
+                    <p className="text-sm text-gray-600">**Why this trip?** {dest.why}</p>
+                    
+                    <div className="space-y-2 text-sm border-t pt-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-500 flex items-center gap-1"><Plane className="w-3 h-3"/> Flight ({origin}):</span>
+                        <span className="font-medium">{dest.flightPrice ? formatCurrency(dest.flightPrice) : 'N/A'}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-500 flex items-center gap-1"><Hotel className="w-3 h-3"/> Hotel (Total for {tripLength} days):</span>
+                        <span className="font-medium">{formatCurrency(dest.hotelEstimate)}</span>
+                      </div>
+                      <div className="flex justify-between border-t pt-2 mt-2">
+                        <span className="font-bold">Total Estimate:</span>
+                        <span className="font-bold text-green-600">{formatCurrency(dest.totalEstimate)}</span>
+                      </div>
+                    </div>
+                    
+                    <Button
+                      onClick={() => handleSelectTrip(dest)}
+                      className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors gap-2"
+                      disabled={loading}
+                    >
+                      <MapPin className="w-4 h-4"/> Plan This Trip
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {error && (
+          <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm text-center">
+            {error}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

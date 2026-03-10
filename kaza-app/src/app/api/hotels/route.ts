@@ -1,121 +1,232 @@
-import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = "force-dynamic";
+import { NextResponse } from 'next/server';
+import { amadeusFetch } from '@/lib/amadeus';
 
-const AMADEUS_CLIENT_ID = '0r445UZCxjMLRrO1G8cG2vSOTJoITbEx';
-const AMADEUS_CLIENT_SECRET = '4NnPDB8ed1rGNhBn';
+/**
+ * Hotel Search API Endpoint
+ * 
+ * GET /api/hotels
+ * Query params:
+ *   - destination: city name or IATA code (required)
+ *   - checkIn: YYYY-MM-DD (required)
+ *   - checkOut: YYYY-MM-DD (required)
+ *   - adults: number of adults (default: 2)
+ * 
+ * Returns: Array of hotels with name, address, price, rating, image, amenities
+ */
 
-async function getAmadeusToken() {
-  const response = await fetch('https://test.api.amadeus.com/v1/security/oauth2/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `grant_type=client_credentials&client_id=${AMADEUS_CLIENT_ID}&client_secret=${AMADEUS_CLIENT_SECRET}`,
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch Amadeus token');
+// Helper function to convert city name to IATA code if needed
+async function getCityCode(destination: string): Promise<string> {
+  // If already a 3-letter IATA code, return it
+  if (/^[A-Z]{3}$/i.test(destination)) {
+    return destination.toUpperCase();
   }
 
-  const data = await response.json();
-  return data.access_token;
+  // Search for the city using Amadeus location API
+  try {
+    const locations = await amadeusFetch('/v1/reference-data/locations', {
+      keyword: destination,
+      subType: 'CITY',
+    });
+
+    if (locations.data && locations.data.length > 0) {
+      return locations.data[0].iataCode;
+    }
+  } catch (error) {
+    console.error('Error fetching city code:', error);
+  }
+
+  // Fallback: assume it's already a valid code
+  return destination.toUpperCase();
 }
 
-async function searchHotels(token: string, cityCode: string, checkInDate: string, checkOutDate: string, adults: string) {
-  // Step 1: Get list of hotel IDs in the city
-  const hotelListResponse = await fetch(
-    `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=${cityCode}&radius=20&radiusUnit=KM&hotelSource=ALL`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  if (!hotelListResponse.ok) {
-    const errorData = await hotelListResponse.json();
-    console.error('Hotel List Error:', errorData);
-    throw new Error('Failed to fetch hotel list');
+// Validate date format and logic
+function validateDates(checkIn: string, checkOut: string): { valid: boolean; error?: string } {
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  
+  if (!dateRegex.test(checkIn) || !dateRegex.test(checkOut)) {
+    return { valid: false, error: 'Dates must be in YYYY-MM-DD format' };
   }
 
-  const hotelListData = await hotelListResponse.json();
-  const hotelIds = hotelListData.data.slice(0, 15).map((h: any) => h.hotelId).join(',');
-
-  if (!hotelIds) return [];
-
-  // Step 2: Get offers for these hotels
-  const offersResponse = await fetch(
-    `https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=${hotelIds}&adults=${adults}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomQuantity=1&paymentPolicy=NONE&bestRateOnly=true`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  if (!offersResponse.ok) {
-    const errorData = await offersResponse.json();
-    console.error('Hotel Offers Error:', errorData);
-    throw new Error('Failed to fetch hotel offers');
-  }
-
-  const offersData = await offersResponse.json();
-  return offersData.data || [];
-}
-
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const destination = searchParams.get('destination');
-  const checkIn = searchParams.get('checkIn');
-  const checkOut = searchParams.get('checkOut');
-  const adults = searchParams.get('adults') || '1';
-
-  if (!destination || !checkIn || !checkOut) {
-    return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
-  }
-
-  // Basic date validation
   const checkInDate = new Date(checkIn);
   const checkOutDate = new Date(checkOut);
-  if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime()) || checkInDate >= checkOutDate) {
-    return NextResponse.json({ error: 'Invalid dates provided' }, { status: 400 });
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (checkInDate < today) {
+    return { valid: false, error: 'Check-in date cannot be in the past' };
   }
 
-  try {
-    const token = await getAmadeusToken();
-    let hotels = await searchHotels(token, destination, checkIn, checkOut, adults);
+  if (checkOutDate <= checkInDate) {
+    return { valid: false, error: 'Check-out date must be after check-in date' };
+  }
 
-    // Retry logic if empty (simplified)
-    if (hotels.length === 0) {
-        // One retry attempt or just return empty
+  return { valid: true };
+}
+
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const destination = searchParams.get('destination');
+    const checkIn = searchParams.get('checkIn');
+    const checkOut = searchParams.get('checkOut');
+    const adults = searchParams.get('adults') || '2';
+
+    // Validate required parameters
+    if (!destination) {
+      return NextResponse.json(
+        { error: 'Missing required parameter: destination' },
+        { status: 400 }
+      );
     }
 
-    const formattedHotels = hotels.map((offer: any) => {
-      const hotel = offer.hotel;
-      const price = offer.offers[0]?.price;
+    if (!checkIn || !checkOut) {
+      return NextResponse.json(
+        { error: 'Missing required parameters: checkIn and checkOut dates' },
+        { status: 400 }
+      );
+    }
+
+    // Validate dates
+    const dateValidation = validateDates(checkIn, checkOut);
+    if (!dateValidation.valid) {
+      return NextResponse.json(
+        { error: dateValidation.error },
+        { status: 400 }
+      );
+    }
+
+    // Get city code
+    const cityCode = await getCityCode(destination);
+
+    // Step 1: Find hotels in the city
+    let hotelsData;
+    try {
+      hotelsData = await amadeusFetch('/v1/reference-data/locations/hotels/by-city', {
+        cityCode,
+        radius: 10,
+        radiusUnit: 'KM',
+        hotelSource: 'ALL',
+      });
+    } catch (error: any) {
+      // Retry once on failure
+      console.warn('First attempt failed, retrying...', error.message);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      hotelsData = await amadeusFetch('/v1/reference-data/locations/hotels/by-city', {
+        cityCode,
+        radius: 10,
+        radiusUnit: 'KM',
+        hotelSource: 'ALL',
+      });
+    }
+
+    if (!hotelsData.data || hotelsData.data.length === 0) {
+      return NextResponse.json({
+        message: `No hotels found for destination: ${destination}`,
+        data: [],
+      });
+    }
+
+    // Step 2: Get hotel IDs (limit to 20 for performance)
+    const hotelIds = hotelsData.data.slice(0, 20).map((h: any) => h.hotelId);
+
+    // Step 3: Fetch hotel offers with pricing
+    let offersData;
+    try {
+      offersData = await amadeusFetch('/v3/shopping/hotel-offers', {
+        hotelIds: hotelIds.join(','),
+        adults,
+        checkInDate: checkIn,
+        checkOutDate: checkOut,
+        roomQuantity: '1',
+        currency: 'USD',
+        paymentPolicy: 'NONE',
+        bestRateOnly: 'true',
+      });
+    } catch (error: any) {
+      // Retry once on failure
+      console.warn('First offer attempt failed, retrying...', error.message);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      offersData = await amadeusFetch('/v3/shopping/hotel-offers', {
+        hotelIds: hotelIds.join(','),
+        adults,
+        checkInDate: checkIn,
+        checkOutDate: checkOut,
+        roomQuantity: '1',
+        currency: 'USD',
+        paymentPolicy: 'NONE',
+        bestRateOnly: 'true',
+      });
+    }
+
+    if (!offersData.data || offersData.data.length === 0) {
+      return NextResponse.json({
+        message: `No available hotel offers for ${destination} on these dates`,
+        data: [],
+      });
+    }
+
+    // Step 4: Transform the data into the required format
+    const hotels = offersData.data.map((hotel: any) => {
+      const offer = hotel.offers?.[0];
+      const price = offer?.price;
       
+      // Calculate nights
+      const checkInDate = new Date(checkIn);
+      const checkOutDate = new Date(checkOut);
+      const nights = Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
+      
+      // Calculate price per night
+      const totalPrice = parseFloat(price?.total || '0');
+      const pricePerNight = nights > 0 ? totalPrice / nights : totalPrice;
+
       return {
-        hotelId: hotel.hotelId,
-        name: hotel.name,
-        address: hotel.address ? `${hotel.address.lines?.join(', ')}, ${hotel.address.cityName}` : 'Address not available',
-        price: {
-          amount: parseFloat(price?.total || '0'),
-          currency: price?.currency || 'EUR',
-          perNight: parseFloat(price?.total || '0') / ((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24))
+        id: hotel.hotel?.hotelId,
+        name: hotel.hotel?.name || 'Unknown Hotel',
+        address: {
+          street: hotel.hotel?.address?.lines?.[0] || '',
+          city: hotel.hotel?.address?.cityName || destination,
+          postalCode: hotel.hotel?.address?.postalCode || '',
+          country: hotel.hotel?.address?.countryCode || '',
         },
-        rating: hotel.rating || 'N/A',
-        amenities: hotel.amenities || [],
-        // Default image as Amadeus doesn't provide high-res images in search API
-        image: `https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800`
+        location: {
+          latitude: hotel.hotel?.latitude || hotel.hotel?.geoCode?.latitude,
+          longitude: hotel.hotel?.longitude || hotel.hotel?.geoCode?.longitude,
+        },
+        rating: hotel.hotel?.rating || null,
+        price: {
+          perNight: parseFloat(pricePerNight.toFixed(2)),
+          total: totalPrice,
+          currency: price?.currency || 'USD',
+        },
+        amenities: hotel.hotel?.amenities || [],
+        image: hotel.hotel?.media?.[0]?.uri || null,
+        checkIn,
+        checkOut,
+        nights,
+        roomType: offer?.room?.typeEstimated?.category || 'Standard',
+        description: offer?.room?.description?.text || hotel.hotel?.description?.text || '',
       };
     });
 
-    return NextResponse.json({ 
-        count: formattedHotels.length,
-        data: formattedHotels 
+    return NextResponse.json({
+      success: true,
+      destination,
+      checkIn,
+      checkOut,
+      adults: parseInt(adults),
+      count: hotels.length,
+      data: hotels,
     });
 
   } catch (error: any) {
-    console.error('API Error:', error);
-    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
+    console.error('Hotel search error:', error);
+    return NextResponse.json(
+      {
+        error: 'Failed to fetch hotel data',
+        message: error.message || 'Unknown error occurred',
+      },
+      { status: 500 }
+    );
   }
 }

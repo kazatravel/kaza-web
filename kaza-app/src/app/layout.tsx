@@ -1,41 +1,14 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import './globals.css';
+import { Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
-export const metadata: Metadata = {
-  title: "Kaza - Intelligent Travel Planner",
-  description: "Plan your perfect trip with Kaza's AI-powered itinerary builder.",
-};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col font-sans`}
-      >
-        <Navbar />
-        <div className="flex-grow">
-          {children}
-        </div>
-        <Footer />
-      </body>
+    <html lang="en" className={cn("font-sans", inter.variable)}>
+      <body>{children}</body>
     </html>
   );
 }

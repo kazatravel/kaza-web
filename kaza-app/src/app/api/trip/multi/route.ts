@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
 import { amadeusFetch } from '@/lib/amadeus';
 
@@ -106,7 +107,8 @@ export async function POST(req: Request) {
     let totalFlightCost = 0;
     let totalHotelCost = 0;
 
-    for (const [i, d] of dests.entries()) {
+    for (let i = 0; i < dests.length; i++) {
+      const d = dests[i];
       const hotels = await searchHotels(d.cityCode, d.checkIn, d.checkOut, t);
       const avgPrice = hotels.length ? hotels.reduce((a: number, h: any) => a + h.price.total, 0) / hotels.length : 0;
       const leg = legs[i] || { flights: [] };

@@ -1,135 +1,119 @@
-import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = "force-dynamic";
 
-/**
- * Standardized Hotel Search API for Kaza
- * Uses Amadeus as a reliable fallback/primary source since Booking.com credentials failed.
- */
+import { NextResponse } from 'next/server';
 
-const AMADEUS_CLIENT_ID = '0r445UZCxjMLRrO1G8cG2vSOTJoITbEx';
-const AMADEUS_CLIENT_SECRET = '4NnPDB8ed1rGNhBn';
+const AMADEUS_CLIENT_ID = process.env.AMADEUS_CLIENT_ID || '0r445UZCxjMLRrO1G8cG2vSOTJoITbEx';
+const AMADEUS_CLIENT_SECRET = process.env.AMADEUS_CLIENT_SECRET || '4NnPDB8ed1rGNhBn';
+const AMADEUS_BASE_URL = 'https://test.api.amadeus.com';
 
-async function getAmadeusToken() {
-  const response = await fetch('https://test.api.amadeus.com/v1/security/oauth2/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `grant_type=client_credentials&client_id=${AMADEUS_CLIENT_ID}&client_secret=${AMADEUS_CLIENT_SECRET}`,
-  });
+let amadeusAccessToken: string | null = null;
+let tokenExpiryTime: number = 0;
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch Amadeus token');
+async function getAmadeusAccessToken(): Promise<string | null> {
+  const now = Date.now();
+  if (amadeusAccessToken && now < tokenExpiryTime) {
+    return amadeusAccessToken;
   }
 
-  const data = await response.json();
-  return data.access_token;
-}
-
-async function searchHotels(token: string, cityCode: string, checkInDate: string, checkOutDate: string, adults: string) {
-  // Step 1: Get list of hotel IDs in the city
-  const hotelListResponse = await fetch(
-    `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=${cityCode}&radius=20&radiusUnit=KM&hotelSource=ALL`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  if (!hotelListResponse.ok) {
-    const errorData = await hotelListResponse.json();
-    console.error('Hotel List Error:', errorData);
-    throw new Error('Failed to fetch hotel list');
-  }
-
-  const hotelListData = await hotelListResponse.json();
-  const hotelIds = hotelListData.data?.slice(0, 10).map((h: any) => h.hotelId).join(',');
-
-  if (!hotelIds) return [];
-
-  // Step 2: Get offers for these hotels
-  const offersResponse = await fetch(
-    `https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=${hotelIds}&adults=${adults}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomQuantity=1&paymentPolicy=NONE&bestRateOnly=true`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  if (!offersResponse.ok) {
-    const errorData = await offersResponse.json();
-    console.error('Hotel Offers Error:', errorData);
-    // If v3 fails, it might be due to rate limits or specific hotel availability issues
-    return [];
-  }
-
-  const offersData = await offersResponse.json();
-  return offersData.data || [];
-}
-
-export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const cityCode = searchParams.get('cityCode'); // IATA code, e.g., NYC, LON
-    const checkInDate = searchParams.get('checkInDate');
-    const checkOutDate = searchParams.get('checkOutDate');
-    const adults = searchParams.get('adults') || '1';
+    const response = await fetch(`${AMADEUS_BASE_URL}/v1/security/oauth2/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `grant_type=client_credentials&client_id=${AMADEUS_CLIENT_ID}&client_secret=${AMADEUS_CLIENT_SECRET}`,
+    });
 
-    // Validation
-    if (!cityCode || !checkInDate || !checkOutDate) {
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Amadeus access token error:', errorData);
+      return null;
+    }
+
+    const data = await response.json();
+    amadeusAccessToken = data.access_token;
+    tokenExpiryTime = now + (data.expires_in * 1000) - (60 * 1000); // Refresh 1 minute before expiry
+    return amadeusAccessToken;
+  } catch (error) {
+    console.error('Error getting Amadeus access token:', error);
+    return null;
+  }
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const cityCode = searchParams.get('cityCode');
+  const checkInDate = searchParams.get('checkInDate');
+  const checkOutDate = searchParams.get('checkOutDate');
+  const adults = searchParams.get('adults');
+  const roomQuantity = searchParams.get('roomQuantity');
+
+  if (!cityCode || !checkInDate || !checkOutDate || !adults || !roomQuantity) {
+    return NextResponse.json(
+      { error: 'Missing required parameters: cityCode, checkInDate, checkOutDate, adults, roomQuantity' },
+      { status: 400 }
+    );
+  }
+
+  const accessToken = await getAmadeusAccessToken();
+  if (!accessToken) {
+    return NextResponse.json({ error: 'Failed to get Amadeus access token' }, { status: 500 });
+  }
+
+  try {
+    // Step 1: Get hotel IDs by city code
+    const hotelListResponse = await fetch(
+      `${AMADEUS_BASE_URL}/v1/reference-data/locations/hotels/by-city?cityCode=${cityCode}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    if (!hotelListResponse.ok) {
+      const errorData = await hotelListResponse.json();
+      console.error('Amadeus Hotel List API error:', errorData);
       return NextResponse.json(
-        { error: 'Missing required parameters: cityCode, checkInDate, checkOutDate' },
-        { status: 400 }
+        { error: 'Failed to fetch hotel list', details: errorData },
+        { status: hotelListResponse.status }
       );
     }
 
-    const checkIn = new Date(checkInDate);
-    const checkOut = new Date(checkOutDate);
+    const hotelListData = await hotelListResponse.json();
+    const hotelIds = hotelListData.data.map((hotel: any) => hotel.hotelId);
 
-    if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
-      return NextResponse.json({ error: 'Invalid dates provided' }, { status: 400 });
+    if (hotelIds.length === 0) {
+      return NextResponse.json({ hotels: [], message: 'No hotels found for this city code.' });
     }
 
-    if (checkIn >= checkOut) {
-      return NextResponse.json({ error: 'checkInDate must be before checkOutDate' }, { status: 400 });
-    }
-
-    // Auth and Search
-    const token = await getAmadeusToken();
-    const hotels = await searchHotels(token, cityCode, checkInDate, checkOutDate, adults);
-
-    // Standardized Output Formatting
-    const results = hotels.map((offer: any) => {
-      const hotel = offer.hotel;
-      const price = offer.offers[0]?.price;
-      const stayNights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 3600 * 24));
-      
-      return {
-        name: hotel.name,
-        price: {
-          total: parseFloat(price?.total || '0'),
-          currency: price?.currency || 'USD',
-          perNight: parseFloat(price?.total || '0') / stayNights
+    // Step 2: Get hotel offers for each hotel ID
+    // Note: Amadeus Hotel Search API (V3) can take multiple hotelIds
+    const hotelOffersResponse = await fetch(
+      `${AMADEUS_BASE_URL}/v3/shopping/hotel-offers?hotelIds=${hotelIds.join(',')}&adults=${adults}&roomQuantity=${roomQuantity}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-        rating: hotel.rating || 'N/A',
-        // Amadeus search doesn't provide images, so we use a high-quality placeholder 
-        // that looks good in the Kaza UI
-        image: `https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800`,
-        // Deep link placeholder (Kaza will handle affiliate routing)
-        booking_url: `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(hotel.name)}`
-      };
-    });
+      }
+    );
 
-    return NextResponse.json({
-      status: 'success',
-      data: results
-    });
+    if (!hotelOffersResponse.ok) {
+      const errorData = await hotelOffersResponse.json();
+      console.error('Amadeus Hotel Offers API error:', errorData);
+      return NextResponse.json(
+        { error: 'Failed to fetch hotel offers', details: errorData },
+        { status: hotelOffersResponse.status }
+      );
+    }
 
-  } catch (error: any) {
-    console.error('Hotel Search API Error:', error);
+    const hotelOffersData = await hotelOffersResponse.json();
+
+    return NextResponse.json({ hotels: hotelOffersData.data });
+  } catch (error) {
+    console.error('Error in hotel search API:', error);
     return NextResponse.json(
-      { status: 'error', message: error.message || 'Internal Server Error' },
+      { error: 'Internal server error', details: (error as Error).message },
       { status: 500 }
     );
   }
