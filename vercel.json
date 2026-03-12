@@ -1,5 +1,6 @@
 {
   "framework": "nextjs",
+  "rootDirectory": "kaza-app",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": "dist"
