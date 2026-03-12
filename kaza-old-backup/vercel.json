@@ -1,6 +1,0 @@
-{
-  "framework": "nextjs",
-  "buildCommand": "cd kaza-app && npm run build",
-  "installCommand": "cd kaza-app && npm install",
-  "outputDirectory": "kaza-app/dist"
-}
