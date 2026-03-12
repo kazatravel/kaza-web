@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    eslint: {
+  distDir: '.next',
+  eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
