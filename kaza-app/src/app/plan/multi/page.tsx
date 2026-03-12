@@ -31,11 +31,12 @@ interface Destination {
 interface Flight {
   id: string;
   airlineName: string;
-  price: { total: string };
+  price: { total: string; grandTotal?: string };
   duration: string;
   stops: number;
   departure: string;
   arrival: string;
+  departureDate: string; // Added to distinguish flexible flights
 }
 
 interface Hotel {
@@ -46,13 +47,24 @@ interface Hotel {
   nights: number;
 }
 
+interface FlightOptionWithFlexibility {
+  date: string;
+  cheapestPrice: string | null; // Cheapest price for this specific date
+  flights: Flight[]; // All flights found for this specific date
+}
+
 interface DestinationResult {
   city: string;
   nights: number;
   hotelCostPerNight: number;
   hotelTotal: number;
+  // flightCost will now represent the absolute lowest for this leg across all flexible dates
   flightCost: number;
-  flights: Flight[];
+  flexibleFlightOptions: {
+    from: string; // Origin airport code for this leg
+    to: string; // Destination airport code for this leg
+    options: FlightOptionWithFlexibility[];
+  }[];
   hotels: Hotel[];
 }
 
@@ -68,9 +80,8 @@ interface TripResult {
     from: string;
     to: string;
     city: string;
-    date: string;
-    flightCount: number;
-    lowestPrice: string | null;
+    date: string; // Primary travel date (e.g., requested departure date)
+    flexibleDates: FlightOptionWithFlexibility[]; // Array of options for +/- days
   }[];
 }
 
@@ -181,12 +192,13 @@ export default function MultiDestinationPlanner() {
     });
   };
 
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount: number | string) => {
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
-    }).format(amount);
+    }).format(numAmount);
   };
 
   // Results View
@@ -265,27 +277,41 @@ export default function MultiDestinationPlanner() {
                       <h4 className="font-medium flex items-center gap-2 mb-3">
                         <Plane className="w-4 h-4 text-blue-500" /> Flight Options
                       </h4>
-                      {dest.flights.length > 0 ? (
-                        <div className="space-y-2">
-                          {dest.flights.slice(0, 3).map((flight) => (
-                            <div key={flight.id} className="p-3 bg-gray-50 rounded-lg text-sm">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-medium">{flight.airlineName}</span>
-                                <span className="font-bold text-blue-600">${flight.price.total}</span>
+                      {dest.flexibleFlightOptions && dest.flexibleFlightOptions.length > 0 ? (
+                        dest.flexibleFlightOptions.map((leg, legIdx) => (
+                          <div key={legIdx} className="mb-4 border-b pb-4 last:border-b-0 last:pb-0">
+                            <p className="font-semibold text-gray-700 mb-2">{leg.from} to {leg.to}</p>
+                            {leg.options.length > 0 ? (
+                              <div className="space-y-2">
+                                {leg.options.map((option) => (
+                                  <div key={option.date} className="p-3 bg-gray-50 rounded-lg text-sm">
+                                    <div className="flex justify-between items-center mb-1">
+                                      <span className="font-medium">{formatDate(option.date)}</span>
+                                      <span className="font-bold text-blue-600">
+                                        {option.cheapestPrice ? formatCurrency(option.cheapestPrice) : 'N/A'}
+                                      </span>
+                                    </div>
+                                    {option.cheapestFlight && (
+                                      <div className="text-gray-500 flex items-center gap-2">
+                                        <Clock className="w-3 h-3" />
+                                        {option.cheapestFlight.duration} • {option.cheapestFlight.stops === 0 ? 'Nonstop' : `${option.cheapestFlight.stops} stop${option.cheapestFlight.stops > 1 ? 's' : ''}`}
+                                        <span className="ml-auto text-xs">{option.cheapestFlight.airlineName}</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
                               </div>
-                              <div className="text-gray-500 flex items-center gap-2">
-                                <Clock className="w-3 h-3" />
-                                {flight.duration} • {flight.stops === 0 ? 'Nonstop' : `${flight.stops} stop${flight.stops > 1 ? 's' : ''}`}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                            ) : (
+                              <p className="text-sm text-gray-400">No flight options found for this leg.</p>
+                            )}
+                          </div>
+                        ))
                       ) : (
-                        <p className="text-sm text-gray-400">No flights found</p>
+                        <p className="text-sm text-gray-400">No flight information available.</p>
                       )}
                       <div className="mt-3 pt-3 border-t">
                         <p className="text-sm">
-                          <strong>Flight Cost:</strong> {formatCurrency(dest.flightCost)}
+                          <strong>Cheapest Flight Cost for Destination:</strong> {formatCurrency(dest.flightCost)}
                         </p>
                       </div>
                     </div>

@@ -5,17 +5,11 @@ import { useRouter } from 'next/navigation';
 import { AirportPicker } from '@/components/ui/airport-picker';
 import { MoodChips } from '@/components/ui/mood-chips';
 import { ComparisonMatrix } from '@/components/ui/comparison-matrix';
-import { createClient } from '@supabase/supabase-js';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Plane, Hotel, DollarSign, MapPin, Loader2, RotateCcw, ArrowRight, Sparkles, Check } from 'lucide-react';
-
-// Initialize Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from '@/lib/supabase'; // Import the shared Supabase client
 
 interface DayItinerary {
   day: number;
@@ -35,6 +29,8 @@ interface Recommendation {
   highlights: string[];
   activities: string[];
   flightPrice: number | null;
+  flightPriceAverage: number | null;
+  flightPriceFlexibility: { date: string; price: number }[] | null;
   hotelPricePerNight: number | null;
   hotelEstimate: number;
   totalEstimate: number;
@@ -311,13 +307,23 @@ export default function Home() {
 
                       {/* Price Breakdown */}
                       <div className="space-y-2 text-sm bg-gray-800/50 rounded-lg p-4">
-                        <div className="flex justify-between items-center text-gray-300">
-                          <span className="flex items-center gap-2">
-                            <Plane className="w-4 h-4 text-blue-400"/> Flight
-                          </span>
-                          <span className="font-medium text-white">
-                            {dest.flightPrice ? formatCurrency(dest.flightPrice) : 'N/A'}
-                          </span>
+                        <div className="space-y-1">
+                          <div className="flex justify-between items-center text-gray-300">
+                            <span className="flex items-center gap-2">
+                              <Plane className="w-4 h-4 text-blue-400"/> Flight
+                            </span>
+                            <span className="font-medium text-white">
+                              {dest.flightPrice ? formatCurrency(dest.flightPrice) : 'N/A'}
+                            </span>
+                          </div>
+                          {dest.flightPriceFlexibility && dest.flightPriceFlexibility.length > 0 && (
+                            <div className="text-xs text-gray-400 pl-6">
+                              ±3 days: {formatCurrency(Math.min(...dest.flightPriceFlexibility.map(p => p.price)))} - {formatCurrency(Math.max(...dest.flightPriceFlexibility.map(p => p.price)))}
+                              {dest.flightPriceAverage && (
+                                <span className="ml-2">(avg: {formatCurrency(dest.flightPriceAverage)})</span>
+                              )}
+                            </div>
+                          )}
                         </div>
                         <div className="flex justify-between items-center text-gray-300">
                           <span className="flex items-center gap-2">

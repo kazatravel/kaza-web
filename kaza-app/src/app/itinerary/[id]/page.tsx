@@ -2,16 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import { getTrip, saveTrip } from '@/lib/itinerary-service';
 import { ItineraryBuilder } from '@/components/itinerary/ItineraryBuilder';
-import { DayColumn, ActivityItem } from '@/lib/itinerary-types';
+import { DayColumn, ActivityItem, Trip } from '@/lib/itinerary-types';
 
 export default function ItineraryPage() {
   const params = useParams();
   const id = params.id as string;
   
   const [loading, setLoading] = useState(true);
-  const [itinerary, setItinerary] = useState<any>(null);
+  const [itinerary, setItinerary] = useState<Trip | null>(null);
   const [days, setDays] = useState<DayColumn[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,34 +19,14 @@ export default function ItineraryPage() {
     async function fetchItinerary() {
       try {
         setLoading(true);
-        // In a real scenario, we'd fetch from Supabase
-        // const { data, error } = await supabase.from('itineraries').select('*').eq('id', id).single();
-        // if (error) throw error;
-        
-        // Mocking for now to show the UI works
-        const mockDays: DayColumn[] = [
-          {
-            id: 'day-1',
-            dayNumber: 1,
-            date: '2026-06-01',
-            items: [
-              { id: '1', title: 'Arrival & Hotel Check-in', type: 'lodging', startTime: '14:00' },
-              { id: '2', title: 'Welcome Dinner', type: 'meal', startTime: '19:00' }
-            ]
-          },
-          {
-            id: 'day-2',
-            dayNumber: 2,
-            date: '2026-06-02',
-            items: [
-              { id: '3', title: 'City Tour', type: 'activity', startTime: '10:00' },
-              { id: '4', title: 'Museum Visit', type: 'activity', startTime: '15:00' }
-            ]
-          }
-        ];
+        const { trip, days: fetchedDays, error: fetchError } = await getTrip(id);
 
-        setItinerary({ title: 'Trip to Tokyo', startDate: '2026-06-01', endDate: '2026-06-07' });
-        setDays(mockDays);
+        if (fetchError) {
+          throw new Error(fetchError);
+        }
+        
+        setItinerary(trip);
+        setDays(fetchedDays || []); // Ensure days is an array
       } catch (e: any) {
         console.error(e);
         setError(e.message);
@@ -60,9 +40,33 @@ export default function ItineraryPage() {
 
   const handleSave = async (updatedDays: DayColumn[]) => {
     try {
-      console.log('Saving to Supabase:', updatedDays);
-      // const { error } = await supabase.from('itineraries').update({ days: updatedDays }).eq('id', id);
-      // if (error) throw error;
+      // Create a temporary Trip object if it's a new trip (itinerary is null)
+      // The `saveTrip` service will handle the actual creation in Supabase
+      const tripToSave: Trip | null = itinerary || {
+        id: id, // Use current route ID as a placeholder, saveTrip will generate new UUID if id is not a valid trip ID or for a new trip
+        user_id: '', // Will be filled by saveTrip with auth.uid()
+        name: 'New Trip',
+        start_date: updatedDays.length > 0 ? updatedDays[0].date : null,
+        end_date: updatedDays.length > 0 ? updatedDays[updatedDays.length - 1].date : null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      const { success, tripId, error: saveError } = await saveTrip(tripToSave, updatedDays);
+
+      if (saveError) {
+        throw new Error(saveError);
+      }
+
+      if (success && tripId && !itinerary) {
+        // If a new trip was successfully created, update the itinerary state
+        // This is important to ensure subsequent saves update the correct trip
+        const { trip: newTripData } = await getTrip(tripId); // Fetch the newly saved trip with its data
+        if (newTripData) {
+            setItinerary(newTripData);
+        }
+      }
+
       alert('Itinerary saved successfully!');
     } catch (e: any) {
       console.error(e);
