@@ -1,4 +1,4 @@
-// File: /data/.openclaw/workspace/projects/kaza/kaza-app/src/app/playground/page.tsx
+// File: /data/.openclaw/workspace/projects/kaza/src/app/playground/page.tsx
 import * as entry from '../../../../src/app/playground/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

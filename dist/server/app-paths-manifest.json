@@ -5,15 +5,15 @@
   "/auth/page": "app/auth/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/itinerary/[id]/page": "app/itinerary/[id]/page.js",
-  "/page": "app/page.js",
   "/my-trips/page": "app/my-trips/page.js",
-  "/playground/page": "app/playground/page.js",
+  "/page": "app/page.js",
   "/plan/multi/page": "app/plan/multi/page.js",
-  "/api/hotels/route": "app/api/hotels/route.js",
+  "/playground/page": "app/playground/page.js",
   "/api/itinerary/compare/route": "app/api/itinerary/compare/route.js",
   "/api/hotels/search/route": "app/api/hotels/search/route.js",
   "/api/trip/route": "app/api/trip/route.js",
+  "/api/hotels/route": "app/api/hotels/route.js",
+  "/api/trip/multi/route": "app/api/trip/multi/route.js",
   "/api/trips/route": "app/api/trips/route.js",
-  "/api/recommendations/route": "app/api/recommendations/route.js",
-  "/api/trip/multi/route": "app/api/trip/multi/route.js"
+  "/api/recommendations/route": "app/api/recommendations/route.js"
 }

@@ -1,4 +1,4 @@
-// File: /data/.openclaw/workspace/projects/kaza/kaza-app/src/app/api/trips/route.ts
+// File: /data/.openclaw/workspace/projects/kaza/src/app/api/trips/route.ts
 import * as entry from '../../../../../src/app/api/trips/route.js'
 import type { NextRequest } from 'next/server.js'
 
