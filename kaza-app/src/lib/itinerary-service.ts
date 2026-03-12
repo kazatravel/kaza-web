@@ -183,3 +183,41 @@ export async function saveTrip(currentTrip: Trip | null, days: DayColumn[]): Pro
     return { success: false, error: err.message };
   }
 }
+
+export async function loadTrips(): Promise<{ trips: Trip[] | null; error: string | null }> {
+  try {
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) return { trips: null, error: 'Not authenticated' };
+    
+    const { data, error } = await supabase
+      .from('trips')
+      .select('*')
+      .eq('user_id', userData.user.id)
+      .order('created_at', { ascending: false });
+      
+    if (error) throw error;
+    return { trips: data as Trip[], error: null };
+  } catch (e: any) {
+    console.error('Error loading trips:', e);
+    return { trips: null, error: e.message };
+  }
+}
+
+export async function deleteTrip(tripId: string): Promise<{ success: boolean; error: string | null }> {
+  try {
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) return { success: false, error: 'Not authenticated' };
+    
+    const { error } = await supabase
+      .from('trips')
+      .delete()
+      .eq('id', tripId)
+      .eq('user_id', userData.user.id);
+      
+    if (error) throw error;
+    return { success: true, error: null };
+  } catch (e: any) {
+    console.error('Error deleting trip:', e);
+    return { success: false, error: e.message };
+  }
+}
