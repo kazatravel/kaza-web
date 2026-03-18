@@ -69,21 +69,33 @@ export default function Home() {
     try {
       const res = await fetch('/api/recommendations', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
-      
+
       if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Failed to get recommendations');
+        // Avoid assuming JSON on errors.
+        const text = await res.text();
+        let message = 'Failed to get recommendations';
+        try {
+          const parsed = JSON.parse(text);
+          message = parsed?.error || parsed?.message || message;
+        } catch {
+          if (text) message = text;
+        }
+        throw new Error(message);
       }
-      
+
       const json = await res.json();
+      if (!Array.isArray(json) || json.length === 0) {
+        throw new Error('No recommendations returned. Please try again with different inputs.');
+      }
+
       setRecommendations(json);
       setError(null);
     } catch (err: any) {
       console.error('Failed to fetch recommendations:', err);
-      setError(err.message || 'Failed to fetch recommendations. Please try again.');
+      setError(err?.message || 'Failed to fetch recommendations. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -140,6 +152,7 @@ export default function Home() {
             
             {/* Discovery Form */}
             <form onSubmit={handleSubmit} className="space-y-6 bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 shadow-2xl">
+              <fieldset disabled={loading} className="space-y-6">
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-200">
                   Where are you flying from?
@@ -217,6 +230,7 @@ export default function Home() {
               >
                 <ArrowRight className="w-4 h-4" /> Skip to Multi-Destination Planner
               </Button>
+              </fieldset>
             </form>
           </div>
         ) : (
