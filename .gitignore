@@ -37,3 +37,7 @@ next-env.d.ts
 dist
 .next
 node_modules
+
+# repo hygiene (avoid symlink-loop dirs accidentally introduced)
+/kaza-app/
+/projects/

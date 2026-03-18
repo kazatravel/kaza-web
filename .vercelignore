@@ -1,0 +1,5 @@
+# Ignore directories that can introduce symlink loops or unnecessary deploy surface.
+# Keep this conservative; adjust if we later intentionally deploy from a subdir.
+
+projects/
+kaza-app/

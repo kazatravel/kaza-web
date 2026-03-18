@@ -2,75 +2,26 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
 import { amadeusFetch } from '@/lib/amadeus';
 import { supabase } from '@/lib/supabase'; // Import the Supabase client
-import { Ratelimit } from "@upstash/ratelimit"; // For rate limiting
-import { Redis } from "@upstash/redis"; // For Redis with Upstash
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { openrouterChatJSON } from '@/lib/openrouter';
 
-// Placeholder for Gemini API (replace with actual Gemini SDK integration)
-// For this environment, we'll simulate the Gemini call with a structured output expectation.
-// In a real Next.js app, you'd integrate @google/generative-ai or a similar SDK.
-const GEMINI_API_PLACEHOLDER = {
-  chat: {
-    completions: {
-      create: async (params: any) => {
-        console.log("Simulating Gemini API call with prompt:", params.messages[0].content);
-        // Simulate a delay
-        await new Promise(resolve => setTimeout(resolve, 1500)); 
-        // Return a structured response similar to what we expect from Gemini
-        return {
-          choices: [{
-            message: {
-              content: JSON.stringify({
-                destinations: [
-                  {
-                    destination: "Kyoto",
-                    country: "Japan",
-                    description: "Ancient temples, serene gardens, and vibrant geisha districts await in Japan's cultural capital.",
-                    why: "You expressed interest in culture and unique experiences, Kyoto offers a profound dive into traditional Japan.",
-                    type: "Cultural, Serene",
-                    highlights: ["Kinkaku-ji", "Fushimi Inari-taisha", "Arashiyama Bamboo Grove"],
-                    activities: ["Tea ceremony", "Kimono rental", "Explore Gion"],
-                    iata_code: "KIX",
-                    daily_itinerary: [
-                      { day: 1, title: "Arrival & Gion Exploration", morning: "Arrive at Kansai International Airport (KIX), transfer to Kyoto. Check into your traditional ryokan. Explore the historic Gion district, famous for its geishas.", afternoon: "Visit Kiyomizu-dera Temple, a UNESCO World Heritage site with stunning views. Wander through the charming Sannenzaka and Ninenzaka streets.", evening: "Enjoy a traditional Kaiseki dinner and perhaps catch a glimpse of a geisha on their way to appointments." },
-                      { day: 2, title: "Temples & Bamboo Forests", morning: "Visit Kinkaku-ji (Golden Pavilion), a magnificent Zen temple. Explore the beautiful Ryoan-ji Temple with its famous rock garden.", afternoon: "Head to Arashiyama Bamboo Grove for a serene walk. Visit Tenryu-ji Temple and the Togetsukyo Bridge.", evening: "Dine at a local restaurant in Arashiyama, savoring authentic Japanese cuisine." }
-                    ]
-                  },
-                  {
-                    destination: "Machu Picchu",
-                    country: "Peru",
-                    description: "Journey to the lost city of the Incas, a breathtaking archaeological wonder nestled high in the Andes Mountains.",
-                    why: "For your adventurous spirit and interest in history, Machu Picchu offers an unparalleled trekking and cultural experience.",
-                    type: "Adventure, Historical",
-                    highlights: ["Machu Picchu Citadel", "Huayna Picchu", "Sun Gate"],
-                    activities: ["Hiking the Inca Trail", "Exploring the ruins", "Bird watching"],
-                    iata_code: "CUZ",
-                    daily_itinerary: [
-                      { day: 1, title: "Cusco & Sacred Valley", morning: "Arrive in Cusco (CUZ), acclimatize to the altitude. Explore the charming streets and Plaza de Armas.", afternoon: "Take a day trip to the Sacred Valley, visiting Pisac Market and the Ollantaytambo ruins.", evening: "Enjoy dinner in Cusco, trying local Peruvian dishes." },
-                      { day: 2, title: "Machu Picchu Expedition", morning: "Early morning train to Aguas Calientes. Take a bus up to Machu Picchu for a guided tour of the citadel.", afternoon: "Optional hike to Huayna Picchu or Machu Picchu Mountain for panoramic views (advance booking required).", evening: "Return to Aguas Calientes for dinner and relax before heading back to Cusco." }
-                    ]
-                  }
-                ]
-              })
-            }
-          }]
-        };
-      }
-    }
-  }
-};
-// END Placeholder for Gemini API
+function getRatelimit() {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  const redis = new Redis({ url, token });
+  return new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, '10s'),
+    analytics: true,
+    prefix: '@upstash/ratelimit',
+  });
+}
 
 // Cache for city codes to avoid hitting Amadeus repeatedly
 const cityCodeCache: Record<string, string> = {};
 
-// Upstash Redis client for rate limiting
-const redis = Redis.fromEnv();
-const ratelimit = new Ratelimit({
-  redis: redis,
-  limiter: Ratelimit.slidingWindow(5, "10s"), // 5 requests per 10 seconds
-  analytics: true,
-  prefix: "@upstash/ratelimit",
-});
 
 
 // Utility for retries with exponential backoff
@@ -203,11 +154,14 @@ async function getHotelPrice(cityCode: string, checkIn: string): Promise<number 
 
 
 export async function POST(request: Request) {
-  // Apply rate limiting
-  const ip = request.headers.get("x-forwarded-for") || "127.0.0.1";
-  const { success } = await ratelimit.limit(ip);
-  if (!success) {
-    return NextResponse.json({ error: 'Rate limit exceeded. Please try again later.' }, { status: 429 });
+  // Apply rate limiting (optional: only if Upstash env vars are configured)
+  const ratelimit = getRatelimit();
+  if (ratelimit) {
+    const ip = request.headers.get("x-forwarded-for") || "127.0.0.1";
+    const { success } = await ratelimit.limit(ip);
+    if (!success) {
+      return NextResponse.json({ error: 'Rate limit exceeded. Please try again later.' }, { status: 429 });
+    }
   }
 
   const data = await request.json();
@@ -245,53 +199,56 @@ export async function POST(request: Request) {
       vibe_tags: d.vibe_tags?.join(', ') || ''
     }));
 
-    // --- Gemini for Intelligent Recommendations and Itinerary Generation ---
+    // --- AI for Intelligent Recommendations and Itinerary Generation (OpenRouter) ---
     const prompt = `You are a world-class travel agent AI. Given the following user preferences and a list of available destinations, select 5 diverse and compelling travel destinations that best fit the user's criteria. For each selected destination, also generate a detailed daily itinerary for the specified trip duration.
 
-    User Preferences:
-    - Flying from: ${homeCity}
-    - Total Trip Budget: $${budget} (this is the TOTAL budget for the entire ${tripLength || 7}-day trip, not daily)
-    - Interests: ${interests || 'Any'}
-    - Duration: ${tripLength || 7} days
+User Preferences:
+- Flying from (IATA): ${homeCity}
+- Total Trip Budget: $${budget} (TOTAL for the entire ${tripLength || 7}-day trip)
+- Interests: ${interests || 'Any'}
+- Duration: ${tripLength || 7} days
 
-    Available Destinations:
-    ${JSON.stringify(destinationsListForGemini)}
+Available Destinations (choose only from this list):
+${JSON.stringify(destinationsListForGemini)}
 
-    For each of the 5 chosen destinations, provide:
-    - **destination**: The city name (e.g., Paris)
-    - **country**: The country (e.g., France)
-    - **description**: Engaging description emphasizing why it fits the specific interests '${interests}'. This should be a concise summary suitable for a card.
-    - **why**: A personalized reason matching the user's criteria for choosing this destination from the available list.
-    - **type**: Travel type (e.g., Adventure, Relaxation).
-    - **highlights**: 2-3 key spots for the destination.
-    - **activities**: 2-3 activities matching '${interests}'.
-    - **iata_code**: The 3-letter IATA airport code for the primary airport (Critical, infer if not explicitly provided but always return it).
-    - **daily_itinerary**: An array of ${tripLength || 7} day objects, each with:
-      - **day**: Day number (1, 2, 3, etc.)
-      - **title**: A catchy title for the day (e.g., "Exploring Historic Paris")
-      - **morning**: Detailed morning activities (2-3 sentences)
-      - **afternoon**: Detailed afternoon activities (2-3 sentences)
-      - **evening**: Detailed evening activities (2-3 sentences)
+Return JSON in the following format:
+{
+  "destinations": [
+    {
+      "destination": "City name",
+      "country": "Country",
+      "description": "Concise card-friendly description",
+      "why": "Personalized reason based on the user's interests/budget/duration",
+      "type": "Travel type tags",
+      "highlights": ["..."],
+      "activities": ["..."],
+      "iata_code": "3-letter airport code for the destination city",
+      "daily_itinerary": [
+        {"day": 1, "title": "...", "morning": "...", "afternoon": "...", "evening": "..."}
+      ]
+    }
+  ]
+}
 
-    Format output as a JSON ARRAY of objects. Each object should represent one recommended destination. No other text.`;
+Rules:
+- Only choose destinations from the provided list.
+- Ensure daily_itinerary has exactly ${tripLength || 7} entries.
+- Return valid JSON only.`;
 
-    const completion = await GEMINI_API_PLACEHOLDER.chat.completions.create({
-      // In a real application, you'd use the actual Gemini model (e.g., 'gemini-pro')
-      model: 'gemini-pro', 
+    const ai = await openrouterChatJSON<{ destinations: any[] }>({
+      model: 'openai/gpt-4o-mini',
       messages: [
-        { role: 'user', content: prompt } // Gemini usually takes a single 'user' role for prompts like this
+        { role: 'system', content: 'You output STRICT JSON only.' },
+        { role: 'user', content: prompt },
       ],
-      response_format: { type: "json_object" },
-      temperature: 0.8,
+      temperature: 0.7,
+      maxTokens: 2500,
     });
 
-    const rawContent = completion.choices[0].message.content;
-    const aiRecommendations = JSON.parse(rawContent || '{ "destinations": [] }').destinations || JSON.parse(rawContent || '[]');
-
-    const list = Array.isArray(aiRecommendations) ? aiRecommendations : (aiRecommendations as any).destinations;
+    const list = Array.isArray(ai?.destinations) ? ai.destinations : [];
 
     if (!list || list.length === 0) {
-      throw new Error('Gemini returned no recommendations or an invalid format. Check prompt and Gemini output.');
+      throw new Error('AI returned no recommendations (empty destinations list).');
     }
 
     // Enhance with Amadeus Real-Time Pricing
@@ -313,15 +270,14 @@ export async function POST(request: Request) {
         hotelPricePerNight = hotel;
       }
 
-      // Fallbacks if API fails (so UI doesn't break)
-      const flightPrice = flightPricing.cheapest || 600;
-      const nightlyRate = hotelPricePerNight || (budget / (tripLength || 7)) * 0.3 || 150;
-      const estimatedHotelCost = nightlyRate * (tripLength || 7);
-      const totalEstimatedCost = flightPrice + estimatedHotelCost;
+      // No fake pricing fallbacks: if APIs fail, keep values null and let UI show N/A.
+      const flightPrice = flightPricing.cheapest;
+      const estimatedHotelCost = hotelPricePerNight ? hotelPricePerNight * (tripLength || 7) : null;
+      const totalEstimatedCost = flightPrice && estimatedHotelCost ? (flightPrice + estimatedHotelCost) : null;
 
-      // Find the image URL from our database for the recommended destination
+      // Find the image URL from our database. If missing, use a real Unsplash source endpoint (not a dummy placeholder service).
       const dbDestination = destinationsData.find(d => d.name === dest.destination || d.city === dest.destination);
-      const imageUrl = dbDestination?.image_url || `https://picsum.photos/seed/${encodeURIComponent(dest.destination)}/800/600`;
+      const imageUrl = dbDestination?.image_url || `https://source.unsplash.com/featured/800x600?${encodeURIComponent(dest.destination)}`;
 
       return {
         id: dbDestination?.name || dest.iata_code + '-' + Date.now(), // Use DB name as ID if available, else dynamic
@@ -329,12 +285,12 @@ export async function POST(request: Request) {
         country: dest.country,
         description: dest.description,
         why: dest.why,
-        flightPrice: flightPrice ? Math.round(flightPrice) : null,
-        flightPriceAverage: flightPricing.average ? Math.round(flightPricing.average) : null,
+        flightPrice: typeof flightPrice === 'number' ? Math.round(flightPrice) : null,
+        flightPriceAverage: typeof flightPricing.average === 'number' ? Math.round(flightPricing.average) : null,
         flightPriceFlexibility: flightPricing.prices.length > 0 ? flightPricing.prices : null,
-        hotelPricePerNight: hotelPricePerNight ? Math.round(hotelPricePerNight) : null,
-        hotelEstimate: Math.round(estimatedHotelCost),
-        totalEstimate: Math.round(totalEstimatedCost),
+        hotelPricePerNight: typeof hotelPricePerNight === 'number' ? Math.round(hotelPricePerNight) : null,
+        hotelEstimate: typeof estimatedHotelCost === 'number' ? Math.round(estimatedHotelCost) : null,
+        totalEstimate: typeof totalEstimatedCost === 'number' ? Math.round(totalEstimatedCost) : null,
         type: dest.type,
         highlights: dest.highlights,
         activities: dest.activities,

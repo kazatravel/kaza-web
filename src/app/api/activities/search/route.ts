@@ -3,32 +3,36 @@ import OpenAI from 'openai';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// IMPORTANT: Do not initialize OpenAI/Redis clients at module-load time.
+// Next.js may evaluate/bundle routes during build; missing env vars would fail the build.
+function getOpenAI() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) return null;
+  return new OpenAI({ apiKey });
+}
 
-// Initialize Upstash Redis for rate limiting (if not already initialized elsewhere)
-// Ensure UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN are set in environment variables
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+function getRatelimit() {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
 
-// Create a new ratelimiter instance.
-// For example, allow 10 requests per 10 seconds.
-const ratelimit = new Ratelimit({
-  redis: redis,
-  limiter: Ratelimit.slidingWindow(10, '10s'),
-  analytics: true,
-});
+  const redis = new Redis({ url, token });
+  return new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(10, '10s'),
+    analytics: true,
+  });
+}
 
 export async function POST(req: Request) {
   if (process.env.NODE_ENV === 'production') {
-    const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
-    const { success } = await ratelimit.limit(ip);
-    if (!success) {
-      return new NextResponse('Too many requests. Please try again later.', { status: 429 });
+    const ratelimit = getRatelimit();
+    if (ratelimit) {
+      const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
+      const { success } = await ratelimit.limit(ip);
+      if (!success) {
+        return new NextResponse('Too many requests. Please try again later.', { status: 429 });
+      }
     }
   }
 
@@ -57,6 +61,14 @@ export async function POST(req: Request) {
         "description": "Paddle along the coastline as the sun sets, offering stunning views and a peaceful experience."
       }
     ]`;
+
+    const openai = getOpenAI();
+    if (!openai) {
+      return new NextResponse(
+        JSON.stringify({ error: 'OPENAI_API_KEY is not configured.' }),
+        { status: 501, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o", // Using gpt-4o for broader knowledge and good JSON output
