@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase'; // Import the Supabase client
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { openrouterChatJSON } from '@/lib/openrouter';
+import { openaiChatJSON } from '@/lib/openai';
 
 function getRatelimit() {
   const url = process.env.UPSTASH_REDIS_REST_URL;
@@ -272,15 +273,36 @@ Rules:
 - Ensure daily_itinerary has exactly ${tripLength || 7} entries for each candidate.
 - Return valid JSON only.`;
 
-    const ai = await openrouterChatJSON<any>({
-      model: 'openai/gpt-4o-mini',
-      messages: [
-        { role: 'system', content: 'You output STRICT JSON only.' },
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.7,
-      maxTokens: 2500,
-    });
+    const hasOpenRouter = !!process.env.OPENROUTER_API_KEY;
+    const hasOpenAI = !!process.env.OPENAI_API_KEY;
+
+    const chatJSON = async <T,>(p: string): Promise<T> => {
+      if (hasOpenRouter) {
+        return openrouterChatJSON<T>({
+          model: 'openai/gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You output STRICT JSON only.' },
+            { role: 'user', content: p },
+          ],
+          temperature: 0.7,
+          maxTokens: 2500,
+        });
+      }
+      if (hasOpenAI) {
+        return openaiChatJSON<T>({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You output STRICT JSON only.' },
+            { role: 'user', content: p },
+          ],
+          temperature: 0.7,
+          maxTokens: 2500,
+        });
+      }
+      throw new Error('No AI provider configured (set OPENAI_API_KEY or OPENROUTER_API_KEY).');
+    };
+
+    const ai = await chatJSON<any>(prompt);
 
     // Normalize AI output
     let list: any[] = [];
@@ -300,19 +322,9 @@ Rules:
 
       if (list.length < 5) {
         // One more attempt, stricter guidance.
-        const retry = await openrouterChatJSON<any>({
-          model: 'openai/gpt-4o-mini',
-          messages: [
-            { role: 'system', content: 'You output STRICT JSON only.' },
-            {
-              role: 'user',
-              content:
-                `Generate 12 MORE candidate destination cities that are extremely likely to have IATA city codes (major international cities). Do NOT repeat prior suggestions.\n\n${baseContext}\n\nReturn JSON: {"candidates":[{...same fields as before...}]}`,
-            },
-          ],
-          temperature: 0.6,
-          maxTokens: 2500,
-        });
+        const retry = await chatJSON<any>(
+          `Generate 12 MORE candidate destination cities that are extremely likely to have IATA city codes (major international cities). Do NOT repeat prior suggestions.\n\n${baseContext}\n\nReturn JSON: {"candidates":[{...same fields as before...}]}`
+        );
 
         const retryCandidates = Array.isArray(retry?.candidates) ? retry.candidates : [];
         const retryValidated = await Promise.all(
