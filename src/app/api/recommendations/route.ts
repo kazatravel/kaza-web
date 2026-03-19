@@ -299,10 +299,49 @@ Rules:
           maxTokens: 2500,
         });
       }
-      throw new Error('No AI provider configured (set OPENAI_API_KEY or OPENROUTER_API_KEY).');
+      throw new Error('NO_AI_PROVIDER');
     };
 
-    const ai = await chatJSON<any>(prompt);
+    // If no AI provider is configured, fall back to Amadeus Flight Inspiration Search.
+    // This keeps the product usable without dummy data.
+    let ai: any = null;
+    try {
+      ai = await chatJSON<any>(prompt);
+    } catch (e: any) {
+      if (String(e?.message || e) !== 'NO_AI_PROVIDER') throw e;
+
+      const maxPrice = typeof budget === 'number' && budget > 0 ? Math.round(budget) : 2000;
+      const inspiration = await amadeusFetch('/v1/shopping/flight-destinations', {
+        origin: homeCity,
+        maxPrice,
+      });
+
+      const rows = Array.isArray(inspiration?.data) ? inspiration.data : [];
+      if (rows.length === 0) {
+        return NextResponse.json(
+          { error: 'No destinations available (AI not configured and Amadeus returned no inspiration results).' },
+          { status: 503 }
+        );
+      }
+
+      // Map inspiration results into the same shape expected downstream.
+      const top = rows
+        .filter((r: any) => r?.destination)
+        .slice(0, 8)
+        .map((r: any) => ({
+          destination: r.destination,
+          iata_code: r.destination,
+          country: '',
+          description: `Flights from ${homeCity} available (inspiration search).`,
+          why: `Based on real flight inspiration pricing under ~$${maxPrice}.`,
+          type: 'Inspiration',
+          highlights: [],
+          activities: [],
+          daily_itinerary: [],
+        }));
+
+      ai = { candidates: top };
+    }
 
     // Normalize AI output
     let list: any[] = [];
