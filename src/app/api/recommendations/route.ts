@@ -176,37 +176,49 @@ export async function POST(request: Request) {
   const departureDate = futureDate.toISOString().split('T')[0];
 
   try {
-    // 1. Fetch available destinations from Supabase
-    const { data: destinationsData, error: dbError } = await supabase
-      .from('destinations')
-      .select('name, city, country, description, vibe_tags, image_url, latitude, longitude');
+    // 1) Optional destination seed list (Supabase)
+    // This endpoint must NOT depend on a pre-seeded dataset. If the table is missing/empty,
+    // we fall back to AI-generated candidates that are validated against Amadeus location search.
+    let destinationsData: any[] = [];
+    try {
+      const { data, error: dbError } = await supabase
+        .from('destinations')
+        .select('name, city, country, description, vibe_tags, image_url, latitude, longitude');
 
-    if (dbError) {
-      console.error('Supabase fetch error:', dbError);
-      return NextResponse.json({ error: 'Failed to fetch destinations from database.' }, { status: 500 });
+      if (dbError) {
+        console.warn('Supabase destinations unavailable (non-fatal):', dbError);
+      } else if (Array.isArray(data)) {
+        destinationsData = data;
+      }
+    } catch (e) {
+      console.warn('Supabase destinations query threw (non-fatal):', e);
     }
 
-    if (!destinationsData || destinationsData.length === 0) {
-      return NextResponse.json({ error: 'No destinations found in the database.' }, { status: 404 });
-    }
-
-    // Prepare destinations for Gemini in a digestible format
-    const destinationsListForGemini = destinationsData.map(d => ({
-      name: d.name,
-      city: d.city,
-      country: d.country,
-      description: d.description,
-      vibe_tags: d.vibe_tags?.join(', ') || ''
-    }));
+    const hasSeedList = destinationsData.length > 0;
 
     // --- AI for Intelligent Recommendations and Itinerary Generation (OpenRouter) ---
-    const prompt = `You are a world-class travel agent AI. Given the following user preferences and a list of available destinations, select 5 diverse and compelling travel destinations that best fit the user's criteria. For each selected destination, also generate a detailed daily itinerary for the specified trip duration.
+    // If we have a seed list, constrain AI to it. Otherwise, generate candidates and validate via Amadeus.
 
-User Preferences:
+    const destinationsListForGemini = hasSeedList
+      ? destinationsData.map((d) => ({
+          name: d.name,
+          city: d.city,
+          country: d.country,
+          description: d.description,
+          vibe_tags: d.vibe_tags?.join(', ') || '',
+        }))
+      : null;
+
+    const baseContext = `User Preferences:
 - Flying from (IATA): ${homeCity}
 - Total Trip Budget: $${budget} (TOTAL for the entire ${tripLength || 7}-day trip)
 - Interests: ${interests || 'Any'}
-- Duration: ${tripLength || 7} days
+- Duration: ${tripLength || 7} days`;
+
+    const prompt = hasSeedList
+      ? `You are a world-class travel agent AI. Given the following user preferences and a list of available destinations, select 5 diverse and compelling travel destinations that best fit the user's criteria. For each selected destination, also generate a detailed daily itinerary for the specified trip duration.
+
+${baseContext}
 
 Available Destinations (choose only from this list):
 ${JSON.stringify(destinationsListForGemini)}
@@ -222,7 +234,7 @@ Return JSON in the following format:
       "type": "Travel type tags",
       "highlights": ["..."],
       "activities": ["..."],
-      "iata_code": "3-letter airport code for the destination city",
+      "iata_code": "3-letter airport/city IATA code for the destination city",
       "daily_itinerary": [
         {"day": 1, "title": "...", "morning": "...", "afternoon": "...", "evening": "..."}
       ]
@@ -233,9 +245,34 @@ Return JSON in the following format:
 Rules:
 - Only choose destinations from the provided list.
 - Ensure daily_itinerary has exactly ${tripLength || 7} entries.
+- Return valid JSON only.`
+      : `You are a world-class travel agent AI. Generate 8 candidate destination CITIES (with country) that fit the user's preferences. IMPORTANT: only suggest well-known cities that have commercial airports (so they are likely to resolve to an IATA city/airport code).
+
+${baseContext}
+
+Return JSON in the following format:
+{
+  "candidates": [
+    {
+      "destination": "City name",
+      "country": "Country",
+      "description": "Concise card-friendly description",
+      "why": "Personalized reason based on the user's interests/budget/duration",
+      "type": "Travel type tags",
+      "highlights": ["..."],
+      "activities": ["..."],
+      "daily_itinerary": [
+        {"day": 1, "title": "...", "morning": "...", "afternoon": "...", "evening": "..."}
+      ]
+    }
+  ]
+}
+
+Rules:
+- Ensure daily_itinerary has exactly ${tripLength || 7} entries for each candidate.
 - Return valid JSON only.`;
 
-    const ai = await openrouterChatJSON<{ destinations: any[] }>({
+    const ai = await openrouterChatJSON<any>({
       model: 'openai/gpt-4o-mini',
       messages: [
         { role: 'system', content: 'You output STRICT JSON only.' },
@@ -245,10 +282,61 @@ Rules:
       maxTokens: 2500,
     });
 
-    const list = Array.isArray(ai?.destinations) ? ai.destinations : [];
+    // Normalize AI output
+    let list: any[] = [];
+    if (hasSeedList) {
+      list = Array.isArray(ai?.destinations) ? ai.destinations : [];
+    } else {
+      const candidates = Array.isArray(ai?.candidates) ? ai.candidates : [];
+      // Validate candidates via Amadeus location lookup → keep only resolvable cities.
+      const validated = await Promise.all(
+        candidates.map(async (c: any) => {
+          const code = await getCityCode(String(c.destination || '').trim());
+          if (!code) return null;
+          return { ...c, iata_code: code };
+        })
+      );
+      list = validated.filter(Boolean).slice(0, 5) as any[];
+
+      if (list.length < 5) {
+        // One more attempt, stricter guidance.
+        const retry = await openrouterChatJSON<any>({
+          model: 'openai/gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You output STRICT JSON only.' },
+            {
+              role: 'user',
+              content:
+                `Generate 12 MORE candidate destination cities that are extremely likely to have IATA city codes (major international cities). Do NOT repeat prior suggestions.\n\n${baseContext}\n\nReturn JSON: {"candidates":[{...same fields as before...}]}`,
+            },
+          ],
+          temperature: 0.6,
+          maxTokens: 2500,
+        });
+
+        const retryCandidates = Array.isArray(retry?.candidates) ? retry.candidates : [];
+        const retryValidated = await Promise.all(
+          retryCandidates.map(async (c: any) => {
+            const code = await getCityCode(String(c.destination || '').trim());
+            if (!code) return null;
+            return { ...c, iata_code: code };
+          })
+        );
+
+        const merged = [...list, ...(retryValidated.filter(Boolean) as any[])];
+        // Deduplicate by iata_code
+        const seen = new Set<string>();
+        list = merged.filter((d: any) => {
+          if (!d?.iata_code) return false;
+          if (seen.has(d.iata_code)) return false;
+          seen.add(d.iata_code);
+          return true;
+        }).slice(0, 5);
+      }
+    }
 
     if (!list || list.length === 0) {
-      throw new Error('AI returned no recommendations (empty destinations list).');
+      throw new Error('Unable to produce any valid destinations (AI output empty or could not be validated against Amadeus).');
     }
 
     // Enhance with Amadeus Real-Time Pricing
