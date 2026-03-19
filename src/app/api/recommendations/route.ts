@@ -313,6 +313,7 @@ Rules:
       const maxPrice = typeof budget === 'number' && budget > 0 ? Math.round(budget) : 2000;
       const inspiration = await amadeusFetch('/v1/shopping/flight-destinations', {
         origin: homeCity,
+        departureDate,
         maxPrice,
       });
 
