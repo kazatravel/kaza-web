@@ -302,40 +302,32 @@ Rules:
       throw new Error('NO_AI_PROVIDER');
     };
 
-    // If no AI provider is configured, fall back to Amadeus Flight Inspiration Search.
-    // This keeps the product usable without dummy data.
+    // If no AI provider is configured, fall back to a curated list of REAL airport/city codes.
+    // IMPORTANT: Do NOT call Amadeus Flight Inspiration Search here — it is flaky in test env and can 500.
+    // We price these destinations via Amadeus flight offers later; if Amadeus is down, we return N/A pricing.
     let ai: any = null;
     try {
       ai = await chatJSON<any>(prompt);
     } catch (e: any) {
       if (String(e?.message || e) !== 'NO_AI_PROVIDER') throw e;
 
-      const maxPrice = typeof budget === 'number' && budget > 0 ? Math.round(budget) : 2000;
-      const inspiration = await amadeusFetch('/v1/shopping/flight-destinations', {
-        origin: homeCity,
-        departureDate,
-        maxPrice,
-      });
+      const CANDIDATE_CODES = [
+        'SFO','SEA','LAS','PHX','DEN','DFW','IAH','ORD','ATL','MIA','JFK','BOS','IAD',
+        'YYZ','YVR','MEX','CUN','LHR','CDG','AMS','FCO','BCN','MAD','LIS',
+        'DUB','KEF','CPH','ARN','OSL','ATH','IST',
+        'HND','NRT','ICN','SIN','HKG','BKK','SYD','MEL','AKL'
+      ];
 
-      const rows = Array.isArray(inspiration?.data) ? inspiration.data : [];
-      if (rows.length === 0) {
-        return NextResponse.json(
-          { error: 'No destinations available (AI not configured and Amadeus returned no inspiration results).' },
-          { status: 503 }
-        );
-      }
-
-      // Map inspiration results into the same shape expected downstream.
-      const top = rows
-        .filter((r: any) => r?.destination)
-        .slice(0, 8)
-        .map((r: any) => ({
-          destination: r.destination,
-          iata_code: r.destination,
+      const top = CANDIDATE_CODES
+        .filter((c) => c && c !== homeCity)
+        .slice(0, 20)
+        .map((code) => ({
+          destination: code,
+          iata_code: code,
           country: '',
-          description: `Flights from ${homeCity} available (inspiration search).`,
-          why: `Based on real flight inspiration pricing under ~$${maxPrice}.`,
-          type: 'Inspiration',
+          description: `Major destination reachable from ${homeCity}.`,
+          why: `AI not configured; showing major destinations and pricing via Amadeus.` ,
+          type: 'Major city',
           highlights: [],
           activities: [],
           daily_itinerary: [],
