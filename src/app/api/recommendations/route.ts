@@ -217,7 +217,7 @@ export async function POST(request: Request) {
 - Duration: ${tripLength || 7} days`;
 
     const prompt = hasSeedList
-      ? `You are a world-class travel agent AI. Given the following user preferences and a list of available destinations, select 5 diverse and compelling travel destinations that best fit the user's criteria. For each selected destination, also generate a detailed daily itinerary for the specified trip duration.
+      ? `You are a world-class travel agent AI. Given the following user preferences and a list of available destinations, select 3 diverse and compelling travel destinations that best fit the user's criteria. For each selected destination, also generate a detailed daily itinerary for the specified trip duration.
 
 ${baseContext}
 
@@ -247,7 +247,7 @@ Rules:
 - Only choose destinations from the provided list.
 - Ensure daily_itinerary has exactly ${tripLength || 7} entries.
 - Return valid JSON only.`
-      : `You are a world-class travel agent AI. Generate 8 candidate destination CITIES (with country) that fit the user's preferences. IMPORTANT: only suggest well-known cities that have commercial airports (so they are likely to resolve to an IATA city/airport code).
+      : `You are a world-class travel agent AI. Generate 3 candidate destination CITIES (with country) that fit the user's preferences. IMPORTANT: only suggest well-known cities that have commercial airports (so they are likely to resolve to an IATA city/airport code).
 
 ${baseContext}
 
@@ -320,7 +320,7 @@ Rules:
 
       const top = CANDIDATE_CODES
         .filter((c) => c && c !== homeCity)
-        .slice(0, 20)
+        .slice(0, 3)
         .map((code) => ({
           destination: code,
           iata_code: code,
@@ -339,9 +339,9 @@ Rules:
     // Normalize AI output
     let list: any[] = [];
     if (hasSeedList) {
-      list = Array.isArray(ai?.destinations) ? ai.destinations : [];
+      list = Array.isArray(ai?.destinations) ? ai.destinations.slice(0, 3) : [];
     } else {
-      const candidates = Array.isArray(ai?.candidates) ? ai.candidates : [];
+      const candidates = Array.isArray(ai?.candidates) ? ai.candidates.slice(0, 3) : [];
       // Validate candidates via Amadeus location lookup → keep only resolvable cities.
       const validated = await Promise.all(
         candidates.map(async (c: any) => {
