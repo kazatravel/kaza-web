@@ -1,5 +1,11 @@
 # Kaza Project Progress Tracker
 
+## Resurrection Plan - Phase 1: Stabilization & Deployment
+**Status:** ✅ Complete
+- [x] Fix Vercel SUPABASE_URL env vars fallback
+- [x] Add /healthz tests
+- [x] Push Amadeus API fixes via GitHub SSH to trigger Vercel deploy
+
 ## Phase 1: Foundation & Core Features
 
 ### Milestone 1.1: Project Setup & Base Infrastructure
